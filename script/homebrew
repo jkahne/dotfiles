@@ -67,7 +67,7 @@ brew install ghostscript
 brew install jasper 
 brew install redis 
 brew install ctags 
-
+brew install the_silver_searcher
 
 brew cleanup
 
