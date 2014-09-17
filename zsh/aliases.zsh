@@ -15,6 +15,10 @@ alias rt="ctags -R *"
 #   Made possible through contributions from generous benefactors like
 #   `brew install coreutils`
 alias l="ls -AFG"
+alias lsa='ls -lah'
+alias lh='ls -lah'
+alias ll='ls -lh'
+alias la='ls -lAh'
 
 # Recursively delete `.DS_Store` files
 alias cleanup="find . -type f -name '*.DS_Store' -ls -delete"
