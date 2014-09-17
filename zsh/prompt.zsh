@@ -68,7 +68,7 @@ zelda () {
 }
 
 directory_name() {
-  echo "%{$fg_bold[cyan]%}%2/%\/%{$reset_color%}"
+  echo "%{$fg_bold[green]%}%2/%\/%{$reset_color%}"
 }
 
 export PROMPT=$'\n$(directory_name) $(git_dirty)$(need_push)\n› '
