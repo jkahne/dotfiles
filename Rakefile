@@ -1,4 +1,20 @@
 require 'rake'
+require 'fileutils'
+
+def git_clone(repo, target)
+  path = translate_path(target)
+  puts path
+  FileUtils.rm_rf(path) if File.exists?(path)
+  `git clone ""#{repo}"" "#{target}"`
+end
+
+def self.translate_path(path)
+  if path[0].chr === '~'
+    path[0] = ENV['HOME']
+  end
+  path
+end
+
 
 desc "Hook our dotfiles into system-standard positions."
 task :install do
@@ -32,6 +48,7 @@ task :install do
     end
     `ln -s "$PWD/#{linkable}" "#{target}"`
   end
+  Rake::Task['vundle'].execute
 end
 
 task :uninstall do
@@ -52,6 +69,15 @@ task :uninstall do
     end
 
   end
+end
+
+desc "Install vundle for vim plugins"
+task :vundle do
+  target = "#{ENV["HOME"]}/.vim/vundle.git"
+  git_clone('http://github.com/gmarik/vundle.git', target)
+  puts "Running BundleInstall to install plugins...this will take a couple minutes."
+  `vim +BundleInstall +qall`
+  puts "vim plugins installed."
 end
 
 task :default => 'install'
