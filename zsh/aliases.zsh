@@ -36,6 +36,5 @@ alias rshare="ruby -rubygems -e \"['thin', 'rack', 'socket'].each {|file| requir
 alias duo='du -sh $(du -s * | sort -k1n | ruby -nae '\''puts '\$'F[1..-1].join("?")'\'')'
 
 
-
 # Pipe my public key to my clipboard. Fuck you, pay me.
 alias pubkey="more ~/.ssh/id_rsa.pub | pbcopy | echo '=> Public key copied to pasteboard.'"
