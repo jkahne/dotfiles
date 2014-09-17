@@ -2,14 +2,6 @@
 
 ## intro
 
-Your dotfiles are how you personalize your system. These are mine. The very
-prejudiced mix: OS X, zsh, Ruby, Rails, git, homebrew, rbenv, vim. If you
-match up along most of those lines, you may dig my dotfiles.
-
-Based off of Zach Holman's dotfiles, but updated to use Vundle.
-
-http://zachholman.com/2010/08/dotfiles-are-meant-to-be-forked/
-
 ## install
 
 Run this:
@@ -17,7 +9,10 @@ Run this:
 ```sh
 git clone https://github.com/jkahne/dotfiles.git ~/.dotfiles
 cd ~/.dotfiles
-script/bootstrap
+# script/bootstrap
+rake
+cd vim
+rake
 ```
 
 This will symlink the appropriate files in `.dotfiles` to your home directory.
