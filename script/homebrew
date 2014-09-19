@@ -68,6 +68,7 @@ brew install jasper
 brew install redis 
 brew install ctags 
 brew install the_silver_searcher
+brew install qt
 
 brew cleanup
 
