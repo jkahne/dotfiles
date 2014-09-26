@@ -7,7 +7,7 @@
 export CLICOLOR=1
 #export CLICOLOR=true
 #export LSCOLORS="bxcxfxdxbxegedabagacad"
-export LSCOLORS="exfxcxdxbxegedabagacad"
+export LSCOLORS="gxfxcxdxbxegedabagacad"
 
 fpath=($ZSH/functions $fpath)
 
