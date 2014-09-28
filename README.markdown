@@ -11,8 +11,6 @@ git clone https://github.com/jkahne/dotfiles.git ~/.dotfiles
 cd ~/.dotfiles
 # script/bootstrap
 rake
-cd vim
-rake
 ```
 
 This will symlink the appropriate files in `.dotfiles` to your home directory.
@@ -32,12 +30,6 @@ files in there. Anything with an extension of `.zsh` will get automatically
 included into your shell. Anything with an extension of `.symlink` will get
 symlinked without extension into `$HOME` when you run `rake install`.
 
-## what's inside
-
-A lot of stuff. Seriously, a lot of stuff. Check them out in the file browser
-above and see what components may mesh up with you. Fork it, remove what you
-don't use, and build on what you do use.
-
 ## components
 
 There's a few special files in the hierarchy.
@@ -54,10 +46,6 @@ There's a few special files in the hierarchy.
   last so that they get loaded after we set up zsh autocomplete functions.
 
 ## add-ons
-
-There are a few things I use to make my life awesome. They're not a required
-dependency, but if you install them they'll make your life a bit more like a
-bubble bath.
 
 - If you want some more colors for things like `ls`, install grc: `brew install
   grc`.
