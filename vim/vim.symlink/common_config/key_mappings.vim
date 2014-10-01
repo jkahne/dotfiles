@@ -2,6 +2,9 @@
   imap <D-i> <Esc>
   imap jj <Esc>
 
+  map j gj
+  map k gk
+
 " easy wrap toggling
   nmap <Leader>w :set wrap!<cr>
   nmap <Leader>W :set nowrap<cr>

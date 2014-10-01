@@ -30,6 +30,7 @@ brew install coreutils
 echo "Don’t forget to add $(brew --prefix coreutils)/libexec/gnubin to \$PATH."
 # Install GNU `find`, `locate`, `updatedb`, and `xargs`, g-prefixed
 brew install findutils
+brew tap homebrew/dupes
 
 brew install rbenv
 brew install rbenv-gemset
@@ -69,6 +70,10 @@ brew install redis
 brew install ctags 
 brew install the_silver_searcher
 brew install qt
+brew install libxml2
+brew install libxslt
+brew install libiconv
+brew link libiconv
 
 brew cleanup
 

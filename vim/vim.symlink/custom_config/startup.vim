@@ -34,6 +34,7 @@ nmap <Leader>gw :Gwrite<CR>
 nmap <Leader>gb :Gblame<CR>
 nmap <Leader>gs :w<CR>:Git add %<CR>
 
+
 " noremap <Up> <NOP>
 " noremap <Down> <NOP>
 " noremap <Left> <NOP>
