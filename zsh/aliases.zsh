@@ -11,6 +11,8 @@ alias .......="cd ../../../../../.."
 alias dash="cd /Users/jkahne/projects/tcli;watch -n5 ./tcli.rb dash"
 alias rt="ctags -R *"
 
+alias short_prompt="export PS1='$ '"
+
 # grc overides for ls
 #   Made possible through contributions from generous benefactors like
 #   `brew install coreutils`
