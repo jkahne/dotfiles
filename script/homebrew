@@ -74,6 +74,7 @@ brew install libxml2
 brew install libxslt
 brew install libiconv
 brew link libiconv
+brew install tmux
 
 brew cleanup
 
