@@ -3,7 +3,7 @@ unbind C-b
 set -g prefix C-a
 
 # # Cycle panes with C-b C-b
-bind ^B select-pane -t :.+
+#bind ^B select-pane -t :.+
 
 # Improve colors
 set -g default-terminal 'screen-256color'
@@ -16,10 +16,10 @@ bind l select-pane -R
 
 # Remove administrative debris (session name, hostname, time) in status bar
 #set -g status-left ''
-#set -g status-right ''
+set -g status-right ''
 
-# # Reload config with a key
-# bind-key r source-file ~/.tmux.conf \; display "Config reloaded!"
+ # Reload config with a key
+bind-key r source-file ~/.tmux.conf \; display "Config reloaded!"
 #
 # # Mouse works as expected
 # set -g mode-mouse on
@@ -54,6 +54,6 @@ set-option -g default-command "reattach-to-user-namespace -l bash"
 bind-key -t vi-copy v begin-selection
 bind-key -t vi-copy y copy-pipe "reattach-to-user-namespace pbcopy"
 
-# # Update default binding of `Enter` to also use copy-pipe
-# unbind -t vi-copy Enter
-# bind-key -t vi-copy Enter copy-pipe "reattach-to-user-namespace pbcopy"
+# Update default binding of `Enter` to also use copy-pipe
+unbind -t vi-copy Enter
+bind-key -t vi-copy Enter copy-pipe "reattach-to-user-namespace pbcopy"
