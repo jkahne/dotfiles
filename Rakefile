@@ -17,7 +17,7 @@ end
 
 
 desc "Hook our dotfiles into system-standard positions."
-task :install do
+task :symlink do
   linkables = Dir.glob('*/**{.symlink}', File::FNM_DOTMATCH)
 
   skip_all = false
@@ -48,10 +48,9 @@ task :install do
     end
     `ln -s "$PWD/#{linkable}" "#{target}"`
   end
-  Rake::Task['vundle'].execute
 end
 
-task :uninstall do
+task :unsymlink do
 
   Dir.glob('**/*.symlink').each do |linkable|
 
@@ -78,6 +77,12 @@ task :vundle do
   puts "Running BundleInstall to install plugins...this will take a couple minutes."
   `vim +BundleInstall +qall`
   puts "vim plugins installed."
+end
+
+desc "Install everything"
+task :install do
+  Rake::Task['symlink'].execute
+  Rake::Task['vundle'].execute
 end
 
 task :default => 'install'
