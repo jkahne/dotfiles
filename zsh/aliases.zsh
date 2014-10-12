@@ -12,8 +12,10 @@ alias dash="cd /Users/jkahne/projects/tcli;watch -n5 ./tcli.rb dash"
 alias rt="ctags -R *"
 
 alias tml="tmux list-sessions"
-alias tma="tmux -2 attach -t $1"
+alias tma="tmux -2 attach -d -t $1"
 alias tmk="tmux kill-session -t $1"
+alias tmn="tmux new -s $1"
+alias tmc="tmux new -s $1"
 
 alias short_prompt="export PS1='$ '"
 
