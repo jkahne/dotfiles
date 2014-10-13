@@ -12,4 +12,11 @@
 
 rake install
 
+cd ~/projects
+git clone https://github.com/jkahne/tmux-MacOSX-pasteboard.git
+cd tmux-MacOSX-pasteboard 
+make reattach-to-user-namespace
+mv reattach-to-user-namespace /usr/local/bin
+
+
 #. osx/set-defaults.sh
