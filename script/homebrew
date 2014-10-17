@@ -60,6 +60,8 @@ echo " pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log s
 brew install tree
 brew install webkit2png
 
+brew install watch
+
 #brew install libiconv 
 brew install imagemagick 
 brew install libpng 
