@@ -8,3 +8,8 @@ doc/tags-ja
 /vim/bundle/*
 bundle/
 vundle.git/
+.rbenv-version
+.rbenv-gemset
+tags
+dump.rdb
+config/database.yml

@@ -34,6 +34,9 @@ nmap <Leader>gw :Gwrite<CR>
 nmap <Leader>gb :Gblame<CR>
 nmap <Leader>gs :w<CR>:Git add %<CR>
 
+nmap <Leader>[ :tabnext<CR>
+nmap <Leader>] :tabprevious<CR>
+
 
 " noremap <Up> <NOP>
 " noremap <Down> <NOP>
