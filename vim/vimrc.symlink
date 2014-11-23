@@ -3,7 +3,7 @@ let mapleader = ','
 "set rtp+=~/vimfiles/vundle.git/
 set rtp+=~/.vim/vundle.git/
 call vundle#rc()
-autocmd Filetype gitcommit setlocal spell textwidth=72
+autocmd Filetype gitcommit setlocal textwidth=72
 
 " if !empty($MY_RUBY_HOME)
 "    let g:ruby_path = join(split(glob($MY_RUBY_HOME.'/lib/ruby/*.*')."\n".glob($MY_RUBY_HOME.'/lib/rubysite_ruby/*'),"\n"),',')

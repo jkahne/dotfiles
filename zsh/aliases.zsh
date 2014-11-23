@@ -9,7 +9,7 @@ alias ......="cd ../../../../.."
 alias .......="cd ../../../../../.."
 #alias dash="cd /Users/jkahne/projects/ss;watch -n7 bundle exec bin/ss dashboard"
 alias dash="cd /Users/jkahne/projects/tcli;watch -n5 ./tcli.rb dash"
-alias rt="ctags -R *"
+alias rt=" ctags -R --exclude=angular --exclude=angular_guid_auth --exclude=bower_components *"
 
 alias tml="tmux list-sessions"
 alias tma="tmux -2 attach -t $1"

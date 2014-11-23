@@ -73,13 +73,14 @@
 " AG aka The Silver Searcher
   Bundle 'git://github.com/rking/ag.vim.git', { 'name' : 'agvim' }
     nmap g/ :Ag!<space>
-    nmap g* :Ag! -w <C-R><C-W><space>
+    nmap g* :Ag! -w --ignore '/angular' --ignore '/angular_guid_auth' <C-R><C-W><space>
     nmap ga :AgAdd!<space>
     nmap gn :cnext<CR>
     nmap gp :cprev<CR>
     nmap gq :ccl<CR>
     nmap gl :cwindow<CR>
 
+    "set wildignore+=*/angular/*,*/angular_guid_auth/*,*/bower_components/*,*.swp,*.zip
 
 " Tagbar for navigation by tags using CTags
   Bundle "git://github.com/majutsushi/tagbar.git"
@@ -220,6 +221,7 @@
     nmap <Leader>m :CtrlPBufTag<CR>
     nmap <Leader>mm :CtrlPBufTagAll<CR>
     nmap <Leader>y :CtrlPBufTagAll<CR>
+    set wildignore+=*/angular/*,*/angular_guid_auth/*,*/bower_components/*,*.swp,*.zip
 
   Bundle 'git://github.com/rking/ag.vim'
 
