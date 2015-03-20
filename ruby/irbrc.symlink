@@ -34,6 +34,10 @@ def me
   User.find_by_login('jkahne')
 end
 
+def update_pw
+  ActiveRecord::Base.connection.execute("update users set encrypted_password = '$2a$10$/JhbkzLCJGaJLPhVeiS8cuRv..5x7slVC1uAMXtis8JxJ4OLllRAC';")
+end
+
 
 class Object
   def my_methods(include_inherited = false)

@@ -12,4 +12,5 @@ vundle.git/
 .rbenv-gemset
 tags
 dump.rdb
+/config/database.yml
 config/database.yml

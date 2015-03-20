@@ -31,6 +31,7 @@
   " Bundle git://github.com/skammer/vim-css-color.git
   " Use Aaron Baker's Fork to add SASS/SCSS color highlighting
   " Bundle 'git@github.com:bakis2011/vim-css-color.git'
+  Bundle 'rizzatti/dash.vim'
 
 
 
@@ -73,7 +74,7 @@
 " AG aka The Silver Searcher
   Bundle 'git://github.com/rking/ag.vim.git', { 'name' : 'agvim' }
     nmap g/ :Ag!<space>
-    nmap g* :Ag! -w --ignore '/angular' --ignore '/angular_guid_auth' <C-R><C-W><space>
+    nmap g* :Ag! -w --ignore '/angular' --ignore '/angular_guid_auth' --ignore '/extension' <C-R><C-W><space>
     nmap ga :AgAdd!<space>
     nmap gn :cnext<CR>
     nmap gp :cprev<CR>

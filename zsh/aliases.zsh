@@ -10,6 +10,7 @@ alias .......="cd ../../../../../.."
 #alias dash="cd /Users/jkahne/projects/ss;watch -n7 bundle exec bin/ss dashboard"
 alias dash="cd /Users/jkahne/projects/tcli;watch -n5 ./tcli.rb dash"
 alias rt=" ctags -R --exclude=angular --exclude=angular_guid_auth --exclude=bower_components *"
+alias tapas="ruby ~/projects/rubytapas_downloader/rubytapas_downloader.rb ~/Desktop/tapas/"
 
 alias tml="tmux list-sessions"
 alias tma="tmux -2 attach -t $1"
@@ -17,6 +18,9 @@ alias tmad="tmux -2 attach -d -t $1"
 alias tmk="tmux kill-session -t $1"
 alias tmn="tmux new -s $1"
 alias tmc="tmux new -s $1"
+
+alias pulldev="heroku pg:pull HEROKU_POSTGRESQL_CYAN $1 --app sqrl-development"
+alias pullprod="heroku pg:pull HEROKU_POSTGRESQL_ROSE_URL $1 --app sqrl"
 
 alias short_prompt="export PS1='$ '"
 
