@@ -5,10 +5,7 @@ set rtp+=~/.vim/vundle.git/
 call vundle#rc()
 autocmd Filetype gitcommit setlocal textwidth=72
 
-" if !empty($MY_RUBY_HOME)
-"    let g:ruby_path = join(split(glob($MY_RUBY_HOME.'/lib/ruby/*.*')."\n".glob($MY_RUBY_HOME.'/lib/rubysite_ruby/*'),"\n"),',')
-" endif
-"
+
 " ruby path if you are using rbenv
 let g:ruby_path = system('echo $HOME/.rbenv/shims')
 
