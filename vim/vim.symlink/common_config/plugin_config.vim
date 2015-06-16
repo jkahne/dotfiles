@@ -114,6 +114,10 @@
   Bundle "git://github.com/maba/vim-markdown-preview.git"
   map <buffer> <Leader>mp :Mm<CR>
 
+"Open using Marked 2
+  Bundle "git://github.com/itspriddle/vim-marked.git"
+  nmap gm :MarkedOpen<cr>
+
 
 " NERDTree for project drawer
   Bundle "git://github.com/scrooloose/nerdtree.git"
