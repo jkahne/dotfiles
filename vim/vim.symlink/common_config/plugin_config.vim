@@ -25,7 +25,7 @@
   Bundle "git://github.com/vim-scripts/ruby-matchit.git"
   Bundle "git://github.com/wgibbs/vim-irblack.git"
   Bundle "git://github.com/wavded/vim-stylus.git", { 'name' : 'stylus' }
-  " Bundle "git://github.com:ecomba/vim-ruby-refactoring.git"
+" Bundle "git://github.com:ecomba/vim-ruby-refactoring.git"
   Bundle "git://github.com/airblade/vim-gitgutter.git"
   Bundle 'auto_mkdir'
   " Bundle git://github.com/skammer/vim-css-color.git
@@ -36,25 +36,25 @@
 
 
 " Mustache
-  Bundle "git://github.com/juvenn/mustache.vim.git"
-    " Copied from the plugin; not sure why it isn't working normally
-    au BufNewFile,BufRead *.mustache,*.handlebars,*.hbs set filetype=mustache
+  " Bundle "git://github.com/juvenn/mustache.vim.git"
+  "   " Copied from the plugin; not sure why it isn't working normally
+  "   au BufNewFile,BufRead *.mustache,*.handlebars,*.hbs set filetype=mustache
 
 " Slim
-  Bundle "git://github.com/slim-template/vim-slim.git"
-    au BufNewFile,BufRead *.slim set filetype=slim
+  " Bundle "git://github.com/slim-template/vim-slim.git"
+  "   au BufNewFile,BufRead *.slim set filetype=slim
 
 " Less
-  Bundle "git://github.com/groenewege/vim-less.git"
-    au BufNewFile,BufRead *.less set filetype=less
+  " Bundle "git://github.com/groenewege/vim-less.git"
+  "   au BufNewFile,BufRead *.less set filetype=less
 
 " Handlebars
-  Bundle "git://github.com/nono/vim-handlebars.git"
-    au BufNewFile,BufRead *.hbs set filetype=handlebars
+  " Bundle "git://github.com/nono/vim-handlebars.git"
+  "   au BufNewFile,BufRead *.hbs set filetype=handlebars
 
 " Stylus
-  Bundle "git://github.com/wavded/vim-stylus.git"
-    au BufNewFile,BufRead *.styl set filetype=stylus
+  " Bundle "git://github.com/wavded/vim-stylus.git"
+  "   au BufNewFile,BufRead *.styl set filetype=stylus
 
 " Coffee script
   Bundle "git://github.com/kchmck/vim-coffee-script.git"
@@ -74,7 +74,7 @@
 " AG aka The Silver Searcher
   Bundle 'git://github.com/rking/ag.vim.git', { 'name' : 'agvim' }
     nmap g/ :Ag!<space>
-    nmap g* :Ag! -w <C-R><C-W><space>
+    nmap g* :Ag! -w --ignore '/tmp' --ignore '/public' --ignore '*/seed_scenarios/*' <C-R><C-W><space>
     nmap ga :AgAdd!<space>
     nmap gn :cnext<CR>
     nmap gp :cprev<CR>
@@ -92,31 +92,31 @@
 
 " Ruby focused unit test (wrapped in an if-loaded because it doesn't like
 " being loaded twice)
-  if !exists(':RunRubyFocusedUnitTest')
-    Bundle "git://github.com/drewolson/ruby_focused_unit_test_vim.git"
-      nmap <Leader>ra :wa<CR> :RunAllRubyTests<CR>
-      nmap <Leader>rc :wa<CR> :RunRubyFocusedContext<CR>
-      nmap <Leader>rf :wa<CR> :RunRubyFocusedUnitTest<CR>
-      nmap <Leader>rl :wa<CR> :RunLastRubyTest<CR>
-  endif
+  " if !exists(':RunRubyFocusedUnitTest')
+  "   Bundle "git://github.com/drewolson/ruby_focused_unit_test_vim.git"
+  "     nmap <Leader>ra :wa<CR> :RunAllRubyTests<CR>
+  "     nmap <Leader>rc :wa<CR> :RunRubyFocusedContext<CR>
+  "     nmap <Leader>rf :wa<CR> :RunRubyFocusedUnitTest<CR>
+  "     nmap <Leader>rl :wa<CR> :RunLastRubyTest<CR>
+  " endif
 
 
 " Markdown syntax highlighting
-  Bundle "git://github.com/tpope/vim-markdown.git"
-    augroup mkd
-      autocmd BufNewFile,BufRead *.mkd      set ai formatoptions=tcroqn2 comments=n:> filetype=markdown
-      autocmd BufNewFile,BufRead *.md       set ai formatoptions=tcroqn2 comments=n:> filetype=markdown
-      autocmd BufNewFile,BufRead *.markdown set ai formatoptions=tcroqn2 comments=n:> filetype=markdown
-    augroup END
+  " Bundle "git://github.com/tpope/vim-markdown.git"
+  "   augroup mkd
+  "     autocmd BufNewFile,BufRead *.mkd      set ai formatoptions=tcroqn2 comments=n:> filetype=markdown
+  "     autocmd BufNewFile,BufRead *.md       set ai formatoptions=tcroqn2 comments=n:> filetype=markdown
+  "     autocmd BufNewFile,BufRead *.markdown set ai formatoptions=tcroqn2 comments=n:> filetype=markdown
+  "   augroup END
 
 
 " Markdown preview to quickly preview markdown files
-  Bundle "git://github.com/maba/vim-markdown-preview.git"
-  map <buffer> <Leader>mp :Mm<CR>
+  " Bundle "git://github.com/maba/vim-markdown-preview.git"
+  " map <buffer> <Leader>mp :Mm<CR>
 
 "Open using Marked 2
-  Bundle "git://github.com/itspriddle/vim-marked.git"
-  nmap gm :MarkedOpen<cr>
+  " Bundle "git://github.com/itspriddle/vim-marked.git"
+  " nmap gm :MarkedOpen<cr>
 
 
 " NERDTree for project drawer
@@ -152,14 +152,14 @@
 
 
 " Unimpaired for keymaps for quicky manipulating lines and files
-  Bundle "git://github.com/tpope/vim-unimpaired.git"
-    " Bubble single lines
-    nmap <C-Up> [e
-    nmap <C-Down> ]e
-
-    " Bubble multiple lines
-    vmap <C-Up> [egv
-    vmap <C-Down> ]egv
+  " Bundle "git://github.com/tpope/vim-unimpaired.git"
+  "   " Bubble single lines
+  "   nmap <C-Up> [e
+  "   nmap <C-Down> ]e
+  "
+  "   " Bubble multiple lines
+  "   vmap <C-Up> [egv
+  "   vmap <C-Down> ]egv
 
 
 " Syntastic for catching syntax errors on save
@@ -226,9 +226,9 @@
     nmap <Leader>m :CtrlPBufTag<CR>
     nmap <Leader>mm :CtrlPBufTagAll<CR>
     nmap <Leader>y :CtrlPBufTagAll<CR>
-    set wildignore+=*.swp,*.zip
+    set wildignore+=*/tmp/*,*/seed_scenarios/*,*.swp,*.zip
 
-  Bundle 'git://github.com/rking/ag.vim'
+  " Bundle 'git://github.com/rking/ag.vim'
 
   Bundle 'CycleColor'
 
@@ -240,15 +240,15 @@
 
   " Bundle 'Obvious-Mode'
 
-  Bundle 'EasyMotion'
+  " Bundle 'EasyMotion'
 
-  Bundle 'tacahiroy/ctrlp-funky'
-    let g:ctrlp_extensions = ['funky']
-    nmap <Leader>f :CtrlPFunky<CR>
-
+  " Bundle 'tacahiroy/ctrlp-funky'
+  "   let g:ctrlp_extensions = ['funky']
+  "   nmap <Leader>f :CtrlPFunky<CR>
+  "
   Plugin 'bling/vim-airline'
 
-  Bundle 'chase/vim-ansible-yaml'
+  " Bundle 'chase/vim-ansible-yaml'
 
   Plugin 'ScrollColors'
 
