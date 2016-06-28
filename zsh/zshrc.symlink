@@ -1,6 +1,6 @@
 # shortcut to this dotfiles path is $ZSH
 export ZSH=$HOME/.dotfiles
-export RBENV_ROOT=/usr/local/var/rbenv
+# export RBENV_ROOT=/usr/local/var/rbenv
 export EDITOR='vim'
 
 
@@ -73,4 +73,10 @@ function _completemarks {
 compctl -K _completemarks c
 compctl -K _completemarks unmark
 
-if which rbenv > /dev/null; then eval "$(rbenv init - zsh)"; fi
+# if which rbenv > /dev/null; then eval "$(rbenv init - zsh)"; fi
+# source /usr/local/opt/chruby/share/chruby/chruby.sh
+# source /usr/local/opt/chruby/share/chruby/auto.sh
+if [ -n "$BASH_VERSION" ] || [ -n "$ZSH_VERSION" ]; then
+  source /usr/local/share/chruby/chruby.sh
+  source /usr/local/share/chruby/auto.sh
+fi
