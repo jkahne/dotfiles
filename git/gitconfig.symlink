@@ -63,3 +63,5 @@
   help = osxkeychain
 [push]
 	default = simple
+[diff]
+	algorithm = patience
