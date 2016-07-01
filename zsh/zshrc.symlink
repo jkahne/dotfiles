@@ -1,14 +1,8 @@
 # shortcut to this dotfiles path is $ZSH
 export ZSH=$HOME/.dotfiles
-export RBENV_ROOT=/usr/local/var/rbenv
 export EDITOR='vim'
 
-
-# your project folder that we can `c [tab]` to
-export PROJECTS=~/projects
-
 export ARCHFLAGS='-arch x86_64'
-
 
 # use .localrc for SUPER SECRET CRAP that you don't
 # want in your public, versioned repo.
@@ -49,28 +43,12 @@ done
 unset config_files
 
 
-export PATH="/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:$ZSH/bin:/opt/X11/bin:/usr/local/opt/coreutils/libexec/gnubin:/Applications/Postgres.app/Contents/Versions/9.5/bin/pg_config"
+export PATH="/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:$ZSH/bin:/opt/X11/bin:/usr/local/opt/coreutils/libexec/gnubin:"
 
-
-export MARKPATH=$HOME/.marks
-
-function c {
-  cd -P "$MARKPATH/$1" 2>/dev/null || echo "No such mark: $1"
-}
-function mark {
-  mkdir -p "$MARKPATH"; ln -s "$(pwd)" "$MARKPATH/$1"
-}
-function unmark {
-  rm -i "$MARKPATH/$1"
-}
-function marks {
-  \ls -l "$MARKPATH" | tail -n +2 | sed 's/  / /g' | cut -d' ' -f9- | awk -F ' -> ' '{printf "%-10s -> %s\n", $1, $2}'
-}
-function _completemarks {
-  reply=($(ls $MARKPATH))
-}
-
-compctl -K _completemarks c
-compctl -K _completemarks unmark
-
-if which rbenv > /dev/null; then eval "$(rbenv init - zsh)"; fi
+if [[ -f /usr/local/opt/chruby/share/chruby/chruby.sh ]]; then
+  source /usr/local/opt/chruby/share/chruby/chruby.sh
+  source /usr/local/opt/chruby/share/chruby/auto.sh
+  echo "Loaded chruby"
+else
+  echo "Ain't got no chruby"
+fi
