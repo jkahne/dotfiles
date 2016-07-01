@@ -33,6 +33,8 @@ brew install findutils
 brew tap homebrew/dupes
 
 # brew install chruby
+# ruby-install ruby 2.2.2
+# ruby-install ruby 2.2.5
 
 
 #brew install ack
