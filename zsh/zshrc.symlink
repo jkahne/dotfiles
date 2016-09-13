@@ -49,28 +49,7 @@ done
 unset config_files
 
 
-export PATH="/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:$ZSH/bin:/opt/X11/bin:/usr/local/opt/coreutils/libexec/gnubin"
+export PATH="/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:$ZSH/bin:/opt/X11/bin:/usr/local/opt/coreutils/libexec/gnubin:/usr/local/bin/elixir/bin"
 
-
-export MARKPATH=$HOME/.marks
-
-function c {
-  cd -P "$MARKPATH/$1" 2>/dev/null || echo "No such mark: $1"
-}
-function mark {
-  mkdir -p "$MARKPATH"; ln -s "$(pwd)" "$MARKPATH/$1"
-}
-function unmark {
-  rm -i "$MARKPATH/$1"
-}
-function marks {
-  \ls -l "$MARKPATH" | tail -n +2 | sed 's/  / /g' | cut -d' ' -f9- | awk -F ' -> ' '{printf "%-10s -> %s\n", $1, $2}'
-}
-function _completemarks {
-  reply=($(ls $MARKPATH))
-}
-
-compctl -K _completemarks c
-compctl -K _completemarks unmark
 
 if which rbenv > /dev/null; then eval "$(rbenv init - zsh)"; fi
