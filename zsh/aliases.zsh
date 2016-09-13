@@ -1,6 +1,9 @@
 alias mv='mv -i'
 alias be="bundle exec"
 
+alias gitp="ssh rails@app1.ebth.managedmachine.com 'cd /srv/ebth-com/current; git show --name-status'"
+alias gits="ssh rails@app1.staging.ebth.managedmachine.com 'cd /srv/ebth-com/current; git show --name-status'"
+
 alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."

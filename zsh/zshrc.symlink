@@ -1,14 +1,8 @@
 # shortcut to this dotfiles path is $ZSH
 export ZSH=$HOME/.dotfiles
-export RBENV_ROOT=/usr/local/var/rbenv
 export EDITOR='vim'
 
-
-# your project folder that we can `c [tab]` to
-export PROJECTS=~/projects
-
 export ARCHFLAGS='-arch x86_64'
-
 
 # use .localrc for SUPER SECRET CRAP that you don't
 # want in your public, versioned repo.
@@ -48,8 +42,14 @@ done
 
 unset config_files
 
+# export PATH="/usr/local/opt/coreutils/libexec/gnubin:/usr/local/opt/findutils/libexec/gnubin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:$ZSH/bin:/opt/X11/bin:"
 
 export PATH="/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:$ZSH/bin:/opt/X11/bin:/usr/local/opt/coreutils/libexec/gnubin:/usr/local/bin/elixir/bin"
 
 
-if which rbenv > /dev/null; then eval "$(rbenv init - zsh)"; fi
+if [[ -f /usr/local/opt/chruby/share/chruby/chruby.sh ]]; then
+  source /usr/local/opt/chruby/share/chruby/chruby.sh
+  source /usr/local/opt/chruby/share/chruby/auto.sh
+else
+  echo "Ain't got no chruby"
+fi

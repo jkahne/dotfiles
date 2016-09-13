@@ -32,28 +32,9 @@ echo "Don’t forget to add $(brew --prefix coreutils)/libexec/gnubin to \$PATH.
 brew install findutils
 brew tap homebrew/dupes
 
-brew install rbenv
-brew install rbenv-gemset
-brew install ruby-build
-#brew install postgresql
-echo "run 'brew info postgresql' to see postgresql installation instructions."
-echo "typically, you'll want to do:"
-echo "initdb /usr/local/var/postgres -E utf8"
-echo "To load on login:"
-echo " mkdir -p ~/Library/LaunchAgents"
-echo " cp /usr/local/Cellar/postgresql/9.2.1/homebrew.mxcl.postgresql.plist ~/Library/LaunchAgents/"
-echo " launchctl load -w ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist"
-echo "to start manually:"
-echo " pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start"
-
-# or maybe with 
-#Success. You can now start the database server using:
-#
-#    postgres -D /usr/local/var/postgres
-#or
-#    pg_ctl -D /usr/local/var/postgres -l logfile start
-
-
+# brew install chruby
+# ruby-install ruby 2.2.2
+# ruby-install ruby 2.2.5
 
 
 #brew install ack
@@ -66,17 +47,17 @@ brew install watch
 brew install imagemagick 
 brew install libpng 
 brew install cmake 
-brew install ghostscript 
-brew install jasper 
+# brew install ghostscript 
+# brew install jasper 
 brew install redis 
 brew install ctags 
 brew install the_silver_searcher
-brew install qt
-brew install libxml2
-brew install libxslt
-brew install libiconv
-brew link libiconv
-brew install tmux
+# brew install qt
+# brew install libxml2
+# brew install libxslt
+# brew install libiconv
+# brew link libiconv
+# brew install tmux
 
 brew cleanup
 
