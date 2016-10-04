@@ -53,3 +53,5 @@ if [[ -f /usr/local/opt/chruby/share/chruby/chruby.sh ]]; then
 else
   echo "Ain't got no chruby"
 fi
+
+[[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
