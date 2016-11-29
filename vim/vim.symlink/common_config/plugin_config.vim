@@ -74,7 +74,7 @@
 " AG aka The Silver Searcher
   Bundle 'git://github.com/rking/ag.vim.git', { 'name' : 'agvim' }
     nmap g/ :Ag!<space>
-    nmap g* :Ag! -w --ignore '/tmp' --ignore '/public' --ignore '*/seed_scenarios/*' <C-R><C-W><space>
+    nmap g* :Ag! -w --ignore '/tmp' --ignore '*/fonts/*' --ignore '*/vendor/*'  --ignore '/public' --ignore '*/seed_scenarios/*' <C-R><C-W><space>
     nmap ga :AgAdd!<space>
     nmap gn :cnext<CR>
     nmap gp :cprev<CR>
@@ -226,7 +226,7 @@
     nmap <Leader>m :CtrlPBufTag<CR>
     nmap <Leader>mm :CtrlPBufTagAll<CR>
     nmap <Leader>y :CtrlPBufTagAll<CR>
-    set wildignore+=*/tmp/*,*/seed_scenarios/*,*.swp,*.zip
+    set wildignore+=*/tmp/*,*/seed_scenarios/*,*.swp,*.zip,*/vendor/*,*/fonts/*
 
   " Bundle 'git://github.com/rking/ag.vim'
 
