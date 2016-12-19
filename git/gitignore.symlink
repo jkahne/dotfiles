@@ -16,4 +16,6 @@ dump.rdb
 config/database.yml
 /config/initializers/jdk.rb
 config/initializers/jdk.rb
+/vendor/cache/*
+vendor/cache/*
 .byebug_history

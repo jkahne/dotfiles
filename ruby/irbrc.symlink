@@ -38,6 +38,10 @@ def time(&block)
   puts Benchmark.measure(&block) 
 end
 
+def reset_keys
+  ActiveRecord::Base.connection.tables.each { |t| ActiveRecord::Base.connection.reset_pk_sequence!(t) }
+end
+
 def update_pw
   ActiveRecord::Base.connection.execute("update users set encrypted_password = '$2a$10$/JhbkzLCJGaJLPhVeiS8cuRv..5x7slVC1uAMXtis8JxJ4OLllRAC';")
 end
