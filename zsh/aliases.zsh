@@ -1,5 +1,11 @@
 alias mv='mv -i'
+alias b="bundle"
+alias bi="b install --path vendor"
+alias bil="bi --local"
+alias bu="b update"
 alias be="bundle exec"
+alias binit="bi && b package && echo 'vendor/ruby' >> .gitignore"
+
 
 alias gitp="ssh rails@app1.ebth.managedmachine.com 'cd /srv/ebth-com/current; git show --name-status'"
 alias gits="ssh rails@app1.staging.ebth.managedmachine.com 'cd /srv/ebth-com/current; git show --name-status'"

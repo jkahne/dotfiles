@@ -9,6 +9,7 @@
 
 [alias]
   co = checkout
+  ci = commit
   br = branch
   st = status
   ap = add --all --intent-to-add -p

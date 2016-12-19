@@ -42,7 +42,7 @@ values."
      git
      helm
      html
-     javascript
+     ;;javascript
      markdown
      osx
      ruby
