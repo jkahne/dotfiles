@@ -31,7 +31,6 @@ brew upgrade
 # Install GNU `find`, `locate`, `updatedb`, and `xargs`, g-prefixed
 # brew install findutils
 # brew tap homebrew/dupes
-
 # brew install chruby
 # ruby-install ruby 2.2.2
 # ruby-install ruby 2.2.5
@@ -62,5 +61,7 @@ brew install the_silver_searcher
 # brew install autojump
 # brew install elixir
 # brew install node
+# brew install selenium-server-standalone
+# brew install geckodriver ft
 
 brew cleanup
