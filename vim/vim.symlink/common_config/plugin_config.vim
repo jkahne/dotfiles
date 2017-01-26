@@ -226,7 +226,7 @@
     nmap <Leader>m :CtrlPBufTag<CR>
     nmap <Leader>mm :CtrlPBufTagAll<CR>
     nmap <Leader>y :CtrlPBufTagAll<CR>
-    set wildignore+=*/tmp/*,*/seed_scenarios/*,*.swp,*.zip,*/vendor/*,*/fonts/*
+    set wildignore+=*/tmp/*,*/vendor/ruby/*,*/seed_scenarios/*,*.swp,*.zip
 
   " Bundle 'git://github.com/rking/ag.vim'
 
