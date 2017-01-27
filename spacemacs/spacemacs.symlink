@@ -58,6 +58,7 @@ values."
      yaml
      elixir
      erlang
+
      ;; org
      ;; (shell :variables
      ;;        shell-default-height 30
@@ -321,6 +322,8 @@ you should place your code here."
   (setq-default truncate-lines t)
   ;;(desktop-mode 1)
   ;; (interactive)
+  (spacemacs/toggle-smartparens-globally-off)
+  (setq-default evil-escape-key-sequence "kj")
   (setq tab-width 2)
   (setq js-indent-level 2)
   (setq-default standard-indent 2)
@@ -333,6 +336,28 @@ you should place your code here."
   (setq guide-key/idle-delay 0.1)
   (setq idle-update-delay 0.1) ;; ???
 
+  (define-key evil-normal-state-map (kbd "C-h") #'evil-window-left)
+  (define-key evil-normal-state-map (kbd "C-j") #'evil-window-down)
+  (define-key evil-normal-state-map (kbd "C-k") #'evil-window-up)
+  (define-key evil-normal-state-map (kbd "C-l") #'evil-window-right)
+  ;; (define-key evil-normal-state-map (kbd "gt") #'neotree-toggle)
+
+  ;; (define-key evil-normal-state-map (kbd "C-w H") #'evil-window-move-very-left)
+  ;; (define-key evil-normal-state-map (kbd "C-w J") #'evil-window-move-very-bottom)
+  ;; (define-key evil-normal-state-map (kbd "C-w K") #'evil-window-move-very-top)
+  ;; (define-key evil-normal-state-map (kbd "C-w L") #'evil-window-move-very-right)
+
+  ;; (add-hook 'neotree-mode-hook
+  ;;           (lambda ()
+  ;;             (define-key evil-normal-state-local-map (kbd "TAB") 'neotree-enter)
+  ;;             (define-key evil-normal-state-local-map (kbd "SPC") 'neotree-enter)
+  ;;             (define-key evil-normal-state-local-map (kbd "q") 'neotree-hide)
+  ;;             (define-key evil-normal-state-local-map (kbd "RET") 'neotree-enter)
+  ;;             (define-key evil-normal-state-local-map (kbd "ma") 'neotree-create-node)
+  ;;             (define-key evil-normal-state-local-map (kbd "md") 'neotree-delete-node)
+  ;;             (define-key evil-normal-state-local-map (kbd "r") 'neotree-refresh)
+  ;;             (define-key evil-normal-state-local-map (kbd "mm") 'neotree-rename-node)
+  ;;             ))
 
   )
 
