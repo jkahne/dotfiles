@@ -52,6 +52,7 @@
   set autoindent
 
 " perform autoindenting based on filetype plugin
+  " filetype plugin indent on
   filetype plugin indent on
 
 " don't blink the cursor
@@ -89,6 +90,7 @@
 " highlight trailing whitespace
   set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
   set list
+  set path+=**
 
 " have the mouse enabled all the time
   set mouse=a
@@ -113,6 +115,9 @@
 
 " JSON is JS
   au BufNewFile,BufRead *.json set ai filetype=javascript
+
+  au BufNewFile,BufRead *.ex set ai filetype=elixir
+  au BufNewFile,BufRead *.exs set ai filetype=elixir
 
 " different color for each paren pairs
 let vimclojure#ParenRainbow  = 1

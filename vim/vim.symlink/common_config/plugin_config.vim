@@ -32,6 +32,8 @@
   " Use Aaron Baker's Fork to add SASS/SCSS color highlighting
   " Bundle 'git@github.com:bakis2011/vim-css-color.git'
   Bundle 'rizzatti/dash.vim'
+  Plugin 'elixir-lang/vim-elixir'
+  Plugin 'slashmili/alchemist.vim'
 
 
 
@@ -74,7 +76,7 @@
 " AG aka The Silver Searcher
   Bundle 'git://github.com/rking/ag.vim.git', { 'name' : 'agvim' }
     nmap g/ :Ag!<space>
-    nmap g* :Ag! -w --ignore '/tmp' --ignore '*/fonts/*' --ignore '*/vendor/*'  --ignore '/public' --ignore '*/seed_scenarios/*' <C-R><C-W><space>
+    nmap g* :Ag! -w --ignore '/tmp' --ignore '*/fonts/*' --ignore '*/vendor/*'  --ignore '/public' --ignore '*/node_modules/'  --ignore '*/seed_scenarios/*' <C-R><C-W><space>
     nmap ga :AgAdd!<space>
     nmap gn :cnext<CR>
     nmap gp :cprev<CR>
@@ -226,7 +228,7 @@
     nmap <Leader>m :CtrlPBufTag<CR>
     nmap <Leader>mm :CtrlPBufTagAll<CR>
     nmap <Leader>y :CtrlPBufTagAll<CR>
-    set wildignore+=*/tmp/*,*/vendor/ruby/*,*/seed_scenarios/*,*.swp,*.zip
+    set wildignore+=*/tmp/*,*/vendor/ruby/*,*/seed_scenarios/*,*/node_modules/*,*.swp,*.zip
 
   " Bundle 'git://github.com/rking/ag.vim'
 
