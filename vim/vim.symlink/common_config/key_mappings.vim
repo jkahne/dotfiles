@@ -1,6 +1,7 @@
 " get out of insert mode with cmd-i
   imap <D-i> <Esc>
   imap jj <Esc>
+  imap jk <Esc>
 
   map j gj
   map k gk
@@ -48,9 +49,6 @@
 
 " clean up trailing whitespace
   map <Leader>c :StripTrailingWhitespaces<cr>
-
-" compress excess whitespace on current line
-  map <Leader>e :s/\v(\S+)\s+/\1 /<cr>:nohl<cr>
 
 " delete all buffers
   map <Leader>d :bufdo bd<cr>

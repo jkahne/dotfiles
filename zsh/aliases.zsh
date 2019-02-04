@@ -4,7 +4,9 @@ alias bi="b install --path vendor"
 alias bil="bi --local"
 alias bu="b update"
 alias be="bundle exec"
+alias ber="bundle exec rspec"
 alias binit="bi && b package && echo 'vendor/ruby' >> .gitignore"
+alias yi="cd assets && yarn install && cd .."
 
 
 alias gitp="ssh rails@app1.ebth.managedmachine.com 'cd /srv/ebth-com/current; git show --name-status'"

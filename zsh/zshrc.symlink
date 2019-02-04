@@ -3,6 +3,9 @@ export ZSH=$HOME/.dotfiles
 export EDITOR='vim'
 
 export ARCHFLAGS='-arch x86_64'
+export NODEJS_CHECK_SIGNATURES="no"
+export LDFLAGS="-L/usr/local/opt/libffi/lib" 
+export PKG_CONFIG_PATH="/usr/local/opt/libffi/lib/pkgconfig"
 
 # use .localrc for SUPER SECRET CRAP that you don't
 # want in your public, versioned repo.
@@ -44,15 +47,19 @@ unset config_files
 
 # export PATH="/usr/local/opt/coreutils/libexec/gnubin:/usr/local/opt/findutils/libexec/gnubin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:$ZSH/bin:/opt/X11/bin:"
 
-export PATH="/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:$ZSH/bin:/opt/X11/bin:/usr/local/opt/coreutils/libexec/gnubin:/usr/local/bin/elixir/bin"
+# export PATH="/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:$ZSH/bin:/opt/X11/bin:/usr/local/opt/coreutils/libexec/gnubin:/usr/local/bin/elixir/bin"
+export PATH="/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:$ZSH/bin:/opt/X11/bin:/usr/local/opt/coreutils/libexec/gnubin"
 # export PATH="$PATH:`yarn global bin`"
 
 
-if [[ -f /usr/local/opt/chruby/share/chruby/chruby.sh ]]; then
-  source /usr/local/opt/chruby/share/chruby/chruby.sh
-  source /usr/local/opt/chruby/share/chruby/auto.sh
-else
-  echo "Ain't got no chruby"
-fi
+# if [[ -f /usr/local/opt/chruby/share/chruby/chruby.sh ]]; then
+#   source /usr/local/opt/chruby/share/chruby/chruby.sh
+#   source /usr/local/opt/chruby/share/chruby/auto.sh
+# else
+#   echo "Ain't got no chruby"
+# fi
 
 [[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
+
+. $HOME/.asdf/asdf.sh
+. $HOME/.asdf/completions/asdf.bash

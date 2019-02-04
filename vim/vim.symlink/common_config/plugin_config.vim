@@ -11,7 +11,7 @@
   Bundle "git://github.com/tpope/vim-endwise.git"
   Bundle "git://github.com/tpope/vim-fugitive.git"
   Bundle "git://github.com/tpope/vim-haml.git"
-  Bundle "git://github.com/pangloss/vim-javascript.git"
+  " Bundle "git://github.com/pangloss/vim-javascript.git"
   Bundle "git://github.com/vim-scripts/L9.git"
   Bundle "git://github.com/tpope/vim-rake.git"
   Bundle "git://github.com/vim-ruby/vim-ruby.git"
@@ -34,6 +34,8 @@
   Bundle 'rizzatti/dash.vim'
   Plugin 'elixir-lang/vim-elixir'
   Plugin 'slashmili/alchemist.vim'
+  Plugin 'pangloss/vim-javascript'
+  Plugin 'mxw/vim-jsx'
 
 
 
