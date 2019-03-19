@@ -51,7 +51,7 @@
   whitespace = nowarn
 
 [mergetool]
-  keepBackup = false
+	keepBackup = false
 
 [difftool]
   prompt = false
@@ -65,3 +65,16 @@
 	default = simple
 [diff]
 	algorithm = patience
+	tool = p4mergetool
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[merge]
+	tool = p4mergetool
+[mergetool "p4mergetool"]
+	cmd = /Applications/p4merge.app/Contents/Resources/launchp4merge $PWD/$BASE $PWD/$LOCAL $PWD/$REMOTE $PWD/$MERGED
+	trustExitCode = false
+[difftool "p4mergetool"]
+	cmd = /Applications/p4merge.app/Contents/Resources/launchp4merge $LOCAL $REMOTE

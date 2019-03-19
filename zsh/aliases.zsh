@@ -7,6 +7,7 @@ alias be="bundle exec"
 alias ber="bundle exec rspec"
 alias binit="bi && b package && echo 'vendor/ruby' >> .gitignore"
 alias yi="cd assets && yarn install && cd .."
+alias postmaster="brew services stop postgres; cd /usr/local/var/postgres; rm postmaster.pid; cd -; brew services start postgres;"
 
 
 alias gitp="ssh rails@app1.ebth.managedmachine.com 'cd /srv/ebth-com/current; git show --name-status'"

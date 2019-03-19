@@ -1,11 +1,15 @@
 # shortcut to this dotfiles path is $ZSH
 export ZSH=$HOME/.dotfiles
-export EDITOR='vim'
+export EDITOR='nvim'
 
 export ARCHFLAGS='-arch x86_64'
 export NODEJS_CHECK_SIGNATURES="no"
 export LDFLAGS="-L/usr/local/opt/libffi/lib" 
 export PKG_CONFIG_PATH="/usr/local/opt/libffi/lib/pkgconfig"
+
+#export LDFLAGS="-L/usr/local/opt/readline/lib"
+#export CPPFLAGS="-I/usr/local/opt/readline/include"
+#export PKG_CONFIG_PATH="/usr/local/opt/readline/lib/pkgconfig"
 
 # use .localrc for SUPER SECRET CRAP that you don't
 # want in your public, versioned repo.
