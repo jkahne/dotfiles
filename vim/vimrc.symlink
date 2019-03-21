@@ -2,9 +2,44 @@
 let mapleader = ','
 "set rtp+=~/vimfiles/vundle.git/
 "
+" call plug#begin()
 call plug#begin('~/.vim/plugged')
 " Plug xxx
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+Plug 'pangloss/vim-javascript'
+Plug 'junegunn/vim-easy-align'
+Plug 'tpope/vim-surround'
+Plug 'ctrlpvim/ctrlp.vim'
 call plug#end()
+
+
+let NERDTreeHijackNetrw = 0
+let g:NERDTreeDirArrows=0
+let g:NERDChristmasTree=1
+nmap gt :NERDTreeToggle<CR>
+" nmap g :NERDTree \| NERDTreeToggle \| NERDTreeFind<CR>
+
+" EASY ALIGN
+nmap ga <Plug>(EasyAlign)
+xmap ga <Plug>(EasyAlign)
+
+"SURROUND
+" # to surround with ruby string interpolation
+let g:surround_35 = "#{\r}"
+" - to surround with no-output erb tag
+let g:surround_45 = "<% \r %>"
+" = to surround with output erb tag
+let g:surround_61 = "<%= \r %>"
+
+
+" CTRLP
+nmap <Leader>t :CtrlP<CR>
+nmap <Leader>b :CtrlPBuffer<CR>
+nmap <Leader>m :CtrlPBufTag<CR>
+nmap <Leader>mm :CtrlPBufTagAll<CR>
+nmap <Leader>y :CtrlPBufTagAll<CR>
+set wildignore+=*/tmp/*,*/vendor/ruby/*,*/seed_scenarios/*,*/node_modules/*,*.swp,*.zip
+
 
 "set rtp+=~/.vim/vundle.git/
 "call vundle#rc()
@@ -188,7 +223,7 @@ nmap <Leader>ss :wa<cr>
 nmap gW :only<cr>
 
 " go to the alternate file (previous buffer) with g-enter
-nmap g 
+" nmap g
 
 " shortcuts for frequenly used files
 " nmap gs :e db/schema.rb<cr>
@@ -204,11 +239,11 @@ nmap <C-K> <C-W>k
 nmap <C-H> <C-W>h
 nmap <C-L> <C-W>l
 
-nmap ge :Explore<CR>
-nmap gs :Sexplore<CR>
-nmap gv :Vexplore<CR>
-nmap gt :Rexplore<CR>
-nmap gr :Rexplore<CR>
+" nmap ge :Explore<CR>
+" nmap gs :Sexplore<CR>
+" nmap gv :Vexplore<CR>
+" nmap gt :Rexplore<CR>
+" nmap gr :Rexplore<CR>
 
 
 " shortcut for =>
@@ -255,13 +290,6 @@ set clipboard=unnamed
 " nmap sf :VimFilerBufferDir<Return>
 " nmap sF :VimFilerExplorer -find<Return>
 " nmap sb :Unite buffer<Return>
-" let g:vimfiler_as_default_explorer = 1
-" let g:vimfiler_safe_mode_by_default = 0
-" let g:vimfiler_enable_auto_cd = 0
-" let g:vimfiler_tree_leaf_icon = ''
-" let g:vimfiler_tree_opened_icon = '▾'
-" let g:vimfiler_tree_closed_icon = '▸'
-" let g:vimfiler_marked_file_icon = '✓'
 "
 " nnoremap ; :Buffers<CR>
 " nnoremap f :Files<CR>
@@ -278,8 +306,6 @@ let g:solarized_termtrans=1
 colorscheme molokai
 
 set nolist
-" let g:NERDTreeDirArrows=0
-" let g:NERDChristmasTree=1
 let g:fuf_file_exclude = '\v\~$|\.o$|\.exe$|\.bak$|\.swp|\.svn|\.class$'
 set nowrap
 set linebreak
@@ -295,12 +321,12 @@ let loaded_matchparen = 0
 
 autocmd BufWritePost * if &diff == 1 | diffupdate | endif
 
-let g:netrw_banner = 0
-let g:netrw_liststyle = 3
-let g:netrw_browse_split = 4
-let g:netrw_altv = 1
-let g:netrw_winsize = 25
-augroup ProjectDrawer
-  autocmd!
-  autocmd VimEnter * :Vexplore
-augroup END
+" let g:netrw_banner = 0
+" let g:netrw_liststyle = 3
+" let g:netrw_browse_split = 4
+" let g:netrw_altv = 1
+" let g:netrw_winsize = 25
+" augroup ProjectDrawer
+"   autocmd!
+"   autocmd VimEnter * :Vexplore
+" augroup END
