@@ -1,0 +1,10 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =8
+let g:netrw_dirhist_1='/Users/jkahne/.dotfiles'
+let g:netrw_dirhist_2='/Users/jkahne/.dotfiles/vim'
+let g:netrw_dirhist_3='/Users/jkahne/.dotfiles'
+let g:netrw_dirhist_4='/Users/jkahne/.dotfiles/vim'
+let g:netrw_dirhist_5='/Users/jkahne/.dotfiles'
+let g:netrw_dirhist_6='/Users/jkahne/.dotfiles/elixir'
+let g:netrw_dirhist_7='/Users/jkahne/.dotfiles'
+let g:netrw_dirhist_8='/Users/jkahne/.dotfiles/script'

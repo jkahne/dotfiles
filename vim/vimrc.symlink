@@ -1,4 +1,4 @@
-"bring in the bundles for mac and windows 
+"bring in the bundles for mac and windows
 let mapleader = ','
 "set rtp+=~/vimfiles/vundle.git/
 "
@@ -10,6 +10,12 @@ Plug 'pangloss/vim-javascript'
 Plug 'junegunn/vim-easy-align'
 Plug 'tpope/vim-surround'
 Plug 'ctrlpvim/ctrlp.vim'
+Plug 'mxw/vim-jsx'
+Plug 'tomtom/tcomment_vim'
+Plug 'vim-syntastic/syntastic'
+Plug 'mileszs/ack.vim'
+" Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
+" Plug 'junegunn/fzf.vim'
 call plug#end()
 
 
@@ -39,6 +45,49 @@ nmap <Leader>m :CtrlPBufTag<CR>
 nmap <Leader>mm :CtrlPBufTagAll<CR>
 nmap <Leader>y :CtrlPBufTagAll<CR>
 set wildignore+=*/tmp/*,*/vendor/ruby/*,*/seed_scenarios/*,*/node_modules/*,*.swp,*.zip
+
+
+" AG aka The Silver Searcher
+if executable('ag')
+  " don't leak searches to terminal
+  set shellpipe=>
+
+"  let g:ackprg = 'ag --nogroup --nocolor --column'
+" let g:ackprg = 'ag --vimgrep' " same thing as above, supposedly
+  let g:ackprg = 'ag --vimgrep'
+"  let g:ackprg = 'ag --vimgrep --smart-case'
+  " cnoreabbrev ag Ack
+  " cnoreabbrev aG Ack
+  " cnoreabbrev Ag Ack
+  " cnoreabbrev AG Ack
+
+  nmap g/ :Ack!<space>
+  nmap g* :Ack! -w --ignore '/tmp' --ignore '*/fonts/*' --ignore '*/vendor/*'  --ignore '/public' --ignore '*/node_modules/'  --ignore '*/seed_scenarios/*' <C-R><C-W><space>
+  nmap gn :cnext<CR>
+  nmap gp :cprev<CR>
+
+  let g:ack_mappings = {
+      \ "t": "<C-W><CR><C-W>T",
+      \ "T": "<C-W><CR><C-W>TgT<C-W>j",
+      \ "o": "<CR>",
+      \ "O": "<CR><C-W><C-W>:ccl<CR>",
+      \ "go": "<CR><C-W>j",
+      \ "h": "<Left>" }
+
+endif
+
+
+" vim-syntastic/syntastic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+
 
 
 "set rtp+=~/.vim/vundle.git/
@@ -239,7 +288,7 @@ nmap <C-K> <C-W>k
 nmap <C-H> <C-W>h
 nmap <C-L> <C-W>l
 
-" nmap ge :Explore<CR>
+nmap ge :Explore<CR>
 " nmap gs :Sexplore<CR>
 " nmap gv :Vexplore<CR>
 " nmap gt :Rexplore<CR>
@@ -317,7 +366,7 @@ nmap <Leader>> :tabnext<CR>
 nmap <Leader>< :tabprevious<CR>
 nmap <Leader>T :tabnew<CR>
 nnoremap <leader>p :r!pbpaste<cr>
-let loaded_matchparen = 0 
+let loaded_matchparen = 0
 
 autocmd BufWritePost * if &diff == 1 | diffupdate | endif
 
