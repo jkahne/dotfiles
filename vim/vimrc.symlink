@@ -1,32 +1,381 @@
-" bring in the bundles for mac and windows
+"bring in the bundles for mac and windows
 let mapleader = ','
 "set rtp+=~/vimfiles/vundle.git/
-set rtp+=~/.vim/vundle.git/
-call vundle#rc()
+"
+" call plug#begin()
+call plug#begin('~/.vim/plugged')
+" Plug xxx
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+Plug 'pangloss/vim-javascript'
+Plug 'junegunn/vim-easy-align'
+Plug 'tpope/vim-surround'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'mxw/vim-jsx'
+Plug 'tomtom/tcomment_vim'
+Plug 'vim-syntastic/syntastic'
+Plug 'mileszs/ack.vim'
+" Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
+" Plug 'junegunn/fzf.vim'
+call plug#end()
+
+
+let NERDTreeHijackNetrw = 0
+let g:NERDTreeDirArrows=0
+let g:NERDChristmasTree=1
+nmap gt :NERDTreeToggle<CR>
+" nmap g :NERDTree \| NERDTreeToggle \| NERDTreeFind<CR>
+
+" EASY ALIGN
+nmap ga <Plug>(EasyAlign)
+xmap ga <Plug>(EasyAlign)
+
+"SURROUND
+" # to surround with ruby string interpolation
+let g:surround_35 = "#{\r}"
+" - to surround with no-output erb tag
+let g:surround_45 = "<% \r %>"
+" = to surround with output erb tag
+let g:surround_61 = "<%= \r %>"
+
+
+" CTRLP
+nmap <Leader>t :CtrlP<CR>
+nmap <Leader>b :CtrlPBuffer<CR>
+nmap <Leader>m :CtrlPBufTag<CR>
+nmap <Leader>mm :CtrlPBufTagAll<CR>
+nmap <Leader>y :CtrlPBufTagAll<CR>
+set wildignore+=*/tmp/*,*/vendor/ruby/*,*/seed_scenarios/*,*/node_modules/*,*.swp,*.zip
+
+
+" AG aka The Silver Searcher
+if executable('ag')
+  " don't leak searches to terminal
+  set shellpipe=>
+
+"  let g:ackprg = 'ag --nogroup --nocolor --column'
+" let g:ackprg = 'ag --vimgrep' " same thing as above, supposedly
+  let g:ackprg = 'ag --vimgrep'
+"  let g:ackprg = 'ag --vimgrep --smart-case'
+  " cnoreabbrev ag Ack
+  " cnoreabbrev aG Ack
+  " cnoreabbrev Ag Ack
+  " cnoreabbrev AG Ack
+
+  nmap g/ :Ack!<space>
+  nmap g* :Ack! -w --ignore '/tmp' --ignore '*/fonts/*' --ignore '*/vendor/*'  --ignore '/public' --ignore '*/node_modules/'  --ignore '*/seed_scenarios/*' <C-R><C-W><space>
+  nmap gn :cnext<CR>
+  nmap gp :cprev<CR>
+
+  let g:ack_mappings = {
+      \ "t": "<C-W><CR><C-W>T",
+      \ "T": "<C-W><CR><C-W>TgT<C-W>j",
+      \ "o": "<CR>",
+      \ "O": "<CR><C-W><C-W>:ccl<CR>",
+      \ "go": "<CR><C-W>j",
+      \ "h": "<Left>" }
+
+endif
+
+
+" vim-syntastic/syntastic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+
+
+
+"set rtp+=~/.vim/vundle.git/
+"call vundle#rc()
+"
 autocmd Filetype gitcommit setlocal textwidth=72
 
 
 " ruby path if you are using rbenv
 " let g:ruby_path = system('echo $HOME/.rbenv/shims')
 
-let g:loaded_netrw       = 1
-let g:loaded_netrwPlugin = 1
+" let g:loaded_netrw       = 1
+" let g:loaded_netrwPlugin = 1
 
-autocmd WinEnter * call s:CloseIfOnlyNerdTreeLeft()
+" autocmd WinEnter * call s:CloseIfOnlyNerdTreeLeft()
 
 " Close all open buffers on entering a window if the only
 " buffer that's left is the NERDTree buffer
-function! s:CloseIfOnlyNerdTreeLeft()
-  if exists("t:NERDTreeBufName")
-    if bufwinnr(t:NERDTreeBufName) != -1
-      if winnr("$") == 1
-        q
-      endif
-    endif
+" function! s:CloseIfOnlyNerdTreeLeft()
+"  if exists("t:NERDTreeBufName")
+"    if bufwinnr(t:NERDTreeBufName) != -1
+"      if winnr("$") == 1
+"        q
+"       endif
+"     endif
+"   endif
+" endfunction
+
+" Strip trailing whitespace
+function! <SID>StripTrailingWhitespaces()
+" Preparation: save last search, and cursor position.
+    let _s=@/
+    let l = line(".")
+    let c = col(".")
+    " Do the business:
+    %s/\s\+$//e
+    " Clean up: restore previous search history, and cursor position
+    let @/=_s
+    call cursor(l, c)
+endfunction
+command! StripTrailingWhitespaces call <SID>StripTrailingWhitespaces()
+
+
+" runtime! common_config/*.vim
+" runtime! custom_config/*.vim
+
+
+
+" required for several plugins
+set nocompatible
+
+" enable syntax highlighting
+syntax on
+
+" default color scheme
+set background=dark
+color molokai
+
+" don't wrap long lines
+set nowrap
+
+" show commands as we type them
+set showcmd
+
+" highlight matching brackets
+set showmatch
+
+" scroll the window when we get near the edge
+set scrolloff=4 sidescrolloff=10
+
+" use 2 spaces for tabs
+set expandtab tabstop=2 softtabstop=2 shiftwidth=2
+set smarttab
+
+" enable line numbers, and don't make them any wider than necessary
+set number numberwidth=2
+
+" show the first match as search strings are typed
+set incsearch
+
+" highlight the search matches
+set hlsearch
+
+" searching is case insensitive when all lowercase
+set ignorecase smartcase
+
+" assume the /g flag on substitutions to replace all matches in a line
+"  set gdefault
+
+" set temporary directory (don't litter local dir with swp/tmp files)
+set directory=/tmp/
+
+" pick up external file modifications
+set autoread
+
+" don't abandon buffers when unloading
+set hidden
+
+" match indentation of previous line
+set autoindent
+
+" perform autoindenting based on filetype plugin
+" filetype plugin indent on
+filetype plugin indent on
+
+" don't blink the cursor
+set guicursor=a:blinkon0
+
+" show current line info (current/total)
+set ruler rulerformat=%=%l/%L
+
+" show status line
+set laststatus=2
+
+" augment status line
+function! ETry(function, ...)
+  if exists('*'.a:function)
+    return call(a:function, a:000)
+  else
+    return ''
   endif
 endfunction
+set statusline=[%n]\ %<%.99f\ %h%w%m%r%{ETry('CapsLockStatusline')}%y%{ETry('rails#statusline')}%{ETry('fugitive#statusline')}%#ErrorMsg#%*%=%-16(\ %l,%c-%v\ %)%P
 
-runtime! common_config/*.vim
-runtime! custom_config/*.vim
+" When lines are cropped at the screen bottom, show as much as possible
+set display=lastline
+
+" flip the default split directions to sane ones
+set splitright
+set splitbelow
+
+" don't beep for errors
+set visualbell
+
+" make backspace work in insert mode
+set backspace=indent,eol,start
+
+" highlight trailing whitespace
+set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
+set list
+set path+=**
+
+" have the mouse enabled all the time
+set mouse=a
+
+" use tab-complete to see a list of possiblities when entering commands
+set wildmode=list:longest,full
+
+" allow lots of tabs
+set tabpagemax=20
+
+" remember last position in file
+au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g'\"" | endif
+
+"Rakefile, Vagrantfile, and Gemfile are Ruby
+au BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,config.ru} set ft=ruby
+
+" JSON is JS
+au BufNewFile,BufRead *.json set ai filetype=javascript
+
+au BufNewFile,BufRead *.ex set ai filetype=elixir
+au BufNewFile,BufRead *.exs set ai filetype=elixir
+
+" different color for each paren pairs
+" let vimclojure#ParenRainbow  = 1
+
+
+imap jj <Esc>
+imap jk <Esc>
+
+map j gj
+map k gk
+
+" easy wrap toggling
+nmap <Leader>w :set wrap!<cr>
+nmap <Leader>W :set nowrap<cr>
+
+" shortcut to save all
+nmap <Leader>ss :wa<cr>
+
+" close all other windows (in the current tab)
+nmap gW :only<cr>
+
+" go to the alternate file (previous buffer) with g-enter
+" nmap g
+
+" shortcuts for frequenly used files
+" nmap gs :e db/schema.rb<cr>
+" nmap gr :e config/routes.rb<cr>
+
+" insert blank lines without going into insert mode
+nmap go o<esc>
+nmap gO O<esc>
+
+" mapping the jumping between splits. Hold control while using vim nav.
+nmap <C-J> <C-W>j
+nmap <C-K> <C-W>k
+nmap <C-H> <C-W>h
+nmap <C-L> <C-W>l
+
+nmap ge :Explore<CR>
+" nmap gs :Sexplore<CR>
+" nmap gv :Vexplore<CR>
+" nmap gt :Rexplore<CR>
+" nmap gr :Rexplore<CR>
+
+
+" shortcut for =>
+imap <C-l> <Space>=><Space>
+
+" handy macro expansion
+iabbrev Lidsa Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+iabbrev rdebug require 'ruby-debug'; Debugger.start; Debugger.settings[:autoeval] = 1; Debugger.settings[:autolist] = 1; debugger; 0;
+abbrev hte the
+
+" Yank from the cursor to the end of the line, to be consistent with C and D.
+nnoremap Y y$
+
+" select the lines which were just pasted
+nnoremap vv `[V`]
+
+" clean up trailing whitespace
+map <Leader>c :StripTrailingWhitespaces<cr>
+
+" delete all buffers
+map <Leader>d :bufdo bd<cr>
+
+" map spacebar to clear search highlight
+nnoremap <Leader><space> :noh<cr>
+
+" buffer resizing mappings (shift + arrow key)
+nnoremap <S-Up> <c-w>+
+nnoremap <S-Down> <c-w>-
+nnoremap <S-Left> <c-w><
+nnoremap <S-Right> <c-w>>
+
+" reindent the entire file
+map <Leader>I gg=G``<cr>
+
+
+
 set clipboard=unnamed
 
+" set undodir=~/.vim/undodir
+" set undofile
+" set clipboard+=unnamed
+" set rtp+=/usr/local/opt/fzf
+"
+" nmap sf :VimFilerBufferDir<Return>
+" nmap sF :VimFilerExplorer -find<Return>
+" nmap sb :Unite buffer<Return>
+"
+" nnoremap ; :Buffers<CR>
+" nnoremap f :Files<CR>
+" nnoremap T :Tags<CR>
+" nnoremap t :BTags<CR>
+" nnoremap s :Ag<CR>
+
+
+set t_Co=256
+set background=dark
+
+let g:solarized_termcolors=&t_Co
+let g:solarized_termtrans=1
+colorscheme molokai
+
+set nolist
+let g:fuf_file_exclude = '\v\~$|\.o$|\.exe$|\.bak$|\.swp|\.svn|\.class$'
+set nowrap
+set linebreak
+set nolist  " list disables linebreak
+let g:ctrlp_max_files=0
+let g:ctrlp_arg_map = 1
+let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:30,results:100'
+nmap <Leader>> :tabnext<CR>
+nmap <Leader>< :tabprevious<CR>
+nmap <Leader>T :tabnew<CR>
+nnoremap <leader>p :r!pbpaste<cr>
+let loaded_matchparen = 0
+
+autocmd BufWritePost * if &diff == 1 | diffupdate | endif
+
+" let g:netrw_banner = 0
+" let g:netrw_liststyle = 3
+" let g:netrw_browse_split = 4
+" let g:netrw_altv = 1
+" let g:netrw_winsize = 25
+" augroup ProjectDrawer
+"   autocmd!
+"   autocmd VimEnter * :Vexplore
+" augroup END

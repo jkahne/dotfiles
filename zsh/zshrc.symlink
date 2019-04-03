@@ -1,6 +1,6 @@
 # shortcut to this dotfiles path is $ZSH
 export ZSH=$HOME/.dotfiles
-export EDITOR='nvim'
+export EDITOR='vim'
 
 export ARCHFLAGS='-arch x86_64'
 export NODEJS_CHECK_SIGNATURES="no"
@@ -67,3 +67,4 @@ export PATH="/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:$ZSH/b
 
 . $HOME/.asdf/asdf.sh
 . $HOME/.asdf/completions/asdf.bash
+
