@@ -15,6 +15,9 @@
   ap = add --all --intent-to-add -p
   standup = log --since yesterday
   graph = log --graph --topo-order --format='%C(auto)%h %<(3)%aN%d% s' --decorate=short --branches='*'
+  l = log --oneline --decorate -20
+  x = log --oneline --decorate --graph --all -20
+  xx = log --oneline --decorate --graph --all
 #  ready = rebase -i @{u}
 #  promote = !$ZSH/bin/git-promote
 #  wtf     = !$ZSH/bin/git-wtf
