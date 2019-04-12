@@ -15,10 +15,21 @@ Plug 'mileszs/ack.vim'
 Plug 'pangloss/vim-javascript'
 Plug 'maxmellon/vim-jsx-pretty'
 Plug 'eslint/eslint'
+Plug 'ajh17/vimcompletesme'
+Plug 'majutsushi/tagbar'
+
+" tabular is only included for vim-markdown
+" Plug 'godlygeek/tabular'
+" Plug 'plasticboy/vim-markdown'
+
 " Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
 " Plug 'junegunn/fzf.vim'
 call plug#end()
 
+" Tagbar
+let g:tagbar_autofocus = 1
+map <Leader>rt :!ctags --extra=+f --exclude=node_modules -R *<CR><CR>
+map <Leader>. :TagbarToggle<CR>
 
 "Nerdtree
 let NERDTreeHijackNetrw = 0
@@ -89,6 +100,9 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
+let g:syntastic_enable_signs=1
+let g:syntastic_quiet_messages = {'level': 'warnings'}
+
 
 autocmd Filetype gitcommit setlocal textwidth=72
 
@@ -128,20 +142,12 @@ endfunction
 command! StripTrailingWhitespaces call <SID>StripTrailingWhitespaces()
 
 
-" runtime! common_config/*.vim
-" runtime! custom_config/*.vim
-
-
-
 " required for several plugins
 set nocompatible
 
 " enable syntax highlighting
 syntax on
 
-" default color scheme
-set background=dark
-color molokai
 
 " don't wrap long lines
 set nowrap
@@ -328,8 +334,8 @@ map <Leader>I gg=G``<cr>
 
 set clipboard=unnamed
 
-" set undodir=~/.vim/undodir
-" set undofile
+set undodir=~/.vim/undodir
+set undofile
 " set clipboard+=unnamed
 " set rtp+=/usr/local/opt/fzf
 "
@@ -344,12 +350,12 @@ set clipboard=unnamed
 " nnoremap s :Ag<CR>
 
 
+" default color scheme
 set t_Co=256
-set background=dark
-
 let g:solarized_termcolors=&t_Co
 let g:solarized_termtrans=1
 colorscheme molokai
+set background=dark
 
 set nolist
 let g:fuf_file_exclude = '\v\~$|\.o$|\.exe$|\.bak$|\.swp|\.svn|\.class$'
