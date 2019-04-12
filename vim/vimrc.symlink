@@ -6,19 +6,21 @@ let mapleader = ','
 call plug#begin('~/.vim/plugged')
 " Plug xxx
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-Plug 'pangloss/vim-javascript'
 Plug 'junegunn/vim-easy-align'
 Plug 'tpope/vim-surround'
 Plug 'ctrlpvim/ctrlp.vim'
-Plug 'mxw/vim-jsx'
 Plug 'tomtom/tcomment_vim'
 Plug 'vim-syntastic/syntastic'
 Plug 'mileszs/ack.vim'
+Plug 'pangloss/vim-javascript'
+Plug 'maxmellon/vim-jsx-pretty'
+Plug 'eslint/eslint'
 " Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
 " Plug 'junegunn/fzf.vim'
 call plug#end()
 
 
+"Nerdtree
 let NERDTreeHijackNetrw = 0
 let g:NERDTreeDirArrows=0
 let g:NERDChristmasTree=1
@@ -41,9 +43,9 @@ let g:surround_61 = "<%= \r %>"
 " CTRLP
 nmap <Leader>t :CtrlP<CR>
 nmap <Leader>b :CtrlPBuffer<CR>
-nmap <Leader>m :CtrlPBufTag<CR>
-nmap <Leader>mm :CtrlPBufTagAll<CR>
-nmap <Leader>y :CtrlPBufTagAll<CR>
+" nmap <Leader>m :CtrlPBufTag<CR>
+" nmap <Leader>mm :CtrlPBufTagAll<CR>
+" nmap <Leader>y :CtrlPBufTagAll<CR>
 set wildignore+=*/tmp/*,*/vendor/ruby/*,*/seed_scenarios/*,*/node_modules/*,*.swp,*.zip
 
 
@@ -88,11 +90,6 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
 
-
-
-"set rtp+=~/.vim/vundle.git/
-"call vundle#rc()
-"
 autocmd Filetype gitcommit setlocal textwidth=72
 
 
