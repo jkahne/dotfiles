@@ -22,16 +22,37 @@ Plug 'majutsushi/tagbar'
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 
+" Plug 'chiedo/vim-case-convert'
+Plug 'tpope/vim-abolish'
+
+" Plug 'terryma/vim-multiple-cursors'
+Plug 'mg979/vim-visual-multi'
+
 " Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
 " Plug 'junegunn/fzf.vim'
 call plug#end()
+
+" vim-abolish
+"Want to turn fooBar into foo_bar? Press
+"crs (coerce to snake_case).
+" MixedCase (crm),
+" camelCase (crc),
+" snake_case (crs),
+" UPPER_CASE (cru),
+" MixedCase (crm),
+" dash-case (cr-),
+" dot.case (cr.),
+" space case (cr<space>),
+" and Title Case (crt) are all just 3 keystrokes away
+
 
 
 " Markdown
 let g:vim_markdown_frontmatter = 1
 let g:vim_markdown_new_list_item_indent = 2
 " ~~ Striketrough ~~
-let g:vim_markdown_strikethrough = 1 
+let g:vim_markdown_strikethrough = 1
+let g:vim_markdown_folding_disabled = 1
 
 " Tagbar
 let g:tagbar_autofocus = 1
@@ -319,6 +340,9 @@ nnoremap Y y$
 " select the lines which were just pasted
 nnoremap vv `[V`]
 
+"  'p' to paste, 'gv' to re-select what was originally selected. 'y' to copy it again
+xnoremap p pgvy
+
 " clean up trailing whitespace
 map <Leader>c :StripTrailingWhitespaces<cr>
 
@@ -337,13 +361,9 @@ nnoremap <S-Right> <c-w>>
 " reindent the entire file
 map <Leader>I gg=G``<cr>
 
-
-
-set clipboard=unnamed
-
 set undodir=~/.vim/undodir
 set undofile
-" set clipboard+=unnamed
+set clipboard+=unnamed
 " set rtp+=/usr/local/opt/fzf
 "
 " nmap sf :VimFilerBufferDir<Return>
@@ -356,7 +376,6 @@ set undofile
 " nnoremap t :BTags<CR>
 " nnoremap s :Ag<CR>
 
-
 " default color scheme
 set t_Co=256
 let g:solarized_termcolors=&t_Co
@@ -364,7 +383,6 @@ let g:solarized_termtrans=1
 colorscheme molokai
 set background=dark
 
-set nolist
 let g:fuf_file_exclude = '\v\~$|\.o$|\.exe$|\.bak$|\.swp|\.svn|\.class$'
 set nowrap
 set linebreak
