@@ -296,9 +296,6 @@ map k gk
 nmap <Leader>w :set wrap!<cr>
 nmap <Leader>W :set nowrap<cr>
 
-" shortcut to save all
-nmap <Leader>ss :wa<cr>
-
 " close all other windows (in the current tab)
 nmap gW :only<cr>
 
@@ -324,6 +321,11 @@ nmap ge :Explore<CR>
 " nmap gv :Vexplore<CR>
 " nmap gt :Rexplore<CR>
 " nmap gr :Rexplore<CR>
+"
+
+" edit and source .vimrc
+nnoremap <Leader>ev :e ~/.vimrc<CR>
+nnoremap <Leader>sv :so ~/.vimrc<CR>
 
 
 " shortcut for =>
