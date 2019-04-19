@@ -327,6 +327,8 @@ nmap ge :Explore<CR>
 nnoremap <Leader>ev :e ~/.vimrc<CR>
 nnoremap <Leader>sv :so ~/.vimrc<CR>
 
+set listchars=tab:→\ ,eol:↲,nbsp:␣,trail:✗,space:·
+nnoremap <Leader>l :set list!<CR>
 
 " shortcut for =>
 imap <C-l> <Space>=><Space>
@@ -335,6 +337,14 @@ imap <C-l> <Space>=><Space>
 iabbrev Lidsa Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
 iabbrev rdebug require 'ruby-debug'; Debugger.start; Debugger.settings[:autoeval] = 1; Debugger.settings[:autolist] = 1; debugger; 0;
 abbrev hte the
+
+" ctrl-a " increases the number under the cursor
+" ctrl-x " decreases the number under the cursor
+
+" leader-rr <type what you want replaced>/<replacement>
+nnoremap <Leader>rr :%s//g<Left><Left>
+" replace the word under cursor
+nnoremap <Leader>rw :%s/<c-r><c-w>//g<left><left>
 
 " Yank from the cursor to the end of the line, to be consistent with C and D.
 nnoremap Y y$
