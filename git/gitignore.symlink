@@ -19,3 +19,4 @@ config/initializers/jdk.rb
 /vendor/cache/*
 vendor/cache/*
 .byebug_history
+scratch

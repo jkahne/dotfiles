@@ -8,6 +8,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'junegunn/vim-easy-align'
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-fugitive'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'tomtom/tcomment_vim'
 Plug 'vim-syntastic/syntastic'
@@ -19,14 +20,16 @@ Plug 'ajh17/vimcompletesme'
 Plug 'majutsushi/tagbar'
 
 " tabular is only included for vim-markdown
-Plug 'godlygeek/tabular'
-Plug 'plasticboy/vim-markdown'
+" Plug 'godlygeek/tabular'
+" Plug 'plasticboy/vim-markdown'
 
 " Plug 'chiedo/vim-case-convert'
 Plug 'tpope/vim-abolish'
 
 " Plug 'terryma/vim-multiple-cursors'
 Plug 'mg979/vim-visual-multi'
+
+Plug 'prettier/vim-prettier'
 
 " Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
 " Plug 'junegunn/fzf.vim'
@@ -48,11 +51,11 @@ call plug#end()
 
 
 " Markdown
-let g:vim_markdown_frontmatter = 1
-let g:vim_markdown_new_list_item_indent = 2
-" ~~ Striketrough ~~
-let g:vim_markdown_strikethrough = 1
-let g:vim_markdown_folding_disabled = 1
+" let g:vim_markdown_frontmatter = 1
+" let g:vim_markdown_new_list_item_indent = 2
+" " ~~ Striketrough ~~
+" let g:vim_markdown_strikethrough = 1
+" let g:vim_markdown_folding_disabled = 1
 
 " Tagbar
 let g:tagbar_autofocus = 1
@@ -257,7 +260,7 @@ set visualbell
 set backspace=indent,eol,start
 
 " highlight trailing whitespace
-set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
+" set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
 set list
 set path+=**
 
@@ -281,6 +284,8 @@ au BufNewFile,BufRead *.json set ai filetype=javascript
 
 au BufNewFile,BufRead *.ex set ai filetype=elixir
 au BufNewFile,BufRead *.exs set ai filetype=elixir
+
+au FocusGained,BufEnter * :checktime
 
 " different color for each paren pairs
 " let vimclojure#ParenRainbow  = 1
@@ -373,6 +378,11 @@ nnoremap <S-Right> <c-w>>
 " reindent the entire file
 map <Leader>I gg=G``<cr>
 
+
+nnoremap <Leader>ss :mksession! ~/.dotfiles/vim/sessions/
+nnoremap <Leader>os :source ~/.dotfiles/vim/sessions/
+nnoremap <Leader>rs :!rm ~/.dotfiles/vim/sessions/
+
 set undodir=~/.vim/undodir
 set undofile
 set clipboard+=unnamed
@@ -405,6 +415,8 @@ let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:30,results:100'
 nmap <Leader>> :tabnext<CR>
 nmap <Leader>< :tabprevious<CR>
 nmap <Leader>T :tabnew<CR>
+nnoremap <Leader>gt <C-w><C-]><C-w>T
+
 nnoremap <leader>p :r!pbpaste<cr>
 let loaded_matchparen = 0
 
