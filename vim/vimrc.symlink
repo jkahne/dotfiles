@@ -64,6 +64,7 @@ map <Leader>. :TagbarToggle<CR>
 
 "Nerdtree
 let NERDTreeHijackNetrw = 0
+let g:NERDTreeHijackNetrw = 0
 let g:NERDTreeDirArrows=0
 let g:NERDChristmasTree=1
 nmap gt :NERDTreeToggle<CR>
