@@ -8,6 +8,14 @@ def git_clone(repo, target)
   `git clone ""#{repo}"" "#{target}"`
 end
 
+def curl(repo, target)
+    # curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  path = translate_path(target)
+  puts path
+  FileUtils.rm_rf(path) if File.exists?(path)
+  `curl -fLo ""#{repo}"" "#{target}"`
+end
+
 def self.translate_path(path)
   if path[0].chr === '~'
     path[0] = ENV['HOME']
@@ -70,6 +78,15 @@ task :unsymlink do
   end
 end
 
+desc "Install Plug for vim plugins"
+task :plug do
+  target = "#{ENV["HOME"]}/.vim/autoload/plug.vim  --create-dirs "
+  curl('https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim', target)
+  puts "Please run PlugInstall to install plugins...this will take a couple minutes."
+  # `vim +BundleInstall +qall`
+  # puts "vim plugins installed."
+end
+
 desc "Install vundle for vim plugins"
 task :vundle do
   target = "#{ENV["HOME"]}/.vim/vundle.git"
@@ -82,7 +99,7 @@ end
 desc "Install everything"
 task :install do
   Rake::Task['symlink'].execute
-  Rake::Task['vundle'].execute
+  Rake::Task['plug'].execute
 end
 
 task :default => 'install'
