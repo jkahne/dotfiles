@@ -13,7 +13,7 @@ def curl(repo, target)
   path = translate_path(target)
   puts path
   FileUtils.rm_rf(path) if File.exists?(path)
-  `curl -fLo ""#{repo}"" "#{target}"`
+  `curl -fLo "#{repo}" --create-dirs "#{target}"`
 end
 
 def self.translate_path(path)
@@ -80,10 +80,10 @@ end
 
 desc "Install Plug for vim plugins"
 task :plug do
-  target = "#{ENV["HOME"]}/.vim/autoload/plug.vim  --create-dirs "
+  target = "#{ENV["HOME"]}/.vim/autoload/plug.vim"
   curl('https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim', target)
-  puts "Please run PlugInstall to install plugins...this will take a couple minutes."
-  # `vim +BundleInstall +qall`
+  puts "Please run the command PlugInstall from Vim to install plugins...this will take a couple minutes."
+  # `vim +PlugInstall`
   # puts "vim plugins installed."
 end
 
