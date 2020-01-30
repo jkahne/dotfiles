@@ -4,14 +4,13 @@ alias bi="b install --path vendor"
 alias bil="bi --local"
 alias bu="b update"
 alias be="bundle exec"
-alias ber="bundle exec rspec"
 alias binit="bi && b package && echo 'vendor/ruby' >> .gitignore"
-alias yi="cd assets && yarn install && cd .."
+
 alias postmaster="brew services stop postgres; cd /usr/local/var/postgres; rm postmaster.pid; cd -; brew services start postgres;"
+alias om="overmind start -f Procfile.dev"
 
-
-alias gitp="ssh rails@app1.ebth.managedmachine.com 'cd /srv/ebth-com/current; git show --name-status'"
-alias gits="ssh rails@app1.staging.ebth.managedmachine.com 'cd /srv/ebth-com/current; git show --name-status'"
+alias starred="tag -f starred"
+alias upnext="tag -f 'up next'"
 
 alias ..="cd .."
 alias ...="cd ../.."
@@ -19,10 +18,7 @@ alias ....="cd ../../.."
 alias .....="cd ../../../.."
 alias ......="cd ../../../../.."
 alias .......="cd ../../../../../.."
-#alias dash="cd /Users/jkahne/projects/ss;watch -n7 bundle exec bin/ss dashboard"
-alias dash="cd /Users/jkahne/projects/tcli;watch -n5 ./tcli.rb dash"
-alias rt=" ctags -R --exclude=angular --exclude=angular_guid_auth --exclude=bower_components *"
-alias tapas="ruby ~/projects/rubytapas_downloader/rubytapas_downloader.rb ~/Desktop/tapas/"
+alias rt=" ctags -R --exclude=node_modules *"
 
 alias short_prompt="export PS1='$ '"
 

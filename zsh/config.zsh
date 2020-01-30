@@ -1,9 +1,8 @@
-export CLICOLOR=1
-#export CLICOLOR=true
-#export LSCOLORS="bxcxfxdxbxegedabagacad"
-export LSCOLORS="gxfxcxdxbxegedabagacad"
-
-fpath=($ZSH/functions $fpath)
+export CLICOLOR=1 
+#export CLICOLOR=true 
+##export LSCOLORS="bxcxfxdxbxegedabagacad" 
+export LSCOLORS="gxfxcxdxbxegedabagacad" 
+#fpath=($ZSH/functions $fpath)
 
 #autoload -U $ZSH/functions/*(:t)
 
