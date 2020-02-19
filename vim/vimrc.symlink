@@ -68,7 +68,7 @@ call plug#end()
 
 " Tagbar
 let g:tagbar_autofocus = 1
-map <Leader>rt :!ctags --extra=+f --exclude=node_modules -R *<CR><CR>
+map <Leader>rt :!ctags --extra=+f --exclude=node_modules --exclude=vendor -R *<CR><CR>
 map <Leader>. :TagbarToggle<CR>
 
 "Nerdtree
@@ -301,8 +301,10 @@ au FocusGained,BufEnter * :checktime
 " let vimclojure#ParenRainbow  = 1
 
 
-imap jj <Esc>
-imap jk <Esc>
+inoremap jj <Esc>
+inoremap jk <Esc>
+
+
 
 map j gj
 map k gk
@@ -318,8 +320,8 @@ nmap gW :only<cr>
 " nmap g
 
 " shortcuts for frequenly used files
-" nmap gs :e db/schema.rb<cr>
-" nmap gr :e config/routes.rb<cr>
+nmap gs :e db/schema.rb<cr> 
+nmap gr :e config/routes.rb<cr>
 
 " insert blank lines without going into insert mode
 nmap go o<esc>
@@ -346,7 +348,8 @@ set listchars=tab:→\ ,eol:↲,nbsp:␣,trail:✗,space:·
 nnoremap <Leader>l :set list!<CR>
 
 " shortcut for =>
-imap <C-l> <Space>=><Space>
+inoremap <C-l> <Space>=><Space>
+
 
 " handy macro expansion
 iabbrev Lidsa Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
@@ -385,8 +388,35 @@ nnoremap <S-Down> <c-w>-
 nnoremap <S-Left> <c-w><
 nnoremap <S-Right> <c-w>>
 
+
+
+nnoremap <C-u> {
+nnoremap <C-d> }
+nnoremap <Space>k {
+nnoremap <Space>j }
+nnoremap <Space>h ^
+nnoremap <Space>l $
+
+" while in insert mode, use ctrl + direction to move cursor
+inoremap <C-u> <esc>{i
+inoremap <C-d> <esc>}i
+inoremap <C-k> <Up>
+inoremap <C-j> <Down>
+inoremap <C-h> <Left>
+inoremap <C-l> <Right>
+
 " reindent the entire file
 map <Leader>I gg=G``<cr>
+
+
+inoremap <> <><Left>
+inoremap () ()<Left>
+inoremap {} {}<Left>
+inoremap [] []<Left>
+inoremap "" ""<Left>
+inoremap '' ''<Left>
+inoremap `` ``<Left>
+
 
 
 nnoremap <Leader>ss :mksession! ~/.dotfiles/vim/sessions/
