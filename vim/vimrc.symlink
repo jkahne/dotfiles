@@ -35,7 +35,7 @@ let g:ale_fix_on_save = 1
 " Plug 'chiedo/vim-case-convert'
 Plug 'tpope/vim-abolish'
 
-" Plug 'terryma/vim-multiple-cursors'
+Plug 'terryma/vim-multiple-cursors'
 Plug 'mg979/vim-visual-multi'
 
 Plug 'prettier/vim-prettier'
@@ -44,6 +44,8 @@ Plug 'prettier/vim-prettier'
 " Plug 'junegunn/fzf.vim'
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
+
+Plug 'dyng/ctrlsf.vim'
 
 call plug#end()
 
@@ -71,7 +73,7 @@ call plug#end()
 
 " Tagbar
 let g:tagbar_autofocus = 1
-map <Leader>rt :!ctags --extra=+f --exclude=node_modules --exclude=vendor -R *<CR><CR>
+map <Leader>rt :!ctags --extra=+f --exclude=node_modules/* --exclude=vendor/* -R *<CR><CR>
 map <Leader>. :TagbarToggle<CR>
 
 "Nerdtree
@@ -95,9 +97,46 @@ let g:surround_45 = "<% \r %>"
 let g:surround_61 = "<%= \r %>"
 
 
+
+
+
+
+" 'terryma/vim-multiple-cursors'
+
+
+
+
+
+" CtrlSF
+" nmap g* :CtrlSF -w --ignore '/tmp' --ignore '*/vendor/*'  --ignore '/public' --ignore '*/node_modules/'  --ignore '*/seed_scenarios/*' <C-R><C-W><space>
+nmap g* :CtrlSF <C-R><C-W><space>
+nmap g/ :CtrlSF<space> 
+nmap gl :CtrlSFToggle
+
+
+let g:ctrlsf_ackprg = 'rg' "'/usr/local/bin/ag'
+" let g:ctrlsf_position = 'bottom'
+let g:ctrlsf_default_view_mode = 'compact'
+let g:ctrlsf_auto_close = {
+  \ "normal" : 0,
+  \ "compact": 0
+  \ }
+let g:ctrlsf_auto_focus = {
+  \ "at" : "start"
+  \ }
+
+let g:ctrlsf_mapping = {
+    \ "next": "n",
+    \ "prev": "N"
+    \ }
+
+
+
+
+
 " CTRLP
-nmap <Leader>t :CtrlP<CR>
-nmap <Leader>b :CtrlPBuffer<CR>
+" nmap <Leader>t :CtrlP<CR>
+" nmap <Leader>b :CtrlPBuffer<CR>
 " nmap <Leader>m :CtrlPBufTag<CR>
 " nmap <Leader>mm :CtrlPBufTagAll<CR>
 " nmap <Leader>y :CtrlPBufTagAll<CR>
@@ -105,33 +144,33 @@ set wildignore+=*/tmp/*,*/vendor/ruby/*,*/seed_scenarios/*,*/node_modules/*,*.sw
 
 
 " AG aka The Silver Searcher
-if executable('ag')
-  " don't leak searches to terminal
-  set shellpipe=>
-
-"  let g:ackprg = 'ag --nogroup --nocolor --column'
-" let g:ackprg = 'ag --vimgrep' " same thing as above, supposedly
-  let g:ackprg = 'ag --vimgrep'
-"  let g:ackprg = 'ag --vimgrep --smart-case'
-  " cnoreabbrev ag Ack
-  " cnoreabbrev aG Ack
-  " cnoreabbrev Ag Ack
-  " cnoreabbrev AG Ack
-
-  nmap g/ :Ack!<space>
-  nmap g* :Ack! -w --ignore '/tmp' --ignore '*/fonts/*' --ignore '*/vendor/*'  --ignore '/public' --ignore '*/node_modules/'  --ignore '*/seed_scenarios/*' <C-R><C-W><space>
-  nmap gn :cnext<CR>
-  nmap gp :cprev<CR>
-
-  let g:ack_mappings = {
-      \ "t": "<C-W><CR><C-W>T",
-      \ "T": "<C-W><CR><C-W>TgT<C-W>j",
-      \ "o": "<CR>",
-      \ "O": "<CR><C-W><C-W>:ccl<CR>",
-      \ "go": "<CR><C-W>j",
-      \ "h": "<Left>" }
-
-endif
+" if executable('ag')
+"   " don't leak searches to terminal
+"   set shellpipe=>
+"
+"   "  let g:ackprg = 'ag --nogroup --nocolor --column'
+"   " let g:ackprg = 'ag --vimgrep' " same thing as above, supposedly
+"   let g:ackprg = 'ag --vimgrep'
+"   "  let g:ackprg = 'ag --vimgrep --smart-case'
+"   " cnoreabbrev ag Ack
+"   " cnoreabbrev aG Ack
+"   " cnoreabbrev Ag Ack
+"   " cnoreabbrev AG Ack
+"
+"   nmap g/ :Ack!<space>
+"   nmap g* :Ack! -w --ignore '/tmp' --ignore '*/fonts/*' --ignore '*/vendor/*'  --ignore '/public' --ignore '*/node_modules/'  --ignore '*/seed_scenarios/*' <C-R><C-W><space>
+"   nmap gn :cnext<CR>
+"   nmap gp :cprev<CR>
+"
+"   let g:ack_mappings = {
+"         \ "t": "<C-W><CR><C-W>T",
+"         \ "T": "<C-W><CR><C-W>TgT<C-W>j",
+"         \ "o": "<CR>",
+"         \ "O": "<CR><C-W><C-W>:ccl<CR>",
+"         \ "go": "<CR><C-W>j",
+"         \ "h": "<Left>" }
+"
+" endif
 
 
 " vim-syntastic/syntastic
@@ -323,7 +362,7 @@ nmap gW :only<cr>
 " nmap g
 
 " shortcuts for frequenly used files
-nmap gs :e db/schema.rb<cr> 
+nmap gs :e db/schema.rb<cr>
 nmap gr :e config/routes.rb<cr>
 
 " insert blank lines without going into insert mode
@@ -348,7 +387,7 @@ nnoremap <Leader>ev :e ~/.vimrc<CR>
 nnoremap <Leader>sv :so ~/.vimrc<CR>
 
 set listchars=tab:→\ ,eol:↲,nbsp:␣,trail:✗,space:·
-nnoremap <Leader>l :set list!<CR>
+nnoremap <Leader>sl :set list!<CR>
 
 " shortcut for =>
 inoremap <C-l> <Space>=><Space>
@@ -452,9 +491,34 @@ let g:fuf_file_exclude = '\v\~$|\.o$|\.exe$|\.bak$|\.swp|\.svn|\.class$'
 set nowrap
 set linebreak
 set nolist  " list disables linebreak
-let g:ctrlp_max_files=0
-let g:ctrlp_arg_map = 1
-let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:30,results:100'
+" let g:ctrlp_max_files=0
+" let g:ctrlp_arg_map = 1
+" let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:30,results:100'
+
+" [Buffers] Jump to the existing window if possible
+let g:fzf_buffers_jump = 1
+" [Tags] Command to generate tags file
+" let g:fzf_tags_command = 'ctags -R'
+let g:fzf_tags_command = 'ctags --extra=+f --exclude=node_modules/* --exclude=vendor/* -R *'
+" map <Leader>rt :!ctags --extra=+f --exclude=node_modules --exclude=vendor -R *<CR><CR>
+
+" https://medium.com/@jesseleite/its-dangerous-to-vim-alone-take-fzf-283bcff74d21
+nmap <Leader>t :Files<CR>
+nmap <Leader>f :BLines<CR>
+nmap <Leader>l :Lines<CR>
+" nmap <Leader>gf :GFiles<CR>
+nmap <Leader>b :Buffers<CR>
+nmap <Leader>h :History<CR>
+" nmap <Leader>t :Tags<CR>
+" nmap <Leader>bt :BTags<CR>
+nmap <Leader>m :Maps<CR>
+nmap <Leader>' :Marks<CR>
+" nmap <Leader>/ :Ag<Space>
+nmap <Leader>/ :Rg<Space>
+
+
+
+
 nmap <Leader>> :tabnext<CR>
 nmap <Leader>< :tabprevious<CR>
 nmap <Leader>T :tabnew<CR>
