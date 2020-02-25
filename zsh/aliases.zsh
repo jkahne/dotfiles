@@ -12,6 +12,9 @@ alias om="overmind start -f Procfile.dev"
 alias starred="tag -f starred"
 alias upnext="tag -f 'up next'"
 
+alias gco="git branch | fzf | sed 's/\* //g' | xargs -I '{}' git checkout {}"
+# alias gco="git checkout $(git branch | fzf)"
+
 alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
