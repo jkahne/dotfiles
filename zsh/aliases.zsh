@@ -9,11 +9,15 @@ alias binit="bi && b package && echo 'vendor/ruby' >> .gitignore"
 alias postmaster="brew services stop postgres; cd /usr/local/var/postgres; rm postmaster.pid; cd -; brew services start postgres;"
 alias om="overmind start -f Procfile.dev"
 
+alias st="tag --add starred ."
+alias un="tag --add up next ."
 alias starred="tag -f starred"
 alias upnext="tag -f 'up next'"
+alias gun='cd $(tag -f "up next" | fzf)'
+alias gst='cd $(tag -f starred | fzf)'
 
-alias gco="git branch | fzf | sed 's/\* //g' | xargs -I '{}' git checkout {}"
-# alias gco="git checkout $(git branch | fzf)"
+# alias gco="git branch | fzf | sed 's/\* //g' | xargs -I '{}' git checkout {}"
+alias gco='git checkout $(git branch | fzf)'
 
 alias ..="cd .."
 alias ...="cd ../.."
