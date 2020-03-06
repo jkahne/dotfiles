@@ -47,6 +47,9 @@ Plug 'junegunn/fzf.vim'
 
 Plug 'dyng/ctrlsf.vim'
 
+
+Plug 'https://github.com/itspriddle/vim-marked.git'
+
 call plug#end()
 
 " vim-abolish
@@ -77,10 +80,12 @@ map <Leader>rt :!ctags --extra=+f --exclude=node_modules/* --exclude=vendor/* -R
 map <Leader>. :TagbarToggle<CR>
 
 "Nerdtree
+let g:NERDTreeMinimalUI = 1
 let NERDTreeHijackNetrw = 0
 let g:NERDTreeHijackNetrw = 0
 let g:NERDTreeDirArrows=0
 let g:NERDChristmasTree=1
+let g:NERDTreeCascadeOpenSingleChildDir = 1
 nmap gt :NERDTreeToggle<CR>
 " nmap g :NERDTree \| NERDTreeToggle \| NERDTreeFind<CR>
 
@@ -104,6 +109,12 @@ let g:surround_61 = "<%= \r %>"
 " 'terryma/vim-multiple-cursors'
 
 
+
+
+
+" Marked
+let g:marked_filetypes = ["markdown", "mkd", "README", "vimwiki"]
+nmap gm :MarkedOpen<CR>
 
 
 
