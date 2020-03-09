@@ -19,6 +19,7 @@ Plug 'eslint/eslint'
 Plug 'ajh17/vimcompletesme'
 Plug 'majutsushi/tagbar'
 Plug 'dense-analysis/ale'
+Plug 'thoughtbot/vim-rspec'
 
 " tabular is only included for vim-markdown
 " Plug 'godlygeek/tabular'
@@ -50,7 +51,39 @@ Plug 'dyng/ctrlsf.vim'
 
 Plug 'https://github.com/itspriddle/vim-marked.git'
 
+
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+
 call plug#end()
+
+
+
+"ultisnips
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<tab>"
+" let g:UltiSnipsJumpForwardTrigger="<tab>"
+" let g:UltiSnipsJumpBackwardTrigger="<C-tab>"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
+
+
+
+
+
+
+" RSpec.vim mappings
+" spec [file, spec, repeat, all]
+" s[fsra]
+map <Leader>sf :call RunCurrentSpecFile()<CR>
+map <Leader>ss :call RunNearestSpec()<CR>
+map <Leader>sr :call RunLastSpec()<CR>
+map <Leader>sa :call RunAllSpecs()<CR>
+"
+let g:rspec_command = "!clear && bin/rspec {spec}"
+
+
 
 " vim-abolish
 "Want to turn fooBar into foo_bar? Press
@@ -260,7 +293,7 @@ set expandtab tabstop=2 softtabstop=2 shiftwidth=2
 set smarttab
 
 " enable line numbers, and don't make them any wider than necessary
-set number numberwidth=2
+set rnu numberwidth=2
 
 " show the first match as search strings are typed
 set incsearch
@@ -443,18 +476,18 @@ nnoremap <S-Right> <c-w>>
 
 
 
-nnoremap <C-u> {
-nnoremap <C-d> }
-nnoremap <Space>k {
-nnoremap <Space>j }
-nnoremap <Space>h ^
-nnoremap <Space>l $
+" nnoremap <C-u> {
+" nnoremap <C-d> }
+" nnoremap <Space>k {
+" nnoremap <Space>j }
+" nnoremap <Space>h ^
+" nnoremap <Space>l $
 
 " while in insert mode, use ctrl + direction to move cursor
 inoremap <C-u> <esc>{i
 inoremap <C-d> <esc>}i
-inoremap <C-k> <Up>
-inoremap <C-j> <Down>
+" inoremap <C-k> <Up>
+" inoremap <C-j> <Down>
 inoremap <C-h> <Left>
 inoremap <C-l> <Right>
 
@@ -472,9 +505,9 @@ inoremap `` ``<Left>
 
 
 
-nnoremap <Leader>ss :mksession! ~/.dotfiles/vim/sessions/
-nnoremap <Leader>os :source ~/.dotfiles/vim/sessions/
-nnoremap <Leader>rs :!rm ~/.dotfiles/vim/sessions/
+" nnoremap <Leader>ss :mksession! ~/.dotfiles/vim/sessions/
+" nnoremap <Leader>os :source ~/.dotfiles/vim/sessions/
+" nnoremap <Leader>rs :!rm ~/.dotfiles/vim/sessions/
 
 set undodir=~/.vim/undodir
 set undofile
