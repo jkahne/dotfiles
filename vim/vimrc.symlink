@@ -100,7 +100,7 @@ let g:vimwiki_list = [{'path': '~/Dropbox/v/vimwiki/',
 "ultisnips
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
 let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsSnippetDirectories=[$HOME.'/.vim/UltiSnips']
+" let g:UltiSnipsSnippetDirectories=[$HOME.'/.vim/UltiSnips']
 " let g:UltiSnipsJumpForwardTrigger="<tab>"
 " let g:UltiSnipsJumpBackwardTrigger="<C-tab>"
 
@@ -114,8 +114,8 @@ map <Leader>sn :UltiSnipsEdit<CR>
 " RSpec.vim mappings
 " spec [file, spec, repeat, all]
 " s[fsra]
-map <Leader>sf :call RunCurrentSpecFile()<CR>
-map <Leader>ss :call RunNearestSpec()<CR>
+map <Leader>ss :call RunCurrentSpecFile()<CR>
+" map <Leader>ss :call RunNearestSpec()<CR>
 map <Leader>sr :call RunLastSpec()<CR>
 map <Leader>sa :call RunAllSpecs()<CR>
 "
@@ -332,6 +332,7 @@ set smarttab
 
 " enable line numbers, and don't make them any wider than necessary
 set rnu numberwidth=2
+set number
 
 " show the first match as search strings are typed
 set incsearch
@@ -509,8 +510,8 @@ nnoremap <Leader><space> :noh<cr>
 " buffer resizing mappings (shift + arrow key)
 nnoremap <S-Up> <c-w>+
 nnoremap <S-Down> <c-w>-
-nnoremap <S-Left> <c-w><
-nnoremap <S-Right> <c-w>>
+nnoremap <S-Left> <c-w>>
+nnoremap <S-Right> <c-w><
 
 
 
@@ -533,13 +534,13 @@ inoremap <C-l> <Right>
 map <Leader>I gg=G``<cr>
 
 
-inoremap <> <><Left>
-inoremap () ()<Left>
-inoremap {} {}<Left>
-inoremap [] []<Left>
-inoremap "" ""<Left>
-inoremap '' ''<Left>
-inoremap `` ``<Left>
+" inoremap <> <><Left>
+" inoremap () ()<Left>
+" inoremap {} {}<Left>
+" inoremap [] []<Left>
+" inoremap "" ""<Left>
+" inoremap '' ''<Left>
+" inoremap `` ``<Left>
 
 
 
