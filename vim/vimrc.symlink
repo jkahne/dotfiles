@@ -55,7 +55,45 @@ Plug 'https://github.com/itspriddle/vim-marked.git'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 
+Plug 'vimwiki/vimwiki'
+
 call plug#end()
+
+
+
+" vimwiki
+" filetype plugin on
+let g:vimwiki_list = [{'path': '~/Dropbox/v/vimwiki/',
+                      \ 'syntax': 'markdown', 'ext': '.md'}]
+" map <Leader>wt <Plug>VimwikiToggleListItem
+
+
+" Place your cursor on Tasks and press Enter to create a link. 
+" Once pressed, Tasks will become [[Tasks]] -- a VimWiki link. 
+" Press Enter again to open it. 
+" Edit the file, save it, and then press Backspace to jump back to your index.
+"
+" Normal mode:
+" <Leader>ww -- Open default wiki index file.
+" <Leader>wt -- Open default wiki index file in a new tab.
+" <Leader>ws -- Select and open wiki index file.
+" <Leader>wd -- Delete wiki file you are in.
+" <Leader>wr -- Rename wiki file you are in.
+" <Enter> -- Follow/Create wiki link
+" <Shift-Enter> -- Split and follow/create wiki link
+" <Ctrl-Enter> -- Vertical split and follow/create wiki link
+" <Backspace> -- Go back to parent(previous) wiki link
+" <Tab> -- Find next wiki link
+" <Shift-Tab> -- Find previous wiki link
+" For more keys, see :h vimwiki-mappings
+"
+" Commands
+"
+" :Vimwiki2HTML -- Convert current wiki link to HTML
+" :VimwikiAll2HTML -- Convert all your wiki links to HTML
+" :help vimwiki-commands -- list all commands
+" :help vimwiki -- General vimwiki help docs
+
 
 
 
@@ -396,11 +434,11 @@ map j gj
 map k gk
 
 " easy wrap toggling
-nmap <Leader>w :set wrap!<cr>
-nmap <Leader>W :set nowrap<cr>
+nmap <Leader>gw :set wrap!<cr>
+nmap <Leader>gW :set nowrap<cr>
 
 " close all other windows (in the current tab)
-nmap gW :only<cr>
+" nmap gW :only<cr>
 
 " go to the alternate file (previous buffer) with g-enter
 " nmap g
