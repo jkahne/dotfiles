@@ -10,8 +10,9 @@ export ERL_AFLAGS="-kernel shell_history enabled"
 export FZF_DEFAULT_OPTS='--height 50% --layout=reverse --border'
 # export FZF_DEFAULT_COMMAND='fd --type f --hidden --no-ignore-vcs --follow --exclude .git --exclude node_modules --exclude vendor'
 # export FZF_DEFAULT_COMMAND='rg --files --no-ignore-vcs --hidden --follow --glob !node_modules --glob !vendor'
-export FZF_DEFAULT_COMMAND="rg --files --no-ignore-vcs --hidden --follow  -g '!node_modules' -g '!vendor'"
+export FZF_DEFAULT_COMMAND="rg --files --no-ignore-vcs --hidden --follow  -g '!node_modules' -g '!vendor' -g '!.git'"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+# export FZF_CTRL_P_COMMAND="$FZF_DEFAULT_COMMAND"
 
 #export LDFLAGS="-L/usr/local/opt/readline/lib"
 #export CPPFLAGS="-I/usr/local/opt/readline/include"

@@ -56,16 +56,20 @@ Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 
 Plug 'vimwiki/vimwiki'
+" Plug 'mmai/vim-markdown-wiki'
+"
+Plug 'tpope/vim-dadbod'
 
 call plug#end()
 
 
 
-" vimwiki
-" filetype plugin on
-let g:vimwiki_list = [{'path': '~/Dropbox/v/vimwiki/',
-                      \ 'syntax': 'markdown', 'ext': '.md'}]
-" map <Leader>wt <Plug>VimwikiToggleListItem
+" " vimwiki
+" " filetype plugin on
+ let g:vimwiki_list = [{'path': '~/Dropbox/v/vimwiki/',
+                       \ 'syntax': 'markdown', 'ext': '.md'}]
+" " map <Leader>wt <Plug>VimwikiToggleListItem
+
 
 
 " Place your cursor on Tasks and press Enter to create a link. 
@@ -86,6 +90,11 @@ let g:vimwiki_list = [{'path': '~/Dropbox/v/vimwiki/',
 " <Tab> -- Find next wiki link
 " <Shift-Tab> -- Find previous wiki link
 " For more keys, see :h vimwiki-mappings
+"
+" <c-space> to check/uncheck todo lists.   (remember, the format is '- []  words')
+"
+" check out http://thedarnedestthing.com/vimwiki%20cheatsheet (or in onenote) 
+" for daily journal stuff
 "
 " Commands
 "
@@ -582,7 +591,7 @@ set nolist  " list disables linebreak
 let g:fzf_buffers_jump = 1
 " [Tags] Command to generate tags file
 " let g:fzf_tags_command = 'ctags -R'
-let g:fzf_tags_command = 'ctags --extra=+f --exclude=node_modules/* --exclude=vendor/* -R *'
+let g:fzf_tags_command = 'ctags --extra=+f --exclude=node_modules/* --exclude=.git/* --exclude=vendor/* -R *'
 
 " make it appear in the pane instead of a bottom split
 " let g:fzf_layout = { 'window': 'enew' }
@@ -593,7 +602,8 @@ command! -bang -nargs=* Rg
 
 
 " https://medium.com/@jesseleite/its-dangerous-to-vim-alone-take-fzf-283bcff74d21
-nmap <Leader>t :Files<CR>
+" nmap <Leader>t :Files<CR>
+nmap <Leader>t :GFiles<CR>
 nmap <Leader>f :BLines<CR>
 nmap <Leader>l :Lines<CR>
 " nmap <Leader>gf :GFiles<CR>
