@@ -7,7 +7,8 @@ export NODEJS_CHECK_SIGNATURES="no"
 export LDFLAGS="-L/usr/local/opt/libffi/lib" 
 export PKG_CONFIG_PATH="/usr/local/opt/libffi/lib/pkgconfig"
 export ERL_AFLAGS="-kernel shell_history enabled"
-export FZF_DEFAULT_OPTS='--height 50% --layout=reverse --border'
+# export RUBYOPT='-W:no-deprecated -W:no-experimental'
+export FZF_DEFAULT_OPTS="--height 80% --layout=reverse --border  --preview '([[ -f {} ]] && (bat --style=numbers --color=always {} || cat {})) || ([[ -d {} ]] && (tree -C {} | less)) || echo {} 2> /dev/null | head -200'"
 # export FZF_DEFAULT_COMMAND='fd --type f --hidden --no-ignore-vcs --follow --exclude .git --exclude node_modules --exclude vendor'
 # export FZF_DEFAULT_COMMAND='rg --files --no-ignore-vcs --hidden --follow --glob !node_modules --glob !vendor'
 export FZF_DEFAULT_COMMAND="rg --files --no-ignore-vcs --hidden --follow  -g '!node_modules' -g '!vendor' -g '!.git'"
@@ -17,6 +18,8 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 #export LDFLAGS="-L/usr/local/opt/readline/lib"
 #export CPPFLAGS="-I/usr/local/opt/readline/include"
 #export PKG_CONFIG_PATH="/usr/local/opt/readline/lib/pkgconfig"
+
+# export RUBYOPT='-W:no-deprecated -W:no-experimental'
 
 # use .localrc for SUPER SECRET CRAP that you don't
 # want in your public, versioned repo.
@@ -71,3 +74,19 @@ export PATH="/usr/local/opt/openssl@1.1/bin:$PATH"
 
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+gunc() { 
+  git reset @~ "$@" && git commit --amend --no-edit 
+}
+
+
+# find-in-file - usage: fif <SEARCH_TERM>
+fif() {
+  if [ ! "$#" -gt 0 ]; then
+    echo "Need a string to search for!";
+    return 1;
+  fi
+  rg --files-with-matches --no-messages "$1" | fzf $FZF_PREVIEW_WINDOW --preview "rg --ignore-case --pretty --context 10 '$1' {}"
+}
+
+

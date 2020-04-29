@@ -6,14 +6,11 @@
 doc/tags
 doc/tags-ja
 /vim/bundle/*
-bundle/
 vundle.git/
 .rbenv-version
 .rbenv-gemset
 tags
 dump.rdb
-/config/database.yml
-config/database.yml
 /config/initializers/jdk.rb
 config/initializers/jdk.rb
 /vendor/cache/*

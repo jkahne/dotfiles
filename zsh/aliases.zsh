@@ -5,6 +5,10 @@ alias bil="bi --local"
 alias bu="b update"
 alias be="bundle exec"
 alias binit="bi && b package && echo 'vendor/ruby' >> .gitignore"
+alias vj="cd ~/Dropbox/v/vimwiki && vim"
+alias vw="cd ~/Dropbox/v/vimwiki && vim"
+alias vwiki="cd ~/Dropbox/v/vimwiki && vim"
+alias wiki="cd ~/Dropbox/v/vimwiki && vim"
 
 alias postmaster="brew services stop postgres; cd /usr/local/var/postgres; rm postmaster.pid; cd -; brew services start postgres;"
 alias om="overmind start -f Procfile.dev"
@@ -32,11 +36,14 @@ alias short_prompt="export PS1='$ '"
 # grc overides for ls
 #   Made possible through contributions from generous benefactors like
 #   `brew install coreutils`
-alias l="ls -AFG"
-alias lsa='ls -lah'
-alias lh='ls -lah'
-alias ll='ls -lh'
-alias la='ls -lAh'
+# alias l="ls -AFG"
+# alias lsa='ls -lah'
+# alias lh='ls -lah'
+# alias ll='ls -lh'
+# alias la='ls -lAh'
+alias l="exa -la"
+
+alias fix="git diff --name-only | uniq | xargs vim"
 
 # Recursively delete `.DS_Store` files
 alias cleanup="find . -type f -name '*.DS_Store' -ls -delete"
