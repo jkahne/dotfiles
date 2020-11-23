@@ -18,3 +18,4 @@ vendor/cache/*
 .byebug_history
 scratch
 examples/*
+.vscode/

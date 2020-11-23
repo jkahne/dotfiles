@@ -1,5 +1,12 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =3
-let g:netrw_dirhist_1='/Users/jkahne/projects/_fern/exhibitor-portal'
-let g:netrw_dirhist_2='/'
-let g:netrw_dirhist_3='/Users/jkahne/projects'
+let g:netrw_dirhistcnt =2
+let g:netrw_dirhist_2='/Users/jkahne/.dotfiles'
+let g:netrw_dirhist_1='/Users/jkahne/.dotfiles/vim'
+let g:netrw_dirhist_0='/Users/jkahne/projects/work/omega/omegalife'
+let g:netrw_dirhist_9='/Users/jkahne/projects/work/frayt/frayt-elixir/lib/frayt_elixir/accounts'
+let g:netrw_dirhist_8='/Users/jkahne/projects/archive/live_view_demo/lib/live_view_demo/kanban'
+let g:netrw_dirhist_7='/Users/jkahne/projects/jkahne/workshop'
+let g:netrw_dirhist_6='/Users/jkahne/projects/jkahne/workshop/app/controllers'
+let g:netrw_dirhist_5='/Users/jkahne/projects/jkahne/workshop/app'
+let g:netrw_dirhist_4='/Users/jkahne/projects/jkahne/workshop'
+let g:netrw_dirhist_3='/Users/jkahne/.dotfiles/vim/vim.symlink/vim.symlink'

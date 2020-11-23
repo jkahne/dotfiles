@@ -1,27 +1,37 @@
 alias mv='mv -i'
+alias l="exa -la"
+
 alias b="bundle"
-alias bi="b install --path vendor"
+alias bi="bundle config set path 'vendor' && bundle install"
 alias bil="bi --local"
 alias bu="b update"
 alias be="bundle exec"
 alias binit="bi && b package && echo 'vendor/ruby' >> .gitignore"
-alias vj="cd ~/Dropbox/v/vimwiki && vim"
-alias vw="cd ~/Dropbox/v/vimwiki && vim"
-alias vwiki="cd ~/Dropbox/v/vimwiki && vim"
-alias wiki="cd ~/Dropbox/v/vimwiki && vim"
 
-alias postmaster="brew services stop postgres; cd /usr/local/var/postgres; rm postmaster.pid; cd -; brew services start postgres;"
+alias aliases="vim ~/.dotfiles/zsh/aliases.zsh"
+alias d="cd ~/.dotfiles && vim"
+alias gratitude='vim ~/Dropbox/n/notes/gratitude.md'
+alias notes="cd ~/Dropbox/n/notes ; vim ."
 alias om="overmind start -f Procfile.dev"
+alias onboard='vim ~/Dropbox/n/notes/onboarding.md'
+alias postmaster="brew services stop postgres; cd /usr/local/var/postgres; rm postmaster.pid; cd -; brew services start postgres;"
+alias retro='vim ~/Dropbox/n/notes/retro.md'
+alias so='source ~/.dotfiles/zsh/aliases'
+alias squash='git rebase -i master'
+alias sync='git add -u . && git commit -m "Minor changes. Commit message skipped." && git pull --rebase && git push'
+alias start='vim ~/Dropbox/n/notes/day-start-checklist.md'
+alias worknotes='vim ~/Dropbox/n/notes/worknotes.md'
 
-alias st="tag --add starred ."
-alias un="tag --add up next ."
-alias starred="tag -f starred"
-alias upnext="tag -f 'up next'"
-alias gun='cd $(tag -f "up next" | fzf)'
-alias gst='cd $(tag -f starred | fzf)'
+# alias st="tag --add starred ."
+# alias un="tag --add up next ."
+# alias starred="tag -f starred"
+# alias upnext="tag -f 'up next'"
+# alias gun='cd $(tag -f "up next" | fzf)'
+# alias gst='cd $(tag -f starred | fzf)'
+# alias vv='cd ~/.dotfiles && vim ./vim/vimrc.symlink'
 
-# alias gco="git branch | fzf | sed 's/\* //g' | xargs -I '{}' git checkout {}"
-alias gco='git checkout $(git branch | fzf)'
+# # alias gco="git branch | fzf | sed 's/\* //g' | xargs -I '{}' git checkout {}"
+# alias gco='git checkout $(git branch | fzf)'
 
 alias ..="cd .."
 alias ...="cd ../.."
@@ -29,7 +39,7 @@ alias ....="cd ../../.."
 alias .....="cd ../../../.."
 alias ......="cd ../../../../.."
 alias .......="cd ../../../../../.."
-alias rt=" ctags -R --exclude=node_modules *"
+alias rt='ctags -R --exclude=node_modules --exclude=.svn --exclude=.git --exclude=log --exclude=tmp *'
 
 alias short_prompt="export PS1='$ '"
 
@@ -41,7 +51,6 @@ alias short_prompt="export PS1='$ '"
 # alias lh='ls -lah'
 # alias ll='ls -lh'
 # alias la='ls -lAh'
-alias l="exa -la"
 
 alias fix="git diff --name-only | uniq | xargs vim"
 

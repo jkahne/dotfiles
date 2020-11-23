@@ -1,0 +1,56 @@
+
+example
+
+https://bluz71.github.io/2017
+/05/21/vim-plugins-i-like.html
+
+
+https://github.com/bluz71/dotfiles
+/blob/master/vim/cheat40.txt
+
+folding
+
+visual block inc numbers
+
+
+
+align stuff in tables
+consider using vim-lion instead
+
+Plug 'tommcdo/vim-lion'
+let g:lion_squeeze_spaces = 1
+
+
+
+Shift M  in search results
+
+my test shortcuts
+leader s
+leader r
+leader f
+leader a
+
+
+snippets, if I add them
+
+
+ale
+Plug 'w0rp/ale'
+let g:ale_fixers = {
+\  'css':        ['prettier'],
+\  'javascript': ['prettier-standard'],
+\  'json':       ['prettier'],
+\  'ruby':       ['standardrb'],
+\  'scss':       ['prettier'],
+\  'yml':        ['prettier']
+\}
+let g:ale_linters = {
+\  'css':        ['csslint'],
+\  'javascript': ['standard'],
+\  'json':       ['jsonlint'],
+\  'ruby':       ['standardrb'],
+\  'scss':       ['sasslint'],
+\  'yaml':       ['yamllint']
+\}
+let g:ale_linters_explicit = 1
+let g:ale_open_list        = 1
