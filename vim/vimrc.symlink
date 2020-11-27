@@ -1,90 +1,114 @@
-"bring in the bundles for mac and windows
 let mapleader = ','
 "set rtp+=~/vimfiles/vundle.git/
 "
-" call plug#begin()
 call plug#begin('~/.vim/plugged')
-" Plug xxx
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'junegunn/vim-easy-align'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
-" Plug 'ctrlpvim/ctrlp.vim'
 Plug 'tomtom/tcomment_vim'
 Plug 'vim-syntastic/syntastic'
-" Plug 'mileszs/ack.vim'
 Plug 'pangloss/vim-javascript'
 Plug 'maxmellon/vim-jsx-pretty'
 Plug 'eslint/eslint'
-
-" Plug 'ajh17/vimcompletesme'
-
 Plug 'majutsushi/tagbar'
 Plug 'dense-analysis/ale'
 Plug 'janko/vim-test'
 Plug 'tpope/vim-dispatch'
-" Plug 'unblevable/quick-scope'
-
 Plug 'lifepillar/vim-cheat40'
 let g:cheat40_use_default = 0
 
-" tabular is only included for vim-markdown
-" Plug 'godlygeek/tabular'
-" Plug 'plasticboy/vim-markdown'
+
+Plug 'posva/vim-vue'
+
+Plug 'tpope/vim-abolish'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'prettier/vim-prettier', {
+  \ 'do': 'yarn install',
+  \ 'for': [
+    \ 'javascript',
+    \ 'typescript',
+    \ 'css',
+    \ 'scss',
+    \ 'json',
+    \ 'graphql',
+    \ 'markdown',
+    \ 'vue',
+    \ 'ruby',
+    \ 'html' ] }
+Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf.vim'
+Plug 'dyng/ctrlsf.vim'
+Plug 'https://github.com/itspriddle/vim-marked.git'
+Plug 'tpope/vim-dadbod'
+Plug 'kristijanhusak/vim-dadbod-ui'
+Plug 'elixir-editors/vim-elixir'
+
+" Plug 'vim-ruby/vim-ruby'
+" let g:ruby_indent_assignment_style = 'variable'
+
 
 "Ale
-let b:ale_fixers = ['prettier', 'eslint']
+" let b:ale_fixers = ['prettier', 'eslint']
 " let b:ale_fixers = {'javascript': ['prettier', 'eslint']}
-"
-" Set this variable to 1 to fix files when you save them.
+
+let g:ale_fixers = {
+\   '*': ['remove_trailing_lines', 'trim_whitespace'],
+\   'javascript': ['prettier', 'eslint'],
+\   'css': ['prettier'],
+\   'ruby': ['standardrb']
+\}
+let g:ale_linters = {
+\  'javascript': ['prettier'],
+\  'ruby':       ['standardrb'],
+\}
+
+let g:ale_linters_explicit = 1
 let g:ale_fix_on_save = 1
 
 
-" Plug 'chiedo/vim-case-convert'
-Plug 'tpope/vim-abolish'
-
-Plug 'terryma/vim-multiple-cursors'
-" Plug 'mg979/vim-visual-multi'
-
-Plug 'prettier/vim-prettier'
-
-" Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
-" Plug 'junegunn/fzf.vim'
-Plug '/usr/local/opt/fzf'
-Plug 'junegunn/fzf.vim'
-
-Plug 'dyng/ctrlsf.vim'
-
-
-Plug 'https://github.com/itspriddle/vim-marked.git'
-
-
-" Plug 'SirVer/ultisnips'
-" Plug 'honza/vim-snippets'
-
-" Plug 'vimwiki/vimwiki'
-" Plug 'mmai/vim-markdown-wiki'
-"
-Plug 'tpope/vim-dadbod'
-Plug 'kristijanhusak/vim-dadbod-ui'
-
-Plug 'elixir-editors/vim-elixir'
-
-
-" Plug 'ap/vim-css-color'
+" let g:ale_fixers = {'vue': ['remove_trailing_lines', 'trim_whitespace']}
+" let g:ale_fix_on_save = 1
+" let g:ale_linter_aliases = {'vue': ['javascript', 'html', 'scss']}
 
 
 call plug#end()
 
 
-
-
 let g:dbs = {
-\  'dev': 'postgres://jkahne@localhost:5432/frayt_elixir_dev'
+\  'dev': 'postgres://jkahne@localhost:5432/krello_development'
 \ }
 
 
 
+
+augroup myfiletypes
+  " Clear old autocmds in group
+  autocmd!
+  " autoindent with two spaces, always expand tabs
+  autocmd FileType ruby,eruby,yaml setlocal ai sw=2 sts=2 et
+  autocmd FileType ruby,eruby,yaml setlocal path+=lib
+  " autocmd FileType ruby,eruby,yaml setlocal colorcolumn=80
+  " Make ?s part of words
+  autocmd FileType ruby,eruby,yaml setlocal iskeyword+=?
+  autocmd FileType ruby,eruby,yaml setlocal iskeyword+=@
+augroup END
+
+" By default, vim thinks .md is Modula-2.
+autocmd BufNewFile,BufReadPost *.md set filetype=markdown
+
+" Without this, vim breaks in the middle of words when wrapping
+autocmd FileType markdown setlocal nolist wrap lbr
+
+" " Wrap the quickfix window
+" autocmd FileType qf setlocal wrap linebreak
+
+" Don't automatically continue comments after newline
+autocmd BufNewFile,BufRead * setlocal formatoptions-=cro
+
+
+" Make it more obviouser when lines are too long
+" highlight ColorColumn ctermbg=235
 
 "ultisnips
 " " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
@@ -113,13 +137,98 @@ nmap <Leader>sf :TestFile<CR>
 nmap <Leader>sa :TestSuite<CR>
 nmap <Leader>sr :TestLast<CR>
 nmap <Leader>sv :TestVisit<CR>
+let g:rspec_command = "!clear && bin/rspec {spec}"
+
+
+
+" Don't wait so long for the next keypress (particularly in ambigious Leader
+" situations.
+set timeoutlen=500
+
+" Display extra whitespace
+set list listchars=tab:»·,trail:·
+
+" Make it more obvious which paren I'm on
+hi MatchParen cterm=none ctermbg=black ctermfg=yellow
+
+
+inoremap jj <Esc>
+inoremap jk <Esc>
+
+map j gj
+map k gk
+
+" shortcuts for frequenly used files
+nmap <Leader>gs :e db/schema.rb<cr>
+nmap <Leader>gr :e config/routes.rb<cr>
+nmap <Leader>gf :call OpenFactoryFile()<CR>
+imap cll console.log()<Esc>==f(a
+
+" copied over
+map <Leader>ac :sp app/controllers/application_controller.rb<cr>
+vmap <Leader>bed "td?describe<cr>obed<tab><esc>"tpkdd/end<cr>o<esc>:nohl<cr>
+" map <Leader>cu :Tabularize /\|<CR>
+map <Leader>fix :cnoremap % %<CR>
+" map <Leader>sn :UltiSnipsEdit<CR>
+
+" map <Leader>p :set paste<CR><esc>"*]p:set nopaste<cr>
+nnoremap <leader>p :r!pbpaste<cr>
+
+" nnoremap <leader>pr :Prettier<cr>
+
+map <Leader>dr :e ~/Dropbox<cr>
+" map <Leader>cn :e ~/Dropbox/n/notes/coding-notes.md<cr>
+" map <Leader>dj :e ~/Dropbox/n/notes/debugging-journal.md<cr>
+" map <Leader>nn :sp ~/Dropbox/n/notes/programming-notes.md<cr>
+map <Leader>sc :sp ~/Dropbox/n/notes/scratch.md<cr>
+
+
+" easy wrap toggling
+nmap <Leader>w :set wrap!<cr>
+nmap <Leader>W :set nowrap<cr>
+
+" edit and source .vimrc
+nnoremap <Leader>se :e ~/.vimrc<CR>
+nnoremap <Leader>so :so ~/.vimrc<CR>
+
+nnoremap gt :NERDTreeToggle<CR>
+nnoremap <Leader>gt :NERDTreeFind<CR>
+" nmap g :NERDTree \| NERDTreeToggle \| NERDTreeFind<CR>
+
+" EASY ALIGN
+nmap ga <Plug>(EasyAlign)
+xmap ga <Plug>(EasyAlign)
 
 
 
 
+" map spacebar to clear search highlight
+nnoremap <Leader><space> :noh<cr>
+" clean up trailing whitespace
+map <Leader>c :StripTrailingWhitespaces<cr>
+""""""""""""""""""""""""""""""""""""""
+" i could use [c, e, s, ;, space] as a custom leader key for maps.
+"   <leader>ca
+"   <leader>cb
+"   <leader>cc
+"   <leader><space>a
+"   <leader><space>b
+"   <leader><space>c
+""""""""""""""""""""""""""""""""""""""
 
 
-
+" " 'terryma/vim-multiple-cursors'
+" let g:multi_cursor_use_default_mapping=0
+"
+" " Default mapping
+" let g:multi_cursor_start_word_key      = '<C-n>'
+" let g:multi_cursor_select_all_word_key = '<A-n>'
+" let g:multi_cursor_start_key           = 'g<C-n>'
+" let g:multi_cursor_select_all_key      = 'g<A-n>'
+" let g:multi_cursor_next_key            = '<C-n>'
+" let g:multi_cursor_prev_key            = '<C-p>'
+" let g:multi_cursor_skip_key            = '<C-x>'
+" let g:multi_cursor_quit_key            = '<Esc>'
 
 
 
@@ -147,7 +256,7 @@ nmap <Leader>sv :TestVisit<CR>
 
 " Tagbar
 let g:tagbar_autofocus = 1
-map <Leader>rt :!ctags --extra=+f --exclude=node_modules/* --exclude=vendor/* -R *<CR><CR>
+map <Leader>rt :!ctags --extra=+f --exclude=node_modules/*  --exclude=.git/*  --exclude=vendor/* -R *<CR><CR>
 map <Leader>. :TagbarToggle<CR>
 
 let g:tagbar_type_ruby = {
@@ -197,13 +306,7 @@ let g:tagbar_type_elixir = {
 " let g:NERDTreeDirArrows=0
 " let g:NERDChristmasTree=1
 " let g:NERDTreeCascadeOpenSingleChildDir = 1
-nnoremap gt :NERDTreeToggle<CR>
-nnoremap <Leader>gt :NERDTreeFind<CR>
-" nmap g :NERDTree \| NERDTreeToggle \| NERDTreeFind<CR>
 
-" EASY ALIGN
-nmap ga <Plug>(EasyAlign)
-xmap ga <Plug>(EasyAlign)
 
 "SURROUND
 " # to surround with ruby string interpolation
@@ -218,18 +321,6 @@ let g:surround_61 = "<%= \r %>"
 
 
 
-" 'terryma/vim-multiple-cursors'
-let g:multi_cursor_use_default_mapping=0
-
-" Default mapping
-let g:multi_cursor_start_word_key      = '<C-n>'
-let g:multi_cursor_select_all_word_key = '<A-n>'
-let g:multi_cursor_start_key           = 'g<C-n>'
-let g:multi_cursor_select_all_key      = 'g<A-n>'
-let g:multi_cursor_next_key            = '<C-n>'
-let g:multi_cursor_prev_key            = '<C-p>'
-let g:multi_cursor_skip_key            = '<C-x>'
-let g:multi_cursor_quit_key            = '<Esc>'
 
 
 
@@ -241,6 +332,8 @@ nmap gm :MarkedOpen<CR>
 
 
 
+"   nmap g* :Ack! -w --ignore '/tmp' --ignore '*/fonts/*' --ignore '*/vendor/*'  --ignore '/public' --ignore '*/node_modules/'  --ignore '*/seed_scenarios/*' <C-R><C-W><space>
+
 " CtrlSF
 " nmap g* :CtrlSF -w --ignore '/tmp' --ignore '*/vendor/*'  --ignore '/public' --ignore '*/node_modules/'  --ignore '*/seed_scenarios/*' <C-R><C-W><space>
 nmap g* :CtrlSF <C-R><C-W><space>
@@ -249,62 +342,28 @@ nmap gl :CtrlSFToggle
 
 
 let g:ctrlsf_ackprg = 'rg' "'/usr/local/bin/ag'
-" let g:ctrlsf_position = 'bottom'
+" " let g:ctrlsf_position = 'bottom'
+
 let g:ctrlsf_default_view_mode = 'compact'
-let g:ctrlsf_auto_close = {
-  \ "normal" : 0,
-  \ "compact": 0
-  \ }
+" let g:ctrlsf_auto_close = {
+"   \ "normal" : 0,
+"   \ "compact": 0
+"   \ }
+
 let g:ctrlsf_auto_focus = {
   \ "at" : "start"
   \ }
 
-let g:ctrlsf_mapping = {
-    \ "next": "n",
-    \ "prev": "N"
-    \ }
+" let g:ctrlsf_mapping = {
+"     \ "next": "n",
+"     \ "prev": "N"
+"     \ }
 
 
 
 
 
-" CTRLP
-" nmap <Leader>t :CtrlP<CR>
-" nmap <Leader>b :CtrlPBuffer<CR>
-" nmap <Leader>m :CtrlPBufTag<CR>
-" nmap <Leader>mm :CtrlPBufTagAll<CR>
-" nmap <Leader>y :CtrlPBufTagAll<CR>
 set wildignore+=*/tmp/*,*/vendor/ruby/*,*/seed_scenarios/*,*/node_modules/*,*.swp,*.zip
-
-
-" AG aka The Silver Searcher
-" if executable('ag')
-"   " don't leak searches to terminal
-"   set shellpipe=>
-"
-"   "  let g:ackprg = 'ag --nogroup --nocolor --column'
-"   " let g:ackprg = 'ag --vimgrep' " same thing as above, supposedly
-"   let g:ackprg = 'ag --vimgrep'
-"   "  let g:ackprg = 'ag --vimgrep --smart-case'
-"   " cnoreabbrev ag Ack
-"   " cnoreabbrev aG Ack
-"   " cnoreabbrev Ag Ack
-"   " cnoreabbrev AG Ack
-"
-"   nmap g/ :Ack!<space>
-"   nmap g* :Ack! -w --ignore '/tmp' --ignore '*/fonts/*' --ignore '*/vendor/*'  --ignore '/public' --ignore '*/node_modules/'  --ignore '*/seed_scenarios/*' <C-R><C-W><space>
-"   nmap gn :cnext<CR>
-"   nmap gp :cprev<CR>
-"
-"   let g:ack_mappings = {
-"         \ "t": "<C-W><CR><C-W>T",
-"         \ "T": "<C-W><CR><C-W>TgT<C-W>j",
-"         \ "o": "<CR>",
-"         \ "O": "<CR><C-W><C-W>:ccl<CR>",
-"         \ "go": "<CR><C-W>j",
-"         \ "h": "<Left>" }
-"
-" endif
 
 
 " vim-syntastic/syntastic
@@ -324,26 +383,6 @@ let g:syntastic_quiet_messages = {'level': 'warnings'}
 autocmd Filetype gitcommit setlocal textwidth=72
 
 
-" ruby path if you are using rbenv
-" let g:ruby_path = system('echo $HOME/.rbenv/shims')
-
-" let g:loaded_netrw       = 1
-" let g:loaded_netrwPlugin = 1
-
-" autocmd WinEnter * call s:CloseIfOnlyNerdTreeLeft()
-
-" Close all open buffers on entering a window if the only
-" buffer that's left is the NERDTree buffer
-" function! s:CloseIfOnlyNerdTreeLeft()
-"  if exists("t:NERDTreeBufName")
-"    if bufwinnr(t:NERDTreeBufName) != -1
-"      if winnr("$") == 1
-"        q
-"       endif
-"     endif
-"   endif
-" endfunction
-
 " Strip trailing whitespace
 function! <SID>StripTrailingWhitespaces()
 " Preparation: save last search, and cursor position.
@@ -357,6 +396,27 @@ function! <SID>StripTrailingWhitespaces()
     call cursor(l, c)
 endfunction
 command! StripTrailingWhitespaces call <SID>StripTrailingWhitespaces()
+
+
+function! OpenFactoryFile()
+  if filereadable("test/factories.rb")
+    execute ":e test/factories.rb"
+  else
+    execute ":e spec/factories.rb"
+  end
+endfunction
+
+
+function! RenameFile()
+  let old_name = expand('%')
+  let new_name = input('New file name: ', expand('%'), 'file')
+  if new_name != '' && new_name != old_name
+    exec ':saveas ' . new_name
+    exec ':silent !rm ' . old_name
+    redraw!
+  endif
+endfunction
+map <Leader>n :call RenameFile()<cr>
 
 
 " required for several plugins
@@ -479,15 +539,6 @@ au FocusGained,BufEnter * :checktime
 " let vimclojure#ParenRainbow  = 1
 
 
-inoremap jj <Esc>
-inoremap jk <Esc>
-
-map j gj
-map k gk
-
-" easy wrap toggling
-nmap <Leader>w :set wrap!<cr>
-nmap <Leader>W :set nowrap<cr>
 
 " close all other windows (in the current tab)
 " nmap gW :only<cr>
@@ -495,9 +546,6 @@ nmap <Leader>W :set nowrap<cr>
 " go to the alternate file (previous buffer) with g-enter
 " nmap g
 
-" shortcuts for frequenly used files
-nmap gs :e db/schema.rb<cr>
-nmap gr :e config/routes.rb<cr>
 
 " insert blank lines without going into insert mode
 nmap go o<esc>
@@ -516,15 +564,13 @@ nmap <C-L> <C-W>l
 " nmap gr :Rexplore<CR>
 "
 
-" edit and source .vimrc
-nnoremap <Leader>ev :e ~/.vimrc<CR>
-nnoremap <Leader>sv :so ~/.vimrc<CR>
 
 set listchars=tab:→\ ,eol:↲,nbsp:␣,trail:✗,space:·
 nnoremap <Leader>sl :set list!<CR>
 
 " shortcut for =>
 inoremap <C-l> <Space>=><Space>
+
 
 
 
@@ -550,19 +596,6 @@ nnoremap vv `[V`]
 "  'p' to paste, 'gv' to re-select what was originally selected. 'y' to copy it again
 xnoremap p pgvy
 
-" map spacebar to clear search highlight
-nnoremap <Leader><space> :noh<cr>
-" clean up trailing whitespace
-map <Leader>c :StripTrailingWhitespaces<cr>
-""""""""""""""""""""""""""""""""""""""
-" i could use [c, e, s, ;, space] as a custom leader key for maps.
-"   <leader>ca
-"   <leader>cb
-"   <leader>cc
-"   <leader><space>a
-"   <leader><space>b
-"   <leader><space>c
-""""""""""""""""""""""""""""""""""""""
 
 
 " delete all buffers
@@ -590,12 +623,11 @@ imap <silent> <C-T><C-T> <C-R>=strftime("%l:%M %p")<CR>
 
 
 " while in insert mode, use ctrl + direction to move cursor
-" inoremap <C-u> <esc>{i
-" inoremap <C-d> <esc>}i
-" inoremap <C-k> <Up>
-" inoremap <C-j> <Down>
+inoremap <C-k> <Up>
+inoremap <C-j> <Down>
 inoremap <C-h> <Left>
 inoremap <C-l> <Right>
+
 
 " reindent the entire file
 map <Leader>I gg=G``<cr>
@@ -608,8 +640,6 @@ map <Leader>I gg=G``<cr>
 " inoremap "" ""<Left>
 " inoremap '' ''<Left>
 " inoremap `` ``<Left>
-
-
 
 " nnoremap <Leader>ss :mksession! ~/.dotfiles/vim/sessions/
 " nnoremap <Leader>os :source ~/.dotfiles/vim/sessions/
@@ -707,7 +737,7 @@ nmap <Leader>< :tabprevious<CR>
 nmap <Leader>T :tabnew<CR>
 " nnoremap <Leader>gt <C-w><C-]><C-w>T
 
-nnoremap <leader>p :r!pbpaste<cr>
+" nnoremap <leader>p :r!pbpaste<cr>
 let loaded_matchparen = 0
 
 autocmd BufWritePost * if &diff == 1 | diffupdate | endif

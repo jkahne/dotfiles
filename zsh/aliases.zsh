@@ -8,8 +8,8 @@ alias bu="b update"
 alias be="bundle exec"
 alias binit="bi && b package && echo 'vendor/ruby' >> .gitignore"
 
-alias aliases="vim ~/.dotfiles/zsh/aliases.zsh"
-alias d="cd ~/.dotfiles && vim"
+alias al="vim ~/.dotfiles/zsh/aliases.zsh"
+alias d="cd ~/.dotfiles && vim ~/.dotfiles/vim/vimrc.symlink"
 alias gratitude='vim ~/Dropbox/n/notes/gratitude.md'
 alias notes="cd ~/Dropbox/n/notes ; vim ."
 alias om="overmind start -f Procfile.dev"
@@ -20,7 +20,8 @@ alias so='source ~/.dotfiles/zsh/aliases'
 alias squash='git rebase -i master'
 alias sync='git add -u . && git commit -m "Minor changes. Commit message skipped." && git pull --rebase && git push'
 alias start='vim ~/Dropbox/n/notes/day-start-checklist.md'
-alias worknotes='vim ~/Dropbox/n/notes/worknotes.md'
+alias pn='vim ~/Dropbox/n/notes/project-notes.md'
+alias format='be standardrb --fix; npm run pretty;'
 
 # alias st="tag --add starred ."
 # alias un="tag --add up next ."
