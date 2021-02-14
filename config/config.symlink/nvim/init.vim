@@ -5,6 +5,10 @@
 
 let mapleader = ','
 
+" needs to be set before polyglot is loaded
+let g:polyglot_disabled = ['markdown']
+let g:polyglot_disabled = ['autoindent']
+
 call plug#begin('~/.vim/plugged')
 Plug 'editorconfig/editorconfig-vim'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
@@ -14,6 +18,10 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-speeddating'
 Plug 'tomtom/tcomment_vim'
 Plug 'vim-syntastic/syntastic'
+Plug 'tpope/vim-vinegar'
+Plug 'easymotion/vim-easymotion'
+Plug 'justinmk/vim-sneak'
+Plug 'mhinz/vim-signify'
 " Plug 'pangloss/vim-javascript'
 " Plug 'maxmellon/vim-jsx-pretty'
 " Plug 'eslint/eslint'
@@ -21,8 +29,8 @@ Plug 'majutsushi/tagbar'
 Plug 'dense-analysis/ale'
 Plug 'janko/vim-test'
 Plug 'tpope/vim-dispatch'
-Plug 'lifepillar/vim-cheat40'
-let g:cheat40_use_default = 0
+" Plug 'lifepillar/vim-cheat40'
+" let g:cheat40_use_default = 0
 
 
 " Plug 'posva/vim-vue'
@@ -46,11 +54,24 @@ Plug 'dyng/ctrlsf.vim'
 Plug 'https://github.com/itspriddle/vim-marked.git'
 Plug 'tpope/vim-dadbod'
 Plug 'kristijanhusak/vim-dadbod-ui'
+Plug 'sheerun/vim-polyglot'
 " Plug 'elixir-editors/vim-elixir' "looking for new maintainers.  if end up needing this, look for alts
 
 " " Plug 'vim-ruby/vim-ruby'
 " " let g:ruby_indent_assignment_style = 'variable'
 
+
+"vim-easymotion
+" map  <Leader>gl <Plug>(easymotion-bd-f)
+" nmap <Leader>gl <Plug>(easymotion-overwin-f)
+" map <Leader>L <Plug>(easymotion-bd-jk)
+" nmap <Leader>L <Plug>(easymotion-overwin-line)
+map  <Leader>gg <Plug>(easymotion-bd-w)
+nmap <Leader>gg <Plug>(easymotion-overwin-w)
+
+
+"sneak
+let g:sneak#label = 1
 
 "Ale
 "let b:ale_fixers = ['prettier', 'eslint']
@@ -96,11 +117,9 @@ nmap <Leader>gf :call OpenFactoryFile()<CR>
 
 
 
-
-
 " copied over
 map <Leader>ac :sp app/controllers/application_controller.rb<cr>
-vmap <Leader>bed "td?describe<cr>obed<tab><esc>"tpkdd/end<cr>o<esc>:nohl<cr>
+" vmap <Leader>bed "td?describe<cr>obed<tab><esc>"tpkdd/end<cr>o<esc>:nohl<cr>
 " map <Leader>cu :Tabularize /\|<CR>
 map <Leader>fix :cnoremap % %<CR>
 " map <Leader>sn :UltiSnipsEdit<CR>
@@ -110,11 +129,12 @@ nnoremap <leader>p :r!pbpaste<cr>
 
 " nnoremap <leader>pr :Prettier<cr>
 
-map <Leader>dr :e ~/Dropbox<cr>
+" map <Leader>dr :e ~/Dropbox<cr>
 " map <Leader>cn :e ~/Dropbox/n/notes/coding-notes.md<cr>
 " map <Leader>dj :e ~/Dropbox/n/notes/debugging-journal.md<cr>
 " map <Leader>nn :sp ~/Dropbox/n/notes/programming-notes.md<cr>
-map <Leader>sc :sp ~/Dropbox/n/notes/scratch.md<cr>
+map <Leader>ns :sp ~/Dropbox/n/notes/scratch.md<cr>
+map <Leader>nv :sp ~/Dropbox/n/notes/vimnotes.md<cr>
 
 
 " easy wrap toggling
