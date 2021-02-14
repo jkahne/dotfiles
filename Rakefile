@@ -1,32 +1,31 @@
-require 'rake'
-require 'fileutils'
+require "rake"
+require "fileutils"
 
 def git_clone(repo, target)
   path = translate_path(target)
   puts path
-  FileUtils.rm_rf(path) if File.exists?(path)
+  FileUtils.rm_rf(path) if File.exist?(path)
   `git clone ""#{repo}"" "#{target}"`
 end
 
 def curl(repo, target)
-    # curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  # curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   path = translate_path(target)
   puts path
-  FileUtils.rm_rf(path) if File.exists?(path)
+  FileUtils.rm_rf(path) if File.exist?(path)
   `curl -fLo "#{repo}" --create-dirs "#{target}"`
 end
 
 def self.translate_path(path)
-  if path[0].chr === '~'
-    path[0] = ENV['HOME']
+  if path[0].chr === "~"
+    path[0] = ENV["HOME"]
   end
   path
 end
 
-
 desc "Hook our dotfiles into system-standard positions."
 task :symlink do
-  linkables = Dir.glob('*/**{.symlink}', File::FNM_DOTMATCH)
+  linkables = Dir.glob("*/**{.symlink}", File::FNM_DOTMATCH)
 
   skip_all = false
   overwrite_all = false
@@ -36,19 +35,19 @@ task :symlink do
     overwrite = false
     backup = false
 
-    file = linkable.split('/').last.split('.symlink').last
+    file = linkable.split("/").last.split(".symlink").last
     target = "#{ENV["HOME"]}/.#{file}"
 
-    if File.exists?(target) || File.symlink?(target)
+    if File.exist?(target) || File.symlink?(target)
       unless skip_all || overwrite_all || backup_all
         puts "File already exists: #{target}, what do you want to do? [s]kip, [S]kip all, [o]verwrite, [O]verwrite all, [b]ackup, [B]ackup all"
         case STDIN.gets.chomp
-        when 'o' then overwrite = true
-        when 'b' then backup = true
-        when 'O' then overwrite_all = true
-        when 'B' then backup_all = true
-        when 'S' then skip_all = true
-        when 's' then next
+        when "o" then overwrite = true
+        when "b" then backup = true
+        when "O" then overwrite_all = true
+        when "B" then backup_all = true
+        when "S" then skip_all = true
+        when "s" then next
         end
       end
       FileUtils.rm_rf(target) if overwrite || overwrite_all
@@ -59,10 +58,8 @@ task :symlink do
 end
 
 task :unsymlink do
-
-  Dir.glob('**/*.symlink').each do |linkable|
-
-    file = linkable.split('/').last.split('.symlink').last
+  Dir.glob("**/*.symlink").each do |linkable|
+    file = linkable.split("/").last.split(".symlink").last
     target = "#{ENV["HOME"]}/.#{file}"
 
     # Remove all symlinks created during installation
@@ -71,35 +68,25 @@ task :unsymlink do
     end
 
     # Replace any backups made during installation
-    if File.exists?("#{ENV["HOME"]}/.#{file}.backup")
+    if File.exist?("#{ENV["HOME"]}/.#{file}.backup")
       `mv "$HOME/.#{file}.backup" "$HOME/.#{file}"`
     end
-
   end
 end
 
 desc "Install Plug for vim plugins"
 task :plug do
-  target = "#{ENV["HOME"]}/.vim/autoload/plug.vim"
-  curl('https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim', target)
+  target = "#{ENV["HOME"]}/.config/nvim/autoload/plug.vim"
+  curl("https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim", target)
   puts "Please run the command PlugInstall from Vim to install plugins...this will take a couple minutes."
   # `vim +PlugInstall`
   # puts "vim plugins installed."
 end
 
-desc "Install vundle for vim plugins"
-task :vundle do
-  target = "#{ENV["HOME"]}/.vim/vundle.git"
-  git_clone('http://github.com/gmarik/vundle.git', target)
-  puts "Running BundleInstall to install plugins...this will take a couple minutes."
-  `vim +BundleInstall +qall`
-  puts "vim plugins installed."
-end
-
 desc "Install everything"
 task :install do
-  Rake::Task['symlink'].execute
-  Rake::Task['plug'].execute
+  Rake::Task["symlink"].execute
+  Rake::Task["plug"].execute
 end
 
-task :default => 'install'
+task default: "install"

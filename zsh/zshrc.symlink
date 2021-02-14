@@ -4,7 +4,7 @@ export EDITOR='vim'
 
 export ARCHFLAGS='-arch x86_64'
 export NODEJS_CHECK_SIGNATURES="no"
-export LDFLAGS="-L/usr/local/opt/libffi/lib" 
+export LDFLAGS="-L/usr/local/opt/libffi/lib"
 export PKG_CONFIG_PATH="/usr/local/opt/libffi/lib/pkgconfig"
 export ERL_AFLAGS="-kernel shell_history enabled"
 # export RUBYOPT='-W:no-deprecated -W:no-experimental'
@@ -75,8 +75,8 @@ export PATH="/usr/local/opt/openssl@1.1/bin:$PATH"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-gunc() { 
-  git reset @~ "$@" && git commit --amend --no-edit 
+gunc() {
+  git reset @~ "$@" && git commit --amend --no-edit
 }
 
 

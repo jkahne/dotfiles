@@ -8,20 +8,23 @@ alias bu="b update"
 alias be="bundle exec"
 alias binit="bi && b package && echo 'vendor/ruby' >> .gitignore"
 
-alias al="vim ~/.dotfiles/zsh/aliases.zsh"
-alias d="cd ~/.dotfiles && vim ~/.dotfiles/vim/vimrc.symlink"
-alias gratitude='vim ~/Dropbox/n/notes/gratitude.md'
-alias notes="cd ~/Dropbox/n/notes ; vim ."
+# alias ant="JAVA_HOME=/Users/jkahne/.asdf/installs/java/adoptopenjdk-8.0.232+9.1 ant"
+
+alias vim="nvim"
+alias d="cd ~/.dotfiles && vim ~/.dotfiles/config/config.symlink/nvim/init.vim"
+# alias gratitude='vim ~/Dropbox/n/notes/gratitude.md'
+# alias notes="cd ~/Dropbox/n/notes ; vim ."
 alias om="overmind start -f Procfile.dev"
-alias onboard='vim ~/Dropbox/n/notes/onboarding.md'
+# alias onboard='vim ~/Dropbox/n/notes/onboarding.md'
 alias postmaster="brew services stop postgres; cd /usr/local/var/postgres; rm postmaster.pid; cd -; brew services start postgres;"
-alias retro='vim ~/Dropbox/n/notes/retro.md'
-alias so='source ~/.dotfiles/zsh/aliases'
+# alias retro='vim ~/Dropbox/n/notes/retro.md'
+alias aso='source ~/.dotfiles/zsh/aliases.zsh'
 alias squash='git rebase -i master'
 alias sync='git add -u . && git commit -m "Minor changes. Commit message skipped." && git pull --rebase && git push'
 alias start='vim ~/Dropbox/n/notes/day-start-checklist.md'
 alias pn='vim ~/Dropbox/n/notes/project-notes.md'
 alias format='be standardrb --fix; npm run pretty;'
+alias jsontidy="pbpaste | jq '.' | pbcopy"
 
 # alias st="tag --add starred ."
 # alias un="tag --add up next ."
@@ -40,7 +43,8 @@ alias ....="cd ../../.."
 alias .....="cd ../../../.."
 alias ......="cd ../../../../.."
 alias .......="cd ../../../../../.."
-alias rt='ctags -R --exclude=node_modules --exclude=.svn --exclude=.git --exclude=log --exclude=tmp *'
+alias rt='ctags -R --exclude=node_modules --exclude=vendor --exclude=.svn --exclude=.git --exclude=log --exclude=tmp * '
+
 
 alias short_prompt="export PS1='$ '"
 

@@ -1,16 +1,11 @@
+## folding
 
-example
+Shift+tab = toggle fold
+zc = close 
+zC = close recursively
+zo = open
+zO = open recursively
 
-https://bluz71.github.io/2017
-/05/21/vim-plugins-i-like.html
-
-
-https://github.com/bluz71/dotfiles
-/blob/master/vim/cheat40.txt
-
-folding
-
-visual block inc numbers
 
 
 

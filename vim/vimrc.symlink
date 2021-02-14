@@ -92,6 +92,11 @@ augroup myfiletypes
   " Make ?s part of words
   autocmd FileType ruby,eruby,yaml setlocal iskeyword+=?
   autocmd FileType ruby,eruby,yaml setlocal iskeyword+=@
+
+  autocmd FileType typescript setlocal ai sw=4 sts=4 et
+  autocmd FileType typescript setlocal path+=lib
+  autocmd FileType typescript setlocal iskeyword+=?
+  autocmd FileType typescript setlocal iskeyword+=@
 augroup END
 
 " By default, vim thinks .md is Modula-2.
@@ -132,12 +137,13 @@ autocmd BufNewFile,BufRead * setlocal formatoptions-=cro
 " nmap <silent> t<C-l> :TestLast<CR>
 " nmap <silent> t<C-g> :TestVisit<CR>
 " let test#strategy = "dispatch"
-nmap <Leader>ss :TestNearest<CR>
+nmap <Leader>sn :TestNearest<CR>
 nmap <Leader>sf :TestFile<CR>
 nmap <Leader>sa :TestSuite<CR>
-nmap <Leader>sr :TestLast<CR>
+nmap <Leader>ss :TestLast<CR>
 nmap <Leader>sv :TestVisit<CR>
-let g:rspec_command = "!clear && bin/rspec {spec}"
+" let g:rspec_command = "!clear && bin/rspec {spec}"
+let g:rspec_command = "!clear && rake test {spec}"
 
 
 
@@ -157,6 +163,10 @@ inoremap jk <Esc>
 
 map j gj
 map k gk
+
+
+" TODO make a keymap for the
+" :%!cat -s     compresses multiple blank lines into just one
 
 " shortcuts for frequenly used files
 nmap <Leader>gs :e db/schema.rb<cr>
@@ -256,7 +266,7 @@ map <Leader>c :StripTrailingWhitespaces<cr>
 
 " Tagbar
 let g:tagbar_autofocus = 1
-map <Leader>rt :!ctags --extra=+f --exclude=node_modules/*  --exclude=.git/*  --exclude=vendor/* -R *<CR><CR>
+map <Leader>rt :!ctags -R --exclude=node_modules --exclude=vendor --exclude=.svn --exclude=.git --exclude=log --exclude=tmp  *<CR><CR>
 map <Leader>. :TagbarToggle<CR>
 
 let g:tagbar_type_ruby = {
@@ -441,6 +451,8 @@ set scrolloff=4 sidescrolloff=10
 " use 2 spaces for tabs
 set expandtab tabstop=2 softtabstop=2 shiftwidth=2
 set smarttab
+" TODO  round indentions of 3, 5, etc  to a multiple of 2
+" set shiftround=2
 
 " enable line numbers, and don't make them any wider than necessary
 " set rnu numberwidth=2
@@ -673,8 +685,13 @@ set linebreak
 set nolist  " list disables linebreak
 set lazyredraw
 " set foldcolumn=2
-" set foldmethod=indent
-" set foldlevel=10
+set foldmethod=indent
+set foldlevel=5
+
+nnoremap <s-tab> za
+
+" Avoid unintentional switches to Ex mode
+nmap Q q
 
 
 " let g:ctrlp_max_files=0
