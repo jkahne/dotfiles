@@ -16,12 +16,15 @@ Plug 'junegunn/vim-easy-align'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-speeddating'
-Plug 'tomtom/tcomment_vim'
+" Plug 'tomtom/tcomment_vim'
+Plug 'tpope/vim-commentary'
 Plug 'vim-syntastic/syntastic'
 Plug 'tpope/vim-vinegar'
 Plug 'easymotion/vim-easymotion'
 Plug 'justinmk/vim-sneak'
 Plug 'mhinz/vim-signify'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Plug 'kevinoid/vim-jsonc'
 " Plug 'pangloss/vim-javascript'
 " Plug 'maxmellon/vim-jsx-pretty'
 " Plug 'eslint/eslint'
@@ -29,6 +32,7 @@ Plug 'majutsushi/tagbar'
 Plug 'dense-analysis/ale'
 Plug 'janko/vim-test'
 Plug 'tpope/vim-dispatch'
+Plug 'tpope/vim-endwise'
 " Plug 'lifepillar/vim-cheat40'
 " let g:cheat40_use_default = 0
 
@@ -61,17 +65,11 @@ Plug 'sheerun/vim-polyglot'
 " " let g:ruby_indent_assignment_style = 'variable'
 
 
-"vim-easymotion
-" map  <Leader>gl <Plug>(easymotion-bd-f)
-" nmap <Leader>gl <Plug>(easymotion-overwin-f)
-" map <Leader>L <Plug>(easymotion-bd-jk)
-" nmap <Leader>L <Plug>(easymotion-overwin-line)
-map  <Leader>gg <Plug>(easymotion-bd-w)
-nmap <Leader>gg <Plug>(easymotion-overwin-w)
 
 
-"sneak
-let g:sneak#label = 1
+call plug#end()
+
+
 
 "Ale
 "let b:ale_fixers = ['prettier', 'eslint']
@@ -97,7 +95,94 @@ let g:ale_fix_on_save = 1
 " let g:ale_linter_aliases = {'vue': ['javascript', 'html', 'scss']}
 
 
-call plug#end()
+"COC
+" https://github.com/neoclide/coc.nvim/wiki/Using-coc-extensions
+let g:coc_global_extensions = ['coc-json',
+\ 'coc-git',
+\ 'coc-solargraph',
+\ 'coc-elixir',
+\ 'coc-html' ,
+\ 'coc-css',
+\ 'coc-tsserver',
+\ 'coc-omnisharp'
+\]
+
+" \ 'coc-emmet',
+" \ 'coc-fzf-preview',
+
+
+" Use tab for trigger completion with characters ahead and navigate.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+
+" Close the documentation window when completion is done
+autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+
+
+
+" Using CocList
+" Show all diagnostics
+nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+" Manage extensions
+nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
+" Show commands
+nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
+" Find symbol of current document
+nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+" Search workspace symbols
+nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
+" Do default action for next item.
+nnoremap <silent> <space>j  :<C-u>CocNext<CR>
+" Do default action for previous item.
+nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
+" Resume latest coc list
+nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" " GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+set updatetime=300
+
+" Highlight symbol under cursor on CursorHold
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Remap for rename current word
+nmap <leader>rn <Plug>(coc-rename)
+
+
+"vim-easymotion
+" map  <Leader>gl <Plug>(easymotion-bd-f)
+" nmap <Leader>gl <Plug>(easymotion-overwin-f)
+" map <Leader>L <Plug>(easymotion-bd-jk)
+" nmap <Leader>L <Plug>(easymotion-overwin-line)
+map  <Leader>gg <Plug>(easymotion-bd-w)
+nmap <Leader>gg <Plug>(easymotion-overwin-w)
+let g:EasyMotion_smartcase = 1
+
+
+"sneak
+let g:sneak#label = 1
+
+
 
 
 let g:dbs = {
@@ -170,6 +255,9 @@ nnoremap <Leader>cv :CompressBlankLines<cr>
 nnoremap <Leader>cc :StripTrailingWhitespaces<cr>
 
 
+nnoremap <UP> <C-u>
+nnoremap <DOWN> <C-d>
+
 
 " use 2 spaces for tabs
 set expandtab tabstop=2 softtabstop=2 shiftwidth=2
@@ -178,6 +266,9 @@ set smarttab
 augroup myfiletypes
   " Clear old autocmds in group
   autocmd!
+
+  autocmd FileType json syntax match Comment +\/\/.\+$+
+
   " autoindent with two spaces, always expand tabs
   autocmd FileType ruby,eruby,yaml setlocal ai sw=2 sts=2 et
   autocmd FileType ruby,eruby,yaml setlocal path+=lib
@@ -470,6 +561,19 @@ set incsearch
 " highlight the search matches
 set hlsearch
 
+set cursorline
+"CursorLine only on active pane
+augroup CursorLineHighlight
+  au!
+  au WinEnter * set cursorline
+  au WinLeave * set nocursorline
+augroup end
+
+"Don't create swap files
+set nobackup
+set nowritebackup
+set noswapfile
+
 " searching is case insensitive when all lowercase
 set ignorecase smartcase
 
@@ -573,7 +677,7 @@ set nolist  " list disables linebreak
 set lazyredraw
 " set foldcolumn=2
 set foldmethod=indent
-set foldlevel=5
+set foldlevel=15
 
 autocmd BufWritePost * if &diff == 1 | diffupdate | endif
 
@@ -661,3 +765,22 @@ function! ETry(function, ...)
   endif
 endfunction
 set statusline=[%n]\ %<%.99f\ %h%w%m%r%{ETry('CapsLockStatusline')}%y%{ETry('rails#statusline')}%{ETry('fugitive#statusline')}%#ErrorMsg#%*%=%-16(\ %l,%c-%v\ %)%P
+
+
+
+"Automatically reload changed files
+augroup reload
+  au!
+  au FocusGained * :checktime
+augroup end
+let g:signify_update_on_bufenter = 1
+let g:signify_update_on_focusgained = 1
+
+
+
+"Autocomplete
+" let g:user_emmet_settings = {
+" \  'javascript' : {
+" \    'extends' : 'jsx',
+" \  },
+" \}
