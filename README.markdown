@@ -52,3 +52,13 @@ There's a few special files in the hierarchy.
 - If you install the excellent [rbenv](https://github.com/sstephenson/rbenv) to
   manage multiple rubies, your current branch will show up in the prompt. Bonus.
 
+
+## Manual Installation Steps
+
+- App store installs
+- OSX Setup
+- iCloud
+- 1Password setup
+- Alfred setup
+- Keyboard Maestro setup
+- Github
