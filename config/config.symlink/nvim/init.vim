@@ -16,7 +16,6 @@ Plug 'junegunn/vim-easy-align'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-speeddating'
-" Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-markdown'
 Plug 'vim-syntastic/syntastic'
@@ -35,15 +34,13 @@ Plug 'janko/vim-test'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-endwise'
 Plug 'ludovicchabant/vim-gutentags'
-" Plug 'lifepillar/vim-cheat40'
-" let g:cheat40_use_default = 0
 
 
 Plug 'AndrewRadev/splitjoin.vim'
 " Plug 'posva/vim-vue'
 
-" Plug 'tpope/vim-abolish'
-" Plug 'terryma/vim-multiple-cursors'
+Plug 'tpope/vim-abolish'
+Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'prettier/vim-prettier', {
   \ 'do': 'yarn install',
   \ 'for': [
@@ -72,6 +69,26 @@ Plug 'sheerun/vim-polyglot'
 
 call plug#end()
 
+
+
+" vim-visual-multi
+nmap   <C-LeftMouse>         <Plug>(VM-Mouse-Cursor)
+nmap   <C-RightMouse>        <Plug>(VM-Mouse-Word)
+nmap   <M-C-RightMouse>      <Plug>(VM-Mouse-Column)
+
+
+" vim-abolish
+"Want to turn fooBar into foo_bar? Press
+"crs (coerce to snake_case).
+" MixedCase (crm),
+" camelCase (crc),
+" snake_case (crs),
+" UPPER_CASE (cru),
+" MixedCase (crm),
+" dash-case (cr-),
+" dot.case (cr.),
+" space case (cr<space>),
+" and Title Case (crt) are all just 3 keystrokes away
 
 
 "Ale
@@ -309,8 +326,8 @@ nnoremap <Leader>cc :StripTrailingWhitespaces<cr>
 
 
 " scroll the viewport faster
-nnoremap <UP> <C-u>
-nnoremap <DOWN> <C-d>
+" nnoremap <UP> <C-u>
+" nnoremap <DOWN> <C-d>
 nnoremap <C-e> 3<C-e>
 nnoremap <C-y> 3<C-y>
 
@@ -586,7 +603,7 @@ let g:ctrlsf_search_mode = 'async'
 
 let g:ctrlsf_auto_close = {
     \ "normal" : 1,
-    \ "compact": 1
+    \ "compact": 0
     \}
 
 

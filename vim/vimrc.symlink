@@ -657,8 +657,8 @@ map <Leader>I gg=G``<cr>
 " nnoremap <Leader>os :source ~/.dotfiles/vim/sessions/
 " nnoremap <Leader>rs :!rm ~/.dotfiles/vim/sessions/
 
-set undodir=~/.vim/undodir
-set undofile
+" set undodir=~/.vim/undodir
+" set undofile
 set clipboard+=unnamed
 " set rtp+=/usr/local/opt/fzf
 "
