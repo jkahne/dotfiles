@@ -1,4 +1,7 @@
 {
-  "suggest.enablePreselect": true,
-  "git.enableGutters": true
+  // "suggest.enablePreselect": true,
+  "git.enableGutters": true,
+  "suggest.autoTrigger": "trigger",
+  "coc.source.file.triggerCharacters": ["."],
+  "suggest.triggerCompletionWait": 500
 }

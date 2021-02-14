@@ -18,6 +18,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-speeddating'
 " Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-markdown'
 Plug 'vim-syntastic/syntastic'
 Plug 'tpope/vim-vinegar'
 Plug 'easymotion/vim-easymotion'
@@ -33,10 +34,12 @@ Plug 'dense-analysis/ale'
 Plug 'janko/vim-test'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-endwise'
+Plug 'ludovicchabant/vim-gutentags'
 " Plug 'lifepillar/vim-cheat40'
 " let g:cheat40_use_default = 0
 
 
+Plug 'AndrewRadev/splitjoin.vim'
 " Plug 'posva/vim-vue'
 
 " Plug 'tpope/vim-abolish'
@@ -83,19 +86,34 @@ let g:ale_fixers = {
 " \   'css': ['prettier'],
 let g:ale_linters = {
 \  'ruby':       ['standardrb'],
+\  'cs':       ['OmniSharp']
 \}
 " \  'javascript': ['prettier'],
 
 let g:ale_linters_explicit = 1
 let g:ale_fix_on_save = 1
 
+let g:ale_sign_error = '❌'
+let g:ale_sign_warning = '⚠️'
 
 " let g:ale_fixers = {'vue': ['remove_trailing_lines', 'trim_whitespace']}
-" let g:ale_fix_on_save = 1
 " let g:ale_linter_aliases = {'vue': ['javascript', 'html', 'scss']}
 
 
-"COC
+" enable fenced code block syntax highlighting in your markdown
+let g:markdown_fenced_languages = ['html', 'css', 'javascript', 'typescript', 'elixir', 'ruby', 'bash=sh']
+" Syntax highlight in fenced code block
+let g:markdown_minlines = 100
+
+
+
+"vim-fugitive
+" nmap <silent> <leader>gs :Gstatus<cr>
+
+
+
+
+" #COC {{{
 " https://github.com/neoclide/coc.nvim/wiki/Using-coc-extensions
 let g:coc_global_extensions = ['coc-json',
 \ 'coc-git',
@@ -109,7 +127,6 @@ let g:coc_global_extensions = ['coc-json',
 
 " \ 'coc-emmet',
 " \ 'coc-fzf-preview',
-
 
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
@@ -131,7 +148,6 @@ autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 
 
 
-" Using CocList
 " Show all diagnostics
 nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
 " Manage extensions
@@ -160,7 +176,41 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
+" gh - get hint on whatever's under the cursor
+" nnoremap <silent> K :call <SID>show_documentation()<CR>
+" nnoremap <silent> gh :call <SID>show_documentation()<CR>
+"
+" function! s:show_documentation()
+"   if &filetype == 'vim'
+"     execute 'h '.expand('<cword>')
+"   else
+"     call CocAction('doHover')
+"   endif
+" endfunction
+
+
+" }}}
+
+
+
+
+
+
+" #GUTENTAGS {{{
+" let g:gutentags_file_list_command = "rg --files --follow --ignore-file '/home/ayo/.vimignore'"
+let g:gutentags_file_list_command = "rg --files --follow"
+"}}}
+
+
 set updatetime=300
+
+set history=10000
+
+set dictionary=/usr/share/dict/words
+set spellfile=~/.config/nvim/spell/custom-dictionary.utf-8.add
+
+
+let g:netrw_liststyle = 3
 
 " Highlight symbol under cursor on CursorHold
 autocmd CursorHold * silent call CocActionAsync('highlight')
@@ -229,8 +279,11 @@ nmap <Leader>W :set nowrap<cr>
 
 
 " edit and source .vimrc
-nnoremap <Leader>se :e ~/.config/nvim/init.vim<CR>
-nnoremap <Leader>so :so ~/.config/nvim/init.vim<CR>
+nnoremap <Leader>ve :e ~/.config/nvim/init.vim<CR>
+nnoremap <Leader>vs :so ~/.config/nvim/init.vim<CR>
+
+" Save state of open Windows and Buffers
+nnoremap <leader>vm :mksession<CR>
 
 
 
@@ -255,8 +308,11 @@ nnoremap <Leader>cv :CompressBlankLines<cr>
 nnoremap <Leader>cc :StripTrailingWhitespaces<cr>
 
 
+" scroll the viewport faster
 nnoremap <UP> <C-u>
 nnoremap <DOWN> <C-d>
+nnoremap <C-e> 3<C-e>
+nnoremap <C-y> 3<C-y>
 
 
 " use 2 spaces for tabs
@@ -268,6 +324,9 @@ augroup myfiletypes
   autocmd!
 
   autocmd FileType json syntax match Comment +\/\/.\+$+
+  autocmd FileType sql  setlocal ts=2 sts=2 sw=2 expandtab
+  autocmd FileType html setlocal ts=2 sts=2 sw=2 expandtab
+  autocmd FileType css  setlocal ts=2 sts=2 sw=2 expandtab
 
   " autoindent with two spaces, always expand tabs
   autocmd FileType ruby,eruby,yaml setlocal ai sw=2 sts=2 et
@@ -281,6 +340,17 @@ augroup myfiletypes
   autocmd FileType typescript setlocal path+=lib
   autocmd FileType typescript setlocal iskeyword+=?
   autocmd FileType typescript setlocal iskeyword+=@
+
+  autocmd BufNewFile,BufRead *.json set filetype=javascript
+  autocmd BufNewFile,BufRead *.jsx  set filetype=javascript
+  autocmd BufNewFile,BufRead Gruntfile set filetype=javascript
+  " autocmd BufRead,BufNewFile *.md set filetype=markdown spell
+  autocmd BufRead,BufNewFile *.md set filetype=markdown
+  autocmd BufRead,BufNewFile *.erb setlocal ts=2 sts=2 sw=2 expandtab
+  autocmd BufNewFile,BufRead *.scss set filetype=css
+
+  " spelling by filetype
+  autocmd FileType gitcommit setlocal spel
 augroup END
 
 " By default, vim thinks .md is Modula-2.
@@ -471,16 +541,15 @@ command! -bang -nargs=* Rg
 
 
 " https://medium.com/@jesseleite/its-dangerous-to-vim-alone-take-fzf-283bcff74d21
-" nmap <Leader>t :Files<CR>
-nmap <Leader>t :GFiles<CR>
-nmap <Leader>f :BLines<CR>
-nmap <Leader>l :Lines<CR>
+nmap <Leader>t :Files<CR>
+nmap <silent> <space>l :BLines<CR>
+nmap <silent> <space>L :Lines<CR>
 " nmap <Leader>gf :GFiles<CR>
-nmap <Leader>b :Buffers<CR>
-nmap <Leader>h :History<CR>
-" nmap <Leader>t :Tags<CR>
-" nmap <Leader>bt :BTags<CR>
-nmap <Leader>m :Maps<CR>
+nmap  <silent> <space>b :Buffers<CR>
+nmap  <silent> <space>h :History<CR>
+nmap  <silent> <space>t :Tags<CR>
+nmap  <silent> <space>T :BTags<CR>
+" nmap <Leader>m :Maps<CR>
 nmap <Leader>' :Marks<CR>
 " nmap <Leader>/ :Ag<Space>
 nmap <Leader>/ :Rg<Space>
@@ -510,15 +579,20 @@ nmap g* :CtrlSF <C-R><C-W><space>
 nmap g/ :CtrlSF<space>
 nmap gl :CtrlSFToggle
 
+let g:ctrlsf_search_mode = 'async'
 
-let g:ctrlsf_ackprg = 'rg' "'/usr/local/bin/ag'
+" let g:ctrlsf_case_sensitive = 'no'
 " " let g:ctrlsf_position = 'bottom'
 
+let g:ctrlsf_auto_close = {
+    \ "normal" : 1,
+    \ "compact": 1
+    \}
+
+
+let g:ctrlsf_ackprg = 'rg' "'/usr/local/bin/ag'
+
 let g:ctrlsf_default_view_mode = 'compact'
-" let g:ctrlsf_auto_close = {
-"   \ "normal" : 0,
-"   \ "compact": 0
-"   \ }
 
 let g:ctrlsf_auto_focus = {
   \ "at" : "start"
@@ -538,17 +612,13 @@ set nocompatible
 syntax on
 
 
-" don't wrap long lines
-set nowrap
+set nowrap " don't wrap long lines
 
-" show commands as we type them
-set showcmd
+set showcmd " show commands as we type them
 
-" highlight matching brackets
-set showmatch
+set showmatch " highlight matching brackets
 
-" scroll the window when we get near the edge
-set scrolloff=4 sidescrolloff=10
+set scrolloff=4 sidescrolloff=10 " scroll the window when we get near the edge
 
 
 " enable line numbers, and don't make them any wider than necessary

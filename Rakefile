@@ -41,7 +41,7 @@ task :symlink do
     if File.exist?(target) || File.symlink?(target)
       unless skip_all || overwrite_all || backup_all
         puts "File already exists: #{target}, what do you want to do? [s]kip, [S]kip all, [o]verwrite, [O]verwrite all, [b]ackup, [B]ackup all"
-        case STDIN.gets.chomp
+        case $stdin.gets.chomp
         when "o" then overwrite = true
         when "b" then backup = true
         when "O" then overwrite_all = true

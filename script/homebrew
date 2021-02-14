@@ -6,13 +6,9 @@
 # using Homebrew.
 
 # Check for Homebrew
-if test ! $(which brew)
-then
-  echo "  x You should probably install Homebrew first:"
-  echo "    https://github.com/mxcl/homebrew/wiki/installation"
-  exit
-else
-  echo "  + Homebrew found."
+if test ! $(which brew); then
+  echo "Installing homebrew"
+  ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 fi
 
 # Make sure we’re using the latest Homebrew
@@ -22,46 +18,141 @@ brew update
 brew upgrade
 
 
-# Install grc and coreutils
-#brew install grc coreutils
+if [ ! "$(brew ls --versions coreutils)" ]; then
+  echo "Installing coreutils"
+  echo "Don’t forget to add $(brew --prefix coreutils)/libexec/gnubin to \$PATH."
+  brew install coreutils
+fi
+
+if [ ! "$(brew ls --versions cmake)" ]; then
+  echo "Installing cmake"
+  brew install cmake
+fi
+
+if [ ! "$(brew ls --versions grc)" ]; then
+  echo "Installing grc"
+  brew install grc
+fi
+
+if [ ! "$(brew ls --versions editorconfig)" ]; then
+  echo "Installing editorconfig"
+  brew install editorconfig
+fi
+
+if [ ! "$(brew ls --versions gcc)" ]; then
+  echo "Installing gcc"
+  brew install gcc
+fi
+
+if [ ! "$(brew ls --versions gpg)" ]; then
+  echo "Installing gpg"
+  brew install gpg
+fi
+
+if [ ! "$(brew ls --versions neovim)" ]; then
+  echo "Installing neovim"
+  brew install neovim
+fi
+
+if [ ! "$(brew ls --versions autojump)" ]; then
+  echo "Installing autojump"
+  brew install autojump
+fi
+
+if [ ! "$(brew ls --versions overmind)" ]; then
+  echo "Installing overmind"
+  brew install overmind
+fi
+
+if [ ! "$(brew ls --versions openssl)" ]; then
+  echo "Installing openssl"
+  brew install openssl
+fi
+
+if [ ! "$(brew ls --versions bat)" ]; then
+  echo "Installing bat"
+  brew install bat
+fi
+
+
+if [ ! "$(brew ls --versions poppler)" ]; then
+  echo "Installing poppler"
+  brew install poppler
+fi
+
+if [ ! "$(brew ls --versions curl)" ]; then
+  echo "Installing curl"
+  brew install curl
+fi
+
+if [ ! "$(brew ls --versions diff-so-fancy)" ]; then
+  echo "Installing diff-so-fancy"
+  brew install diff-so-fancy
+fi
+if [ ! "$(brew ls --versions qt)" ]; then
+  echo "Installing qt"
+  brew install qt
+fi
+if [ ! "$(brew ls --versions ripgrep)" ]; then
+  echo "Installing ripgrep"
+  brew install ripgrep
+fi
+if [ ! "$(brew ls --versions fzf)" ]; then
+  echo "Installing fzf"
+  brew install fzf
+fi
+if [ ! "$(brew ls --versions tree)" ]; then
+  echo "Installing tree"
+  brew install tree
+fi
+if [ ! "$(brew ls --versions universal-ctags)" ]; then
+  echo "Installing universal-ctags"
+  brew install universal-ctags
+fi
+if [ ! "$(brew ls --versions gnu-tar)" ]; then
+  echo "Installing gnu-tar"
+  brew install gnu-tar
+fi
+if [ ! "$(brew ls --versions graphviz)" ]; then
+  echo "Installing graphviz"
+  brew install graphviz
+fi
+if [ ! "$(brew ls --versions wget)" ]; then
+  echo "Installing wget"
+  brew install wget
+fi
+if [ ! "$(brew ls --versions imagemagick)" ]; then
+  echo "Installing imagemagick"
+  brew install imagemagick
+fi
+if [ ! "$(brew ls --versions chromedriver)" ]; then
+  echo "Installing chromedriver"
+  brew install chromedriver
+fi
+if [ ! "$(brew ls --versions dbeaver-community)" ]; then
+  echo "Installing dbeaver-community"
+  brew install dbeaver-community
+fi
+if [ ! "$(brew ls --versions redis)" ]; then
+  echo "Installing redis"
+  brew install redis
+fi
+
+
+
+
 
 # Install GNU core utilities (those that come with OS X are outdated)
 # brew install coreutils
-# echo "Don’t forget to add $(brew --prefix coreutils)/libexec/gnubin to \$PATH."
 # Install GNU `find`, `locate`, `updatedb`, and `xargs`, g-prefixed
 # brew install findutils
-# brew tap homebrew/dupes
-# brew install chruby
-# ruby-install ruby 2.2.2
-# ruby-install ruby 2.2.5
 
 
-#brew install ack
-# brew install tree
-# brew install webkit2png
 
-brew install watch
+if [ ! "$(brew ls --versions watch)" ]; then
+  echo "Installing watch"
+  brew install watch
+fi
 
-#brew install libiconv
-# brew install imagemagick
-# brew install libpng
-brew install cmake
-# brew install ghostscript
-# brew install jasper
-brew install redis
-brew install ctags
-brew install the_silver_searcher
-# brew install qt
-# brew install libxml2
-# brew install libxslt
-# brew install libiconv
-# brew link libiconv
-# brew install tmux
-
-# brew install autojump
-# brew install elixir
-# brew install node
-# brew install selenium-server-standalone
-# brew install geckodriver ft
 
 brew cleanup
