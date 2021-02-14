@@ -6,10 +6,12 @@
 let mapleader = ','
 
 call plug#begin('~/.vim/plugged')
+Plug 'editorconfig/editorconfig-vim'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'junegunn/vim-easy-align'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-speeddating'
 Plug 'tomtom/tcomment_vim'
 Plug 'vim-syntastic/syntastic'
 " Plug 'pangloss/vim-javascript'
@@ -80,6 +82,10 @@ call plug#end()
 let g:dbs = {
 \  'dev': 'postgres://jkahne@localhost:5432/krello_development'
 \ }
+
+
+" editorconfig requirement to work well with fugitive
+let g:EditorConfig_exclude_patterns = ['fugitive://.*']
 
 
 
