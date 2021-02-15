@@ -84,4 +84,13 @@ fif() {
   rg --files-with-matches --no-messages "$1" | fzf $FZF_PREVIEW_WINDOW --preview "rg --ignore-case --pretty --context 10 '$1' {}"
 }
 
+phx() {
+  if [[ $@ == "c" || $@ == "console" ]]; then
+    command iex -S mix
+  elif [[ $@ == "s" || $@ == "server" ]]; then
+    command mix phx.server
+  elif [[ $@ == "r" || $@ == "routes" ]]; then
+    command mix phx.routes
+  fi
+}
 
