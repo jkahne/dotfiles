@@ -94,3 +94,9 @@ phx() {
   fi
 }
 
+
+biggest() {
+  wc -w *.$@ | sort -n -b -r | head -n 21
+}
+
+

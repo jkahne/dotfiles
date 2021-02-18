@@ -12,6 +12,8 @@ alias binit="bi && b package && echo 'vendor/ruby' >> .gitignore"
 
 alias vim="nvim"
 alias d="cd ~/.dotfiles && vim ~/.dotfiles/config/config.symlink/nvim/init.vim"
+alias cdx="cd ~/Dropbox/c/codex && vim"
+alias codex="cd ~/Dropbox/c/codex && vim"
 # alias gratitude='vim ~/Dropbox/n/notes/gratitude.md'
 # alias notes="cd ~/Dropbox/n/notes ; vim ."
 alias om="overmind start -f Procfile.dev"
@@ -60,7 +62,7 @@ alias short_prompt="export PS1='$ '"
 alias fix="git diff --name-only | uniq | xargs vim"
 
 # Recursively delete `.DS_Store` files
-alias cleanup="find . -type f -name '*.DS_Store' -ls -delete"
+alias cleanup="find . -name '*.DS_Store' -or -name '*.keep' -type f  -ls -delete"
 
 # ROT13-encode text. Works for decoding, too! ;)
 alias rot13='tr a-zA-Z n-za-mN-ZA-M'

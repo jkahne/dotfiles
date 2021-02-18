@@ -9,7 +9,7 @@ let mapleader = ','
 let g:polyglot_disabled = ['markdown']
 let g:polyglot_disabled = ['autoindent']
 
-call plug#begin('~/.vim/plugged')
+call plug#begin('~/.config/nvim/plugged')
 Plug 'editorconfig/editorconfig-vim'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'junegunn/vim-easy-align'
@@ -23,7 +23,6 @@ Plug 'tpope/vim-vinegar'
 Plug 'easymotion/vim-easymotion'
 Plug 'justinmk/vim-sneak'
 Plug 'mhinz/vim-signify'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Plug 'kevinoid/vim-jsonc'
 " Plug 'pangloss/vim-javascript'
 " Plug 'maxmellon/vim-jsx-pretty'
@@ -130,83 +129,6 @@ let g:markdown_minlines = 100
 
 
 
-" #COC {{{
-" https://github.com/neoclide/coc.nvim/wiki/Using-coc-extensions
-let g:coc_global_extensions = ['coc-json',
-\ 'coc-git',
-\ 'coc-solargraph',
-\ 'coc-elixir',
-\ 'coc-html' ,
-\ 'coc-css',
-\ 'coc-tsserver',
-\ 'coc-omnisharp'
-\]
-
-" \ 'coc-emmet',
-" \ 'coc-fzf-preview',
-
-" Use tab for trigger completion with characters ahead and navigate.
-" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
-" other plugin before putting this into your config.
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-
-" Close the documentation window when completion is done
-autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
-
-
-
-" Show all diagnostics
-nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
-" Manage extensions
-nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
-" Show commands
-nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
-" Find symbol of current document
-nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
-" Search workspace symbols
-nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
-" Do default action for next item.
-nnoremap <silent> <space>j  :<C-u>CocNext<CR>
-" Do default action for previous item.
-nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
-" Resume latest coc list
-nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
-
-" Use `[g` and `]g` to navigate diagnostics
-" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
-
-" " GoTo code navigation.
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-
-" gh - get hint on whatever's under the cursor
-" nnoremap <silent> K :call <SID>show_documentation()<CR>
-" nnoremap <silent> gh :call <SID>show_documentation()<CR>
-"
-" function! s:show_documentation()
-"   if &filetype == 'vim'
-"     execute 'h '.expand('<cword>')
-"   else
-"     call CocAction('doHover')
-"   endif
-" endfunction
-
-
-" }}}
 
 
 
@@ -228,9 +150,6 @@ set spellfile=~/.config/nvim/spell/custom-dictionary.utf-8.add
 
 
 let g:netrw_liststyle = 3
-
-" Highlight symbol under cursor on CursorHold
-autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Remap for rename current word
 nmap <leader>rn <Plug>(coc-rename)
@@ -282,11 +201,11 @@ nnoremap <leader>p :r!pbpaste<cr>
 " nnoremap <leader>pr :Prettier<cr>
 
 " map <Leader>dr :e ~/Dropbox<cr>
-" map <Leader>cn :e ~/Dropbox/n/notes/coding-notes.md<cr>
-" map <Leader>dj :e ~/Dropbox/n/notes/debugging-journal.md<cr>
-" map <Leader>nn :sp ~/Dropbox/n/notes/programming-notes.md<cr>
-map <Leader>ns :sp ~/Dropbox/n/notes/scratch.md<cr>
-map <Leader>nv :sp ~/Dropbox/n/notes/vimnotes.md<cr>
+" map <Leader>cn :e ~/Dropbox/c/codex/coding-notes.md<cr>
+" map <Leader>dj :e ~/Dropbox/c/codex/debugging-journal.md<cr>
+map <Leader>nn :sp ~/Dropbox/c/codex/programming-notes.md<cr>
+map <Leader>ns :sp ~/Dropbox/c/codex/scratch.md<cr>
+map <Leader>nv :sp ~/Dropbox/c/codex/vimnotes.md<cr>
 
 
 " easy wrap toggling
@@ -340,7 +259,7 @@ augroup myfiletypes
   " Clear old autocmds in group
   autocmd!
 
-  autocmd FileType json syntax match Comment +\/\/.\+$+
+  " autocmd FileType json syntax match Comment +\/\/.\+$+
   autocmd FileType sql  setlocal ts=2 sts=2 sw=2 expandtab
   autocmd FileType html setlocal ts=2 sts=2 sw=2 expandtab
   autocmd FileType css  setlocal ts=2 sts=2 sw=2 expandtab
@@ -358,11 +277,17 @@ augroup myfiletypes
   autocmd FileType typescript setlocal iskeyword+=?
   autocmd FileType typescript setlocal iskeyword+=@
 
-  autocmd BufNewFile,BufRead *.json set filetype=javascript
+  " autocmd BufNewFile,BufRead *.json set filetype=javascript
   autocmd BufNewFile,BufRead *.jsx  set filetype=javascript
   autocmd BufNewFile,BufRead Gruntfile set filetype=javascript
-  " autocmd BufRead,BufNewFile *.md set filetype=markdown spell
+
+" By default, vim thinks .md is Modula-2.
+" autocmd BufRead,BufNewFile *.md set filetype=markdown spell
   autocmd BufRead,BufNewFile *.md set filetype=markdown
+  autocmd BufNewFile,BufReadPost *.md set filetype=markdown
+" Without this, vim breaks in the middle of words when wrapping
+  autocmd FileType markdown setlocal nolist wrap lbr
+
   autocmd BufRead,BufNewFile *.erb setlocal ts=2 sts=2 sw=2 expandtab
   autocmd BufNewFile,BufRead *.scss set filetype=css
 
@@ -370,11 +295,7 @@ augroup myfiletypes
   autocmd FileType gitcommit setlocal spel
 augroup END
 
-" By default, vim thinks .md is Modula-2.
-autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 
-" Without this, vim breaks in the middle of words when wrapping
-autocmd FileType markdown setlocal nolist wrap lbr
 
 " " Wrap the quickfix window
 " autocmd FileType qf setlocal wrap linebreak
@@ -726,7 +647,7 @@ au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g'
 au BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,config.ru} set ft=ruby
 
 " JSON is JS
-au BufNewFile,BufRead *.json set ai filetype=javascript
+" au BufNewFile,BufRead *.json set ai filetype=javascript
 
 au BufNewFile,BufRead *.ex set ai filetype=elixir
 au BufNewFile,BufRead *.exs set ai filetype=elixir
