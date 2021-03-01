@@ -13,7 +13,9 @@
   br = branch
   st = status
   ap = add --all --intent-to-add -p
+  unstage = reset HEAD
   standup = log --since yesterday
+  uncommit = reset --soft HEAD~1
   graph = log --graph --topo-order --format='%C(auto)%h %<(3)%aN%d% s' --decorate=short --branches='*'
   l = log --oneline --decorate -20
   x = log --oneline --decorate --graph --all -20
@@ -91,4 +93,8 @@
 	newNormal = green bold
 	newHighlight = green bold 22
 [pull]
-	rebase = true
+  rebase = true
+[branch]
+  autosetuprebase = always
+[init]
+  defaultBranch = main

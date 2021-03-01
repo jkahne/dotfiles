@@ -153,6 +153,11 @@ nmap <silent> gr <Plug>(coc-references)
 " Highlight symbol under cursor on CursorHold
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
+
+" Remap for rename current word
+nmap <leader>rn <Plug>(coc-rename)
+
+
 " }}} Coc.vim
 
 
@@ -238,8 +243,6 @@ set spellfile=~/.config/nvim/spell/custom-dictionary.utf-8.add
 
 let g:netrw_liststyle = 3
 
-" Remap for rename current word
-nmap <leader>rn <Plug>(coc-rename)
 
 
 "vim-easymotion
@@ -247,8 +250,8 @@ nmap <leader>rn <Plug>(coc-rename)
 " nmap <Leader>gl <Plug>(easymotion-overwin-f)
 " map <Leader>L <Plug>(easymotion-bd-jk)
 " nmap <Leader>L <Plug>(easymotion-overwin-line)
-map  <Leader>gg <Plug>(easymotion-bd-w)
-nmap <Leader>gg <Plug>(easymotion-overwin-w)
+map  <c-space> <Plug>(easymotion-bd-w)
+nmap <c-space> <Plug>(easymotion-overwin-w)
 let g:EasyMotion_smartcase = 1
 
 
