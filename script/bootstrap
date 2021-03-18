@@ -6,3 +6,11 @@
 rake install
 
 #. osx/set-defaults.sh
+
+# definitely this one
+# ln -s ~/OneDrive/B/books\ -\ audible ~/Documents/openaudible/working/books
+#
+# not sure if these are needed, but I think they're symlinked now
+
+# ln -s ~/OneDrive/B/books\ -\ audible ~/Documents/openaudible/books
+# ln -s ~/OneDrive/B/books\ -\ audible ~/Documents/openaudible/webdir/m4a
