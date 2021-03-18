@@ -2,7 +2,7 @@
 
 [user]
 	name = jkahne
-	email = jkahne@gmail.com
+	email = jkahne@hey.com
 
 [github]
   user = jkahne
@@ -12,7 +12,7 @@
   ci = commit
   br = branch
   st = status
-  ap = add --all --intent-to-add -p
+  ap = add -N --all -p
   unstage = reset HEAD
   standup = log --since yesterday
   uncommit = reset --soft HEAD~1
@@ -20,6 +20,7 @@
   l = log --oneline --decorate -20
   x = log --oneline --decorate --graph --all -20
   xx = log --oneline --decorate --graph --all
+	sync = !git stash && git pull && git stash pop
 #  ready = rebase -i @{u}
 #  promote = !$ZSH/bin/git-promote
 #  wtf     = !$ZSH/bin/git-wtf

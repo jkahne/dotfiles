@@ -290,12 +290,12 @@ nnoremap <leader>p :r!pbpaste<cr>
 
 " nnoremap <leader>pr :Prettier<cr>
 
-" map <Leader>dr :e ~/Dropbox<cr>
-" map <Leader>cn :e ~/Dropbox/c/codex/coding-notes.md<cr>
-" map <Leader>dj :e ~/Dropbox/c/codex/debugging-journal.md<cr>
-map <Leader>nn :sp ~/Dropbox/c/codex/programming-notes.md<cr>
-map <Leader>ns :sp ~/Dropbox/c/codex/scratch.md<cr>
-map <Leader>nv :sp ~/Dropbox/c/codex/vimnotes.md<cr>
+" map <Leader>dr :e ~/OneDrive<cr>
+" map <Leader>cn :e ~/OneDrive/c/codex/coding-notes.md<cr>
+" map <Leader>dj :e ~/OneDrive/c/codex/debugging-journal.md<cr>
+map <Leader>nn :sp ~/OneDrive/c/codex/programming-notes.md<cr>
+map <Leader>ns :sp ~/OneDrive/c/codex/scratch.md<cr>
+map <Leader>nv :sp ~/OneDrive/c/codex/vimnotes.md<cr>
 
 
 " easy wrap toggling
@@ -626,10 +626,13 @@ let g:ctrlsf_auto_focus = {
   \ "at" : "start"
   \ }
 
-" let g:ctrlsf_mapping = {
-"     \ "next": "n",
-"     \ "prev": "N"
-"     \ }
+" I don't expect to acutally use this.
+" I want ctrl-j/k (the default) to move cursor between panes
+" I want n/N to help me search within the search results when I do a / and find next
+let g:ctrlsf_mapping = {
+    \ "next": "d",
+    \ "prev": "u"
+    \ }
 
 
 
@@ -781,7 +784,7 @@ autocmd BufWritePost * if &diff == 1 | diffupdate | endif
 
 autocmd Filetype gitcommit setlocal textwidth=72
 
-set wildignore+=*/tmp/*,*/vendor/ruby/*,*/seed_scenarios/*,*/node_modules/*,*.swp,*.zip
+set wildignore+=*/tmp/*,*/vendor/*,*/seed_scenarios/*,*/node_modules/*,*.swp,*.zip
 
 " Compresses multiple blank lines into just one
 function! CompressBlankLines()

@@ -12,19 +12,19 @@ alias binit="bi && b package && echo 'vendor/ruby' >> .gitignore"
 
 alias vim="nvim"
 alias d="cd ~/.dotfiles && vim ~/.dotfiles/config/config.symlink/nvim/init.vim"
-alias cdx="cd ~/Dropbox/c/codex && vim"
-alias codex="cd ~/Dropbox/c/codex && vim"
-# alias gratitude='vim ~/Dropbox/n/notes/gratitude.md'
-# alias notes="cd ~/Dropbox/n/notes ; vim ."
+alias cdx="cd ~/OneDrive/c/codex && vim"
+alias codex="cd ~/OneDrive/c/codex && vim"
+# alias gratitude='vim ~/OneDrive/n/notes/gratitude.md'
+# alias notes="cd ~/OneDrive/n/notes ; vim ."
 alias om="overmind start -f Procfile.dev"
-# alias onboard='vim ~/Dropbox/n/notes/onboarding.md'
+# alias onboard='vim ~/OneDrive/n/notes/onboarding.md'
 alias postmaster="brew services stop postgres; cd /usr/local/var/postgres; rm postmaster.pid; cd -; brew services start postgres;"
-alias vimnotes='vim ~/Dropbox/n/notes/vimnotes.md'
+# alias vimnotes='vim ~/OneDrive/n/notes/vimnotes.md'
 alias aso='source ~/.dotfiles/zsh/aliases.zsh'
 alias squash='git rebase -i master'
 alias sync='git add -u . && git commit -m "Minor changes. Commit message skipped." && git pull --rebase && git push'
-alias start='vim ~/Dropbox/n/notes/day-start-checklist.md'
-alias pn='vim ~/Dropbox/n/notes/project-notes.md'
+# alias start='vim ~/OneDrive/n/notes/day-start-checklist.md'
+# alias pn='vim ~/OneDrive/n/notes/project-notes.md'
 alias format='be standardrb --fix; npm run pretty;'
 alias jsontidy="pbpaste | jq '.' | pbcopy"
 
