@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+cd /Users/jkahne/onedrive/c/codex
+
+gstatus=`git status --porcelain`
+
+if [ ${#gstatus} -ne 0 ]
+then
+  git add --all
+  git commit -m'autocommit'
+  git pull origin main --rebase
+  sleep 10
+  git push origin main
+else
+  git pull origin main
+fi

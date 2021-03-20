@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+cd /Users/jkahne/projects/archive/jbranchaud/til
+git pull --rebase
+
+cd /Users/jkahne/projects/reference/from-activerecord-to-ecto
+git pull --rebase
+
+cd /Users/jkahne/projects/reference/turbo-showcase
+git pull --rebase
