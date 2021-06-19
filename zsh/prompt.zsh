@@ -52,17 +52,17 @@ zelda () {
     battery="$(pmset -g ps | awk 'NR==2' | perl -pe 's/.*?(\d+)%.*/\1/')"
 
     if [[ $battery -lt 17 ]]; then
-      echo "%{$fg_bold[red]%}♥%{$reset_color%}♡♡♡♡♡"
+      echo "♥️ 🤍🤍🤍🤍🤍"
     elif [[ $battery -lt 34 ]]; then
-      echo "%{$fg_bold[red]%}♥♥%{$reset_color%}♡♡♡♡"
+      echo "♥️ ♥️ 🤍🤍🤍🤍"
     elif [[ $battery -lt 51 ]]; then
-      echo "%{$fg_bold[red]%}♥♥♥%{$reset_color%}♡♡♡"
+      echo "♥️ ♥️ ♥️ 🤍🤍🤍"
     elif [[ $battery -lt 68 ]]; then
-      echo "%{$fg_bold[red]%}♥♥♥♥%{$reset_color%}♡♡"
+      echo "♥️ ♥️ ♥️ ♥️ 🤍🤍"
     elif [[ $battery -lt 85 ]]; then
-      echo "%{$fg_bold[red]%}♥♥♥♥♥%{$reset_color%}♡"
+      echo "♥️ ♥️ ♥️ ♥️ ♥️ 🤍"
     else
-      echo "%{$fg_bold[red]%}♥♥♥♥♥♥%{$reset_color%}"
+      echo "♥️ ♥️ ♥️ ♥️ ♥️ ♥️ "
     fi
   fi
 }

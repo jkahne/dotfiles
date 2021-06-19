@@ -62,3 +62,7 @@ There's a few special files in the hierarchy.
 - Alfred setup
 - Keyboard Maestro setup
 - Github
+
+## crontab
+*/30 * * * * /Users/jkahne/.dotfiles/script/sync_obsidian >/dev/null 2>&1
+0 6 * * * /Users/jkahne/.dotfiles/script/sync_git_repos >/dev/null 2>&1

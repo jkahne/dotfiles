@@ -8,3 +8,6 @@ git pull --rebase
 
 cd /Users/jkahne/projects/reference/turbo-showcase
 git pull --rebase
+
+cd /Users/jkahne/projects/reference/awesome-leading-and-managing
+git pull --rebase
