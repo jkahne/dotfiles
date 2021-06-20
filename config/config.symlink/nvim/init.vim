@@ -22,7 +22,7 @@ Plug 'editorconfig/editorconfig-vim'
 " Plug 'tpope/vim-speeddating' " is this ever really used?
 
 " File navigation
-Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+Plug 'preservim/nerdtree'
 Plug 'tpope/vim-vinegar'
 Plug 'easymotion/vim-easymotion'
 Plug '/usr/local/opt/fzf'
@@ -147,7 +147,6 @@ set nobackup
 set nowritebackup
 set noswapfile
 
-
 " but not that dangerously
 " set undodir=~/.vim/undodir
 " set undofile
@@ -189,7 +188,7 @@ set foldmethod=indent
 set foldlevel=99
 
 " Ignores
-set wildignore+=*tmp/*,*packs/*,*vendor/*,*seed_scenarios/*,*node_modules/*,*.swp,*.zip,*.git/*
+set wildignore+=*tmp/*,*packs/*,*plugged/*,*vendor/*,*seed_scenarios/*,*node_modules/*,*.swp,*.zip,*.git/*
  
 " use 2 spaces for tabs
 set expandtab tabstop=2 softtabstop=2 shiftwidth=2
@@ -320,7 +319,7 @@ nmap   <M-C-RightMouse>      <Plug>(VM-Mouse-Column)
  " let g:fzf_buffers_jump = 1
  " " [Tags] Command to generate tags file
  " " let g:fzf_tags_command = 'ctags -R'
- let g:fzf_tags_command = 'ctags --extra=+f --exclude=node_modules/* --exclude=.git/* --exclude=public/* --exclude=vendor/* -R *'
+ let g:fzf_tags_command = 'ctags --extra=+f --exclude=node_modules/* --exclude=.git/* --exclude=public/* --exclude=vendor/* --exclude=plugged/* -R *'
 
  " " make it appear in the pane instead of a bottom split
  " " let g:fzf_layout = { 'window': 'enew' }
