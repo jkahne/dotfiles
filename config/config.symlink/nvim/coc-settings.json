@@ -1,7 +1,9 @@
 {
-  // "suggest.enablePreselect": true,
+  "coc.preferences.extensionUpdateCheck": "daily",
   "git.enableGutters": true,
   "suggest.autoTrigger": "trigger",
   "coc.source.file.triggerCharacters": ["."],
   "suggest.triggerCompletionWait": 500
 }
+  // "suggest.enablePreselect": true,
+  /* "eslint.autoFixOnSave": true */
