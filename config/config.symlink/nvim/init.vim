@@ -41,8 +41,8 @@ Plug 'mhinz/vim-signify'
 
 
 " Tests
-" Plug 'tpope/vim-dispatch'
-" Plug 'janko/vim-test'
+Plug 'tpope/vim-dispatch'
+Plug 'janko/vim-test'
 
 " Autocomplete
 Plug 'sheerun/vim-polyglot'
@@ -50,6 +50,8 @@ Plug 'tpope/vim-endwise'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'mattn/emmet-vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 
 
 " Plug 'tpope/vim-markdown'
@@ -189,10 +191,13 @@ set foldlevel=99
 
 " Ignores
 set wildignore+=*tmp/*,*packs/*,*plugged/*,*vendor/*,*seed_scenarios/*,*node_modules/*,*.swp,*.zip,*.git/*
+ " Ignore stuff that can't be opened
+set wildignore+=tmp/**
  
 " use 2 spaces for tabs
 set expandtab tabstop=2 softtabstop=2 shiftwidth=2
 set smarttab
+set shiftround "when at 3 spaces and I hit >>, go to 4, not 5
 
 
 " let g:netrw_liststyle = 3
@@ -226,6 +231,7 @@ inoremap jj <Esc>|                            " esc
 inoremap jk <Esc>|                            " esc
 map j gj|                                     " sane defaults
 map k gk|                                     " sane defaults
+map K <Nop>|                                  " Disable K looking stuff up
 xnoremap p pgvy|                              " 'p' to paste, 'gv' to re-select what was originally selected. 'y' to copy it again
 nmap Q q|                                     " Avoid unintentional switches to Ex mode
 nnoremap Y y$|                                " Yank from the cursor to the end of the line, to be consistent with C and D.
@@ -240,7 +246,15 @@ inoremap <C-h> <Left>|                        " while in insert mode, use ctrl +
 inoremap <C-j> <Down>|                        " while in insert mode, use ctrl + direction to move cursor
 inoremap <C-k> <Up>|                          " while in insert mode, use ctrl + direction to move cursor
 inoremap <C-l> <Right>|                       " while in insert mode, use ctrl + direction to move cursor
-" <C-y>, | " emmet command
+imap <c-a> <c-o>^|                            " Emacs-like beginning of line.
+imap <c-e> <c-o>$|                            " Emacs-like end of line.
+" <C-y>, |                                    " emmet command
+nmap <C-W>u :call MergeTabs()<CR>|            " Merge a tab into a split in the previous window
+
+
+
+
+
 
 nmap     <Leader>> :tabnext<CR>
 nmap     <Leader>< :tabprevious<CR>
@@ -249,23 +263,37 @@ nmap     <Leader>/ :Rg<Space>|                       " FZF
 nnoremap <Leader>* :noh<cr>|                         " map spacebar to clear search highlight
 nmap     <Leader>b :Buffers<CR>|                     " FZF
 nnoremap <Leader>cc :StripTrailingWhitespaces<cr>|   " clean up trailing whitespace
-nnoremap <Leader>ev :e ~/.config/nvim/init.vim<CR>|  " edit neovim init
+nmap     <Leader>gf :call OpenFactoryFile()<CR>|     " rails - open factory file
 nnoremap <Leader>gt :NERDTreeFind<CR>|               " NERDTree settings
+nnoremap <Leader>ns :so ~/.config/nvim/init.vim<CR>| " source neovim init
+nnoremap <Leader>ne :e ~/.config/nvim/init.vim<CR>|  " edit neovim init
+map      <Leader>rf :call RenameFile()<cr>|          " rename file
 nmap     <leader>rn <Plug>(coc-rename)|              " Coc - Remap for rename current word
-nmap     <Leader>w :set wrap!<cr>|                   " easy wrap toggling
-nmap     <Leader>W :set nowrap<cr>|                  " easy wrap toggling
-nnoremap <Leader>sv :so ~/.config/nvim/init.vim<CR>| " source neovim init
+nmap     <Leader>sa :TestSuite<CR>|                  " vim.test - spec suite
+nmap     <Leader>sf :TestFile<CR>|                   " vim.test - spec file
+nmap     <Leader>sn :TestNearest<CR>|                " vim.test - spec nearest
+nmap     <Leader>ss :TestLast<CR>|                   " vim.test - spec last
+nmap     <Leader>sv :TestVisit<CR>|                  " vim.test - spec visit ??
 nmap     <Leader>t :Files<CR>|                       " FZF 
 nmap     <Leader>T :tabnew<CR>
+map      <Leader>use :UltiSnipsEdit<CR>|             " edit snippets
+nmap     <Leader>w :set wrap!<cr>|                   " easy wrap toggling
+nmap     <Leader>W :set nowrap<cr>|                  " easy wrap toggling
 nnoremap <silent> <Leader>1 :call matchadd('LineHighlight', '\%'.line('.').'l')<CR>| " highlight the current line
 nnoremap <silent> <Leader>2 :call clearmatches()<CR>| " clear all the highlighted lines
 
+
 "Highlight all instances of word under cursor, when idle.
-"Useful when studying strange source code.
+" Useful when studying strange source code.
 nnoremap <leader><leader>* :if AutoHighlightToggle()<Bar>set hls<Bar>endif<CR>
+map <Leader><Leader>ns :sp ~/OneDrive/c/codex/scratch.md<cr>
+map <Leader><Leader>nv :sp ~/OneDrive/c/codex/vimnotes.md<cr>
+
+
 
 
 highlight LineHighlight cterm=NONE ctermbg=yellow ctermfg=darkgray guibg=yellow guifg=darkgray
+
 
 " Editorconfig settings
 let g:EditorConfig_exclude_patterns = ['fugitive://.*']
@@ -278,6 +306,18 @@ let g:rainbow_active = 1 "set to 0 if you want to enable it later via :RainbowTo
 let g:rainbow_conf = {
 \  'ctermfgs': ['blue', 'yellow', 'cyan', 'magenta']
 \}
+
+
+"vim.test mappings
+let g:rspec_command = "!clear && bin/rspec {spec}"
+" let g:rspec_command = "!clear && rake test {spec}"  
+" let test#strategy = "dispatch"
+
+
+" ultisnips
+let g:UltiSnipsSnippetDirectories=[$HOME.'/.dotfiles/nvim/UltiSnips']
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsEditSplit="vertical"
 
 " emmet-vim
 " type emmet command `div.mb-5.flex.wrap>div.logo+div.contact` then hit
@@ -328,8 +368,41 @@ nmap   <M-C-RightMouse>      <Plug>(VM-Mouse-Column)
  "   \ call fzf#vim#grep(
  "   \   'rg --column --line-number --no-heading --color=always --colors "path:fg:190,220,255" --colors "line:fg:128,128,128" --smart-case '.shellescape(<q-args>), 1, { 'options': '--color hl:123,hl+:222' }, 0)
 
+function! RenameFile()
+  let old_name = expand('%')
+  let new_name = input('New file name: ', expand('%'), 'file')
+  if new_name != '' && new_name != old_name
+    exec ':saveas ' . new_name
+    exec ':silent !rm ' . old_name
+    redraw!
+  endif
+endfunction
+
+" Merge a tab into a split in the previous window
+function! MergeTabs()
+  if tabpagenr() == 1
+    return
+  endif
+  let bufferName = bufname("%")
+  if tabpagenr("$") == tabpagenr()
+    close!
+  else
+    close!
+    tabprev
+  endif
+  split
+  execute "buffer " . bufferName
+endfunction
 
 
+
+function! OpenFactoryFile()
+  if filereadable("test/factories.rb")
+    execute ":e test/factories.rb"
+  else
+    execute ":e spec/factories.rb"
+  end
+endfunction
 
 
 "Highlight all instances of word under cursor, when idle.
@@ -564,7 +637,6 @@ endif
 " " shortcuts for frequenly used files
 " nmap <Leader>gs :e db/schema.rb<cr>
 " nmap <Leader>gr :e config/routes.rb<cr>
-" nmap <Leader>gf :call OpenFactoryFile()<CR>
 "
 "
 " " copied over
@@ -572,7 +644,6 @@ endif
 " " vmap <Leader>bed "td?describe<cr>obed<tab><esc>"tpkdd/end<cr>o<esc>:nohl<cr>
 " " map <Leader>cu :Tabularize /\|<CR>
 " map <Leader>fix :cnoremap % %<CR>
-" " map <Leader>sn :UltiSnipsEdit<CR>
 "
 " " map <Leader>p :set paste<CR><esc>"*]p:set nopaste<cr>
 " nnoremap <leader>p :r!pbpaste<cr>
@@ -582,9 +653,6 @@ endif
 " " map <Leader>dr :e ~/OneDrive<cr>
 " " map <Leader>cn :e ~/OneDrive/c/codex/coding-notes.md<cr>
 " " map <Leader>dj :e ~/OneDrive/c/codex/debugging-journal.md<cr>
-" map <Leader><Leader>nn :sp ~/OneDrive/c/codex/programming-notes.md<cr>
-" map <Leader><Leader>ns :sp ~/OneDrive/c/codex/scratch.md<cr>
-" map <Leader><Leader>nv :sp ~/OneDrive/c/codex/vimnotes.md<cr>
 "
 "
 "
@@ -614,45 +682,59 @@ endif
 "
 "
 "
-" augroup myfiletypes
-"   " Clear old autocmds in group
-"   autocmd!
-"
-"   " autocmd FileType json syntax match Comment +\/\/.\+$+
-"   autocmd FileType sql  setlocal ts=2 sts=2 sw=2 expandtab
-"   autocmd FileType html setlocal ts=2 sts=2 sw=2 expandtab
-"   autocmd FileType css  setlocal ts=2 sts=2 sw=2 expandtab
-"
-"   " autoindent with two spaces, always expand tabs
-"   autocmd FileType ruby,eruby,yaml setlocal ai sw=2 sts=2 et
-"   autocmd FileType ruby,eruby,yaml setlocal path+=lib
-"   " autocmd FileType ruby,eruby,yaml setlocal colorcolumn=80
-"   " Make ?s part of words
-"   autocmd FileType ruby,eruby,yaml setlocal iskeyword+=?
-"   autocmd FileType ruby,eruby,yaml setlocal iskeyword+=@
-"
-"   autocmd FileType typescript setlocal ai sw=4 sts=4 et
-"   autocmd FileType typescript setlocal path+=lib
-"   autocmd FileType typescript setlocal iskeyword+=?
-"   autocmd FileType typescript setlocal iskeyword+=@
-"
-"   " autocmd BufNewFile,BufRead *.json set filetype=javascript
-"   autocmd BufNewFile,BufRead *.jsx  set filetype=javascript
-"   autocmd BufNewFile,BufRead Gruntfile set filetype=javascript
-"
-" " By default, vim thinks .md is Modula-2.
-" " autocmd BufRead,BufNewFile *.md set filetype=markdown spell
-"   autocmd BufRead,BufNewFile *.md set filetype=markdown
-"   autocmd BufNewFile,BufReadPost *.md set filetype=markdown
-" " Without this, vim breaks in the middle of words when wrapping
-"   autocmd FileType markdown setlocal nolist wrap lbr
-"
-"   autocmd BufRead,BufNewFile *.erb setlocal ts=2 sts=2 sw=2 expandtab
-"   autocmd BufNewFile,BufRead *.scss set filetype=css
-"
-"   " spelling by filetype
-"   autocmd FileType gitcommit setlocal spel
-" augroup END
+ augroup myfiletypes
+   " Clear old autocmds in group
+   autocmd!
+
+   " autocmd FileType json syntax match Comment +\/\/.\+$+
+   autocmd FileType sql  setlocal ts=2 sts=2 sw=2 expandtab
+   " autocmd FileType html setlocal ts=2 sts=2 sw=2 expandtab
+   " autocmd FileType css  setlocal ts=2 sts=2 sw=2 expandtab
+
+   " autoindent with two spaces, always expand tabs
+   autocmd FileType ruby,eruby,yaml setlocal ai sw=2 sts=2 et
+   autocmd FileType ruby,eruby,yaml setlocal path+=lib
+   autocmd FileType ruby,eruby,yaml setlocal colorcolumn=80
+   " Make ?s part of words
+   autocmd FileType ruby,eruby,yaml setlocal iskeyword+=?
+   autocmd FileType ruby,eruby,yaml setlocal iskeyword+=@
+
+   " STACK
+   autocmd FileType typescript setlocal ai sw=4 sts=4 et
+   autocmd FileType typescript setlocal path+=lib
+   autocmd FileType typescript setlocal iskeyword+=?
+   autocmd FileType typescript setlocal iskeyword+=@
+   autocmd FileType html setlocal ts=4 sts=4 sw=4 expandtab
+   autocmd FileType css  setlocal ts=4 sts=4 sw=4 expandtab
+
+   " " autocmd BufNewFile,BufRead *.json set filetype=javascript
+   " autocmd BufNewFile,BufRead *.jsx  set filetype=javascript
+   " autocmd BufNewFile,BufRead Gruntfile set filetype=javascript
+
+ " " By default, vim thinks .md is Modula-2.
+ " " autocmd BufRead,BufNewFile *.md set filetype=markdown spell
+   " autocmd BufRead,BufNewFile *.md set filetype=markdown
+   " autocmd BufNewFile,BufReadPost *.md set filetype=markdown
+ " " Without this, vim breaks in the middle of words when wrapping
+   " autocmd FileType markdown setlocal nolist wrap lbr
+   "
+   "
+
+   "Rakefile, Vagrantfile, and Gemfile are Ruby
+   au BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,config.ru} set ft=ruby
+   " JSON is JS
+   au BufNewFile,BufRead *.json set ai filetype=javascript
+
+   au BufNewFile,BufRead *.ex set ai filetype=elixir
+   au BufNewFile,BufRead *.exs set ai filetype=elixir
+   " au BufRead /tmp/psql.edit.* set syntax=sql
+
+   autocmd BufRead,BufNewFile *.erb setlocal ts=2 sts=2 sw=2 expandtab
+   autocmd BufNewFile,BufRead *.scss set filetype=css
+
+   " spelling by filetype
+   autocmd FileType gitcommit setlocal spel textwidth=72
+ augroup END
 "
 "
 "
@@ -702,23 +784,6 @@ endif
 "
 "
 "
-" "vim.test mappings
-" " spec [file, spec, repeat, all]
-" " s[fsra]
-" " default binding:
-" " nmap <silent> t<C-n> :TestNearest<CR>
-" " nmap <silent> t<C-f> :TestFile<CR>
-" " nmap <silent> t<C-s> :TestSuite<CR>
-" " nmap <silent> t<C-l> :TestLast<CR>
-" " nmap <silent> t<C-g> :TestVisit<CR>
-" " let test#strategy = "dispatch"
-" nmap <Leader>sn :TestNearest<CR>
-" nmap <Leader>sf :TestFile<CR>
-" nmap <Leader>sa :TestSuite<CR>
-" nmap <Leader>ss :TestLast<CR>
-" nmap <Leader>sv :TestVisit<CR>
-" " let g:rspec_command = "!clear && bin/rspec {spec}"
-" let g:rspec_command = "!clear && rake test {spec}"
 "
 "
 "
@@ -772,13 +837,6 @@ endif
 "
 "
 "
-" "SURROUND
-" " # to surround with ruby string interpolation
-" let g:surround_35 = "#{\r}"
-" " - to surround with no-output erb tag
-" let g:surround_45 = "<% \r %>"
-" " = to surround with output erb tag
-" let g:surround_61 = "<%= \r %>"
 "
 "
 "
@@ -789,11 +847,11 @@ endif
 "
 "
 "
-" " assume the /g flag on substitutions to replace all matches in a line
-" "  set gdefault
+" assume the /g flag on substitutions to replace all matches in a line
+ set gdefault
 "
-" " set temporary directory (don't litter local dir with swp/tmp files)
-" set directory=/tmp/
+set backupdir=~/.tmp
+set directory=/tmp/| " set temporary directory (don't litter local dir with swp/tmp files)
 "
 "
 "
@@ -819,15 +877,6 @@ endif
 " " remember last position in file
 " au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g'\"" | endif
 "
- "Rakefile, Vagrantfile, and Gemfile are Ruby
- au BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,config.ru} set ft=ruby
-
- " JSON is JS
- " au BufNewFile,BufRead *.json set ai filetype=javascript
-
- au BufNewFile,BufRead *.ex set ai filetype=elixir
- au BufNewFile,BufRead *.exs set ai filetype=elixir
- " au BufRead /tmp/psql.edit.* set syntax=sql
 
  " au FocusGained,BufEnter * :checktime
 "
@@ -843,7 +892,6 @@ endif
 "
 " autocmd BufWritePost * if &diff == 1 | diffupdate | endif
 "
-autocmd Filetype gitcommit setlocal textwidth=72
 "
 "
 " " Compresses multiple blank lines into just one
@@ -852,25 +900,8 @@ autocmd Filetype gitcommit setlocal textwidth=72
 " endfunction
 "
 "
-" function! OpenFactoryFile()
-"   if filereadable("test/factories.rb")
-"     execute ":e test/factories.rb"
-"   else
-"     execute ":e spec/factories.rb"
-"   end
-" endfunction
 "
 "
-" function! RenameFile()
-"   let old_name = expand('%')
-"   let new_name = input('New file name: ', expand('%'), 'file')
-"   if new_name != '' && new_name != old_name
-"     exec ':saveas ' . new_name
-"     exec ':silent !rm ' . old_name
-"     redraw!
-"   endif
-" endfunction
-" map <Leader>n :call RenameFile()<cr>
 "
 "
 "
