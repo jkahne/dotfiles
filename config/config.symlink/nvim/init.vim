@@ -264,6 +264,9 @@ nnoremap <Leader>* :noh<cr>|                         " map spacebar to clear sea
 nmap     <Leader>b :Buffers<CR>|                     " FZF
 nnoremap <Leader>cc :StripTrailingWhitespaces<cr>|   " clean up trailing whitespace
 nmap     <Leader>gf :call OpenFactoryFile()<CR>|     " rails - open factory file
+map      <Leader>ga :e app/controllers/application_controller.rb<cr>
+map      <Leader>gs :e db/schema.rb<cr>
+map      <Leader>gr :e config/routes.rb<cr>
 nnoremap <Leader>gt :NERDTreeFind<CR>|               " NERDTree settings
 nnoremap <Leader>ns :so ~/.config/nvim/init.vim<CR>| " source neovim init
 nnoremap <Leader>ne :e ~/.config/nvim/init.vim<CR>|  " edit neovim init
@@ -635,13 +638,9 @@ endif
 "
 "
 " " shortcuts for frequenly used files
-" nmap <Leader>gs :e db/schema.rb<cr>
-" nmap <Leader>gr :e config/routes.rb<cr>
 "
 "
 " " copied over
-" map <Leader>ac :sp app/controllers/application_controller.rb<cr>
-" " vmap <Leader>bed "td?describe<cr>obed<tab><esc>"tpkdd/end<cr>o<esc>:nohl<cr>
 " " map <Leader>cu :Tabularize /\|<CR>
 " map <Leader>fix :cnoremap % %<CR>
 "
@@ -650,9 +649,6 @@ endif
 "
 " " nnoremap <leader>pr :Prettier<cr>
 "
-" " map <Leader>dr :e ~/OneDrive<cr>
-" " map <Leader>cn :e ~/OneDrive/c/codex/coding-notes.md<cr>
-" " map <Leader>dj :e ~/OneDrive/c/codex/debugging-journal.md<cr>
 "
 "
 "
