@@ -227,6 +227,7 @@ nmap <silent> gy <Plug>(coc-type-definition)| " Coc -  GoTo code navigation.
 nmap <silent> gi <Plug>(coc-implementation)|  " Coc -  GoTo code navigation.
 nmap <silent> gr <Plug>(coc-references)|      " Coc -  GoTo code navigation.
 
+
 inoremap jj <Esc>|                            " esc 
 inoremap jk <Esc>|                            " esc
 map j gj|                                     " sane defaults
@@ -261,6 +262,7 @@ nmap     <Leader>< :tabprevious<CR>
 nmap     <Leader>' :Marks<CR>|                       " FZF
 nmap     <Leader>/ :Rg<Space>|                       " FZF
 nnoremap <Leader>* :noh<cr>|                         " map spacebar to clear search highlight
+nmap     <leader>ac  <Plug>(coc-codeaction)|         " Remap keys for applying codeAction to the current buffer.
 nmap     <Leader>b :Buffers<CR>|                     " FZF
 nnoremap <Leader>cc :StripTrailingWhitespaces<cr>|   " clean up trailing whitespace
 nmap     <Leader>gf :call OpenFactoryFile()<CR>|     " rails - open factory file
@@ -270,6 +272,7 @@ map      <Leader>gr :e config/routes.rb<cr>
 nnoremap <Leader>gt :NERDTreeFind<CR>|               " NERDTree settings
 nnoremap <Leader>ns :so ~/.config/nvim/init.vim<CR>| " source neovim init
 nnoremap <Leader>ne :e ~/.config/nvim/init.vim<CR>|  " edit neovim init
+nmap     <leader>qf  <Plug>(coc-fix-current)|        " Apply AutoFix to problem on the current line.
 map      <Leader>rf :call RenameFile()<cr>|          " rename file
 nmap     <leader>rn <Plug>(coc-rename)|              " Coc - Remap for rename current word
 nmap     <Leader>sa :TestSuite<CR>|                  " vim.test - spec suite
@@ -289,8 +292,10 @@ nnoremap <silent> <Leader>2 :call clearmatches()<CR>| " clear all the highlighte
 "Highlight all instances of word under cursor, when idle.
 " Useful when studying strange source code.
 nnoremap <leader><leader>* :if AutoHighlightToggle()<Bar>set hls<Bar>endif<CR>
-map <Leader><Leader>ns :sp ~/OneDrive/c/codex/scratch.md<cr>
-map <Leader><Leader>nv :sp ~/OneDrive/c/codex/vimnotes.md<cr>
+
+map <Leader><Leader>w :sp ~/OneDrive/c/codex/work-notes.md<cr>
+map <Leader><Leader>s :sp ~/OneDrive/c/codex/scratch.md<cr>
+map <Leader><Leader>v :sp ~/OneDrive/c/codex/vimnotes.md<cr>
 
 
 
@@ -696,12 +701,19 @@ endif
    autocmd FileType ruby,eruby,yaml setlocal iskeyword+=@
 
    " STACK
+   autocmd FileType javascript setlocal ai sw=4 sts=4 et
+   autocmd FileType javascript setlocal path+=lib
+   autocmd FileType javascript setlocal iskeyword+=?
+   autocmd FileType javascript setlocal iskeyword+=@
    autocmd FileType typescript setlocal ai sw=4 sts=4 et
    autocmd FileType typescript setlocal path+=lib
    autocmd FileType typescript setlocal iskeyword+=?
    autocmd FileType typescript setlocal iskeyword+=@
+   autocmd BufRead,BufNewFile *.ts setlocal ts=4 sts=4 sw=4 expandtab
+   autocmd FileType ts setlocal ts=4 sts=4 sw=4 expandtab
    autocmd FileType html setlocal ts=4 sts=4 sw=4 expandtab
    autocmd FileType css  setlocal ts=4 sts=4 sw=4 expandtab
+
 
    " " autocmd BufNewFile,BufRead *.json set filetype=javascript
    " autocmd BufNewFile,BufRead *.jsx  set filetype=javascript
