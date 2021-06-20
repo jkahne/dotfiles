@@ -10,7 +10,7 @@ alias binit="bi && b package && echo 'vendor/ruby' >> .gitignore"
 
 # alias ant="JAVA_HOME=/Users/jkahne/.asdf/installs/java/adoptopenjdk-8.0.232+9.1 ant"
 
-alias vim="nvim"
+# alias vim="nvim"
 alias d="cd ~/.dotfiles && vim ~/.dotfiles/config/config.symlink/nvim/init.vim"
 alias cdx="cd ~/OneDrive/c/codex && vim"
 alias codex="cd ~/OneDrive/c/codex && vim"
@@ -23,10 +23,22 @@ alias postmaster="brew services stop postgres; cd /usr/local/var/postgres; rm po
 alias aso='source ~/.dotfiles/zsh/aliases.zsh'
 alias squash='git rebase -i master'
 alias sync='git add -u . && git commit -m "Minor changes. Commit message skipped." && git pull --rebase && git push'
+alias fbr='git branch --sort=-committerdate | grep -v HEAD | string trim | fzf +s | xargs git checkout'
 # alias start='vim ~/OneDrive/n/notes/day-start-checklist.md'
 # alias pn='vim ~/OneDrive/n/notes/project-notes.md'
 alias format='be standardrb --fix; npm run pretty;'
 alias jsontidy="pbpaste | jq '.' | pbcopy"
+
+# Show/hide hidden files in Finder
+alias showfiles="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
+alias hidefiles="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
+
+# Hide/show all desktop icons (useful when presenting)
+alias hidedesktop="defaults write com.apple.finder CreateDesktop -bool false && killall Finder"
+alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
+
+# Print each PATH entry on a separate line
+alias path='echo -e ${PATH//:/\\n}'
 
 # alias st="tag --add starred ."
 # alias un="tag --add up next ."
