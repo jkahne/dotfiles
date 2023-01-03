@@ -20,8 +20,6 @@ alias phxroutes="mix phx.routes | fzf"
 
 alias weather="http wttr.in/cincinnati"
 
-# alias ant="JAVA_HOME=/Users/jkahne/.asdf/installs/java/adoptopenjdk-8.0.232+9.1 ant"
-
 alias vim="nvim"
 alias d="cd ~/.dotfiles && nvim ~/.dotfiles/nvim/init.vim"
 alias icloud="cd ~/Library/Mobile\ Documents/com~apple~CloudDocs/"
