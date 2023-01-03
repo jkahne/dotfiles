@@ -1,0 +1,470 @@
+require'hop'.setup()
+local async = require "plenary.async"
+require'nvim-web-devicons'.setup()
+
+
+-- must come before lspconfig
+require("mason").setup()
+require("mason-lspconfig").setup({
+    ensure_installed = { "tailwindcss", "graphql", "ruby_ls", "tsserver", "html", "elixirls", "dockerls", "cssls", "astro",   }
+})
+
+
+-- Diagnostic settings
+vim.diagnostic.config {
+  virtual_text = false,
+  signs = true,
+  underline = true,
+}
+
+
+local cmp = require'cmp'
+cmp.setup({
+  snippet = {
+    -- REQUIRED - you must specify a snippet engine
+    expand = function(args)
+      -- vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+      -- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+      -- require('snippy').expand_snippet(args.body) -- For `snippy` users.
+      vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
+    end,
+  },
+  window = {
+    completion = cmp.config.window.bordered(),
+    documentation = cmp.config.window.bordered(),
+  },
+  mapping = cmp.mapping.preset.insert({
+    ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+    ['<C-j>'] = cmp.mapping.select_next_item(),
+    ['<C-k>'] = cmp.mapping.select_prev_item(),
+    ['<C-Space>'] = cmp.mapping.complete(),
+    ['<C-e>'] = cmp.mapping.abort(),
+    ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+  }),
+  sources = cmp.config.sources({
+    { name = 'nvim_lsp',
+      -- entry_filter = function(entry, ctx)
+      --   -- LOG.debug(entry:get_kind())
+      --   -- if entry:get_kind() == 15 then
+      --   --   return false
+      --   -- end
+      --   return true
+      -- end
+    },
+    -- { name = 'vsnip' }, -- For vsnip users.
+    -- { name = 'luasnip' }, -- For luasnip users.
+    { name = 'ultisnips' }, -- For ultisnips users.
+    -- { name = 'snippy' }, -- For snippy users.
+  }, {
+    { name = 'buffer' },
+  })
+})
+
+-- Set configuration for specific filetype.
+cmp.setup.filetype('gitcommit', {
+  sources = cmp.config.sources({
+    { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.
+  }, {
+    { name = 'buffer' },
+  })
+})
+
+-- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline({ '/', '?' }, {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = {
+    { name = 'buffer' }
+  }
+})
+
+-- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline(':', {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = cmp.config.sources({
+    { name = 'path' }
+  }, {
+    { name = 'cmdline' }
+  })
+})
+
+-- Set up lspconfig.
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
+
+-- ✅ gem install bundler
+-- ✅ gem install solargraph
+-- ✅ gem install solargraph-rails
+-- cmdprompt> solargraph config
+-- add '- solargraph-rails' to plugins
+require'lspconfig'.solargraph.setup{
+  capabilities = capabilities }
+-- ✅ npm install -g typescript typescript-language-server
+require'lspconfig'.tsserver.setup{ capabilities = capabilities }
+-- ✅ npm install -g @astrojs/language-server
+require'lspconfig'.astro.setup{ capabilities = capabilities, }
+-- help lspconfig-all
+-- ✅ https://github.com/elixir-lsp/elixir-ls/releases/latest/download/elixir-ls.zip
+-- put in /Users/jkahne/bin/elixir-ls
+require'lspconfig'.elixirls.setup{
+  capabilities = capabilities,
+  cmd = { "/Users/jkahne/bin/elixir-ls/language_server.sh" },
+    -- filetypes = { "elixir", "eelixir", "heex", "eex", "surface" },
+}
+
+require('lspconfig').tailwindcss.setup {
+  capabilities = capabilities,
+  cmd = { "tailwindcss-language-server", "--stdio" },
+  filetypes = {  "astro", "astro-markdown", "eelixir",  "erb", "html", "html-eex", "markdown", "mdx", "css", "javascript", "javascriptreact"  },
+  init_options = {
+    userLanguages = {
+      eelixir = "html-eex"
+    }
+  },
+  on_new_config = function(new_config)
+    if not new_config.settings then
+      new_config.settings = {}
+    end
+    if not new_config.settings.editor then
+      new_config.settings.editor = {}
+    end
+    if not new_config.settings.editor.tabSize then
+      -- set tab size for hover
+      new_config.settings.editor.tabSize = vim.lsp.util.get_effective_tabstop()
+    end
+  end,
+  -- root_dir = nvim_lsp.util.root_pattern('tailwind.config.cjs', 'tailwind.config.js', 'tailwind.config.ts','postcss.config.cjs', 'postcss.config.js', 'postcss.config.ts', 'package.json', 'node_modules', '.git'),
+  settings = {
+    tailwindCSS = {
+      lint = {
+        cssConflict = "warning",
+        invalidApply = "error",
+        invalidConfigPath = "error",
+        invalidScreen = "error",
+        invalidTailwindDirective = "error",
+        invalidVariant = "error",
+        recommendedVariantOrder = "warning"
+      },
+      validate = true
+    }
+  },
+  flags = { debounce_text_changes = 150, }
+}
+
+
+require'nvim-treesitter.configs'.setup{
+  -- A list of parser names, or "all"
+  ensure_installed = { "css", "dockerfile", "eex", "erlang", "graphql", "heex", "html", "javascript", "json", "json5", "lua", "markdown", "sql", "tsx", "typescript", "vim", "ruby", "elixir", "bash" },
+  -- ensure_installed = { "astro" },
+
+  -- Install parsers synchronously (only applied to `ensure_installed`)
+  sync_install = false,
+
+  -- Automatically install missing parsers when entering buffer
+  -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
+  auto_install = true,
+
+  -- List of parsers to ignore installing (for "all")
+  -- ignore_install = { "javascript" },
+
+  ---- If you need to change the installation directory of the parsers (see -> Advanced Setup)
+  -- parser_install_dir = "/some/path/to/store/parsers", -- Remember to run vim.opt.runtimepath:append("/some/path/to/store/parsers")!
+
+  highlight = {
+    -- `false` will disable the whole extension
+    enable = true,
+
+    -- NOTE: these are the names of the parsers and not the filetype. (for example if you want to
+    -- disable highlighting for the `tex` filetype, you need to include `latex` in this list as this is
+    -- the name of the parser)
+    -- list of language that will be disabled
+    -- disable = { "c", "rust" },
+    -- Or use a function for more flexibility, e.g. to disable slow treesitter highlight for large files
+    -- disable = function(lang, buf)
+    --     local max_filesize = 100 * 1024 -- 100 KB
+    --     local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+    --     if ok and stats and stats.size > max_filesize then
+    --         return true
+    --     end
+    -- end,
+
+    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
+    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+    -- Using this option may slow down your editor, and you may see some duplicate highlights.
+    -- Instead of true it can also be a list of languages
+    additional_vim_regex_highlighting = false,
+  },
+}
+
+
+
+require('telescope').setup{
+  defaults = {
+    mappings = {
+      i = {
+        ["<C-j>"] = "move_selection_next",
+        ["<C-k>"] = "move_selection_previous",
+      }
+    },
+    layout_strategy = "horizontal",
+    anchor = "N",
+    path_display = {
+      shorten = { len = 2, exclude = {-1} }
+    },
+    layout_config = {
+      center = {
+        preview_height = 20
+      },
+      vertical = {
+        prompt_position = "top",
+        preview_height = 25,
+        mirror = true,
+        preview_cutoff = 4,
+        width = 0.99,
+        height = 0.99,
+      },
+      horizontal = {
+        prompt_position = "top",
+        preview_width = 0.5,
+        width = 0.99,
+        height = 0.99,
+      },
+    },
+    sorting_strategy = "ascending",
+    preview = true,
+
+  },
+  pickers = {
+    -- git_files = { theme = 'dropdown' },
+    -- find_files = { theme = 'dropdown'  },
+    -- buffers = { layout_strategy='horizontal', layout_config={ horizontal = {height = 0.55, results_height = 0.55} }  },
+    -- marks = { theme = 'ivy' },
+    -- git_branches = { theme = 'ivy' },
+    -- git_bcommits = { theme = 'ivy' },
+    -- git_commits = { theme = 'ivy' },
+    -- grep_string = { theme = 'ivy' },
+    -- live_grep = { theme = 'ivy' },
+  },
+  extensions = {
+      http = {
+          -- How the mozilla url is opened. By default:
+          open_url = 'open %s'
+      }
+  }
+}
+
+require("telescope").load_extension "neoclip"
+require('neoclip').setup{
+  history = 1000,
+  enable_persistent_history = false,
+  length_limit = 1048576,
+  continuous_sync = true,
+  preview = true,
+  -- prompt = nil,
+  -- default_register = '"',
+  -- default_register_macros = 'q',
+  -- enable_macro_history = true,
+  -- content_spec_column = false,
+  -- on_paste = {
+  --   set_reg = false,
+  -- },
+  -- on_replay = {
+  --   set_reg = false,
+  -- },
+  keys = {
+    telescope = {
+      i = {
+  --       select = '<cr>',
+        paste = '<cr>',
+        paste_behind = '<c-p>',
+  --       replay = '<c-q>',  -- replay a macro
+  --       delete = '<c-d>',  -- delete an entry
+  --       custom = {},
+      },
+      n = {
+  --       select = '<cr>',
+        paste = '<cr>',
+  --       --- It is possible to map to more than one key.
+  --       -- paste = { 'p', '<c-p>' },
+        paste_behind = 'P',
+  --       replay = 'q',
+  --       delete = 'd',
+  --       custom = {},
+      },
+    },
+  --   fzf = {
+  --     select = 'default',
+  --     paste = 'ctrl-p',
+  --     paste_behind = 'ctrl-k',
+  --     custom = {},
+  --   },
+  },
+}
+
+
+require('telescope').load_extension('tailiscope')
+require('telescope').load_extension 'http'
+require"octo".setup({
+  -- default_remote = {"upstream", "origin"}; -- order to try remotes
+  -- ssh_aliases = {},                        -- SSH aliases. e.g. `ssh_aliases = {["github.com-work"] = "github.com"}`
+  -- reaction_viewer_hint_icon = "";         -- marker for user reactions
+  -- user_icon = " ";                        -- user icon
+  -- timeline_marker = "";                   -- timeline marker
+  -- timeline_indent = "2";                   -- timeline indentation
+  -- right_bubble_delimiter = "";            -- bubble delimiter
+  -- left_bubble_delimiter = "";             -- bubble delimiter
+  -- github_hostname = "";                    -- GitHub Enterprise host
+  -- snippet_context_lines = 4;               -- number or lines around commented lines
+  -- gh_env = {},                             -- extra environment variables to pass on to GitHub CLI, can be a table or function returning a table
+  -- issues = {
+  --   order_by = {                           -- criteria to sort results of `Octo issue list`
+  --     field = "CREATED_AT",                -- either COMMENTS, CREATED_AT or UPDATED_AT (https://docs.github.com/en/graphql/reference/enums#issueorderfield)
+  --     direction = "DESC"                   -- either DESC or ASC (https://docs.github.com/en/graphql/reference/enums#orderdirection)
+  --   }
+  -- },
+  -- pull_requests = {
+  --   order_by = {                           -- criteria to sort the results of `Octo pr list`
+  --     field = "CREATED_AT",                -- either COMMENTS, CREATED_AT or UPDATED_AT (https://docs.github.com/en/graphql/reference/enums#issueorderfield)
+  --     direction = "DESC"                   -- either DESC or ASC (https://docs.github.com/en/graphql/reference/enums#orderdirection)
+  --   },
+  --   always_select_remote_on_create = "false" -- always give prompt to select base remote repo when creating PRs
+  -- },
+  -- file_panel = {
+  --   size = 10,                             -- changed files panel rows
+  --   use_icons = true                       -- use web-devicons in file panel (if false, nvim-web-devicons does not need to be installed)
+  -- },
+  mappings = {
+    issue = {
+      close_issue = { lhs = "<space>ic", desc = "close issue" },
+      reopen_issue = { lhs = "<space>io", desc = "reopen issue" },
+      list_issues = { lhs = "<space>il", desc = "list open issues on same repo" },
+      reload = { lhs = "<C-r>", desc = "reload issue" },
+      open_in_browser = { lhs = "<C-b>", desc = "open issue in browser" },
+      copy_url = { lhs = "<C-y>", desc = "copy url to system clipboard" },
+      add_assignee = { lhs = "<space>aa", desc = "add assignee" },
+      remove_assignee = { lhs = "<space>ad", desc = "remove assignee" },
+      create_label = { lhs = "<space>lc", desc = "create label" },
+      add_label = { lhs = "<space>la", desc = "add label" },
+      remove_label = { lhs = "<space>ld", desc = "remove label" },
+      goto_issue = { lhs = "<space>gi", desc = "navigate to a local repo issue" },
+      add_comment = { lhs = "<space>ca", desc = "add comment" },
+      delete_comment = { lhs = "<space>cd", desc = "delete comment" },
+      next_comment = { lhs = "]c", desc = "go to next comment" },
+      prev_comment = { lhs = "[c", desc = "go to previous comment" },
+      react_hooray = { lhs = "<space>rp", desc = "add/remove 🎉 reaction" },
+      react_heart = { lhs = "<space>rh", desc = "add/remove ❤️ reaction" },
+      react_eyes = { lhs = "<space>re", desc = "add/remove 👀 reaction" },
+      react_thumbs_up = { lhs = "<space>r+", desc = "add/remove 👍 reaction" },
+      react_thumbs_down = { lhs = "<space>r-", desc = "add/remove 👎 reaction" },
+      react_rocket = { lhs = "<space>rr", desc = "add/remove 🚀 reaction" },
+      react_laugh = { lhs = "<space>rl", desc = "add/remove 😄 reaction" },
+      react_confused = { lhs = "<space>rc", desc = "add/remove 😕 reaction" },
+    },
+    pull_request = {
+      checkout_pr = { lhs = "<space>po", desc = "checkout PR" },
+      merge_pr = { lhs = "<space>pm", desc = "merge commit PR" },
+      squash_and_merge_pr = { lhs = "<space>psm", desc = "squash and merge PR" },
+      list_commits = { lhs = "<space>pc", desc = "list PR commits" },
+      list_changed_files = { lhs = "<space>pf", desc = "list PR changed files" },
+      show_pr_diff = { lhs = "<space>pd", desc = "show PR diff" },
+      add_reviewer = { lhs = "<space>va", desc = "add reviewer" },
+      remove_reviewer = { lhs = "<space>vd", desc = "remove reviewer request" },
+      close_issue = { lhs = "<space>ic", desc = "close PR" },
+      reopen_issue = { lhs = "<space>io", desc = "reopen PR" },
+      list_issues = { lhs = "<space>il", desc = "list open issues on same repo" },
+      reload = { lhs = "<C-r>", desc = "reload PR" },
+      open_in_browser = { lhs = "<C-b>", desc = "open PR in browser" },
+      copy_url = { lhs = "<C-y>", desc = "copy url to system clipboard" },
+      goto_file = { lhs = "gf", desc = "go to file" },
+      add_assignee = { lhs = "<space>aa", desc = "add assignee" },
+      remove_assignee = { lhs = "<space>ad", desc = "remove assignee" },
+      create_label = { lhs = "<space>lc", desc = "create label" },
+      add_label = { lhs = "<space>la", desc = "add label" },
+      remove_label = { lhs = "<space>ld", desc = "remove label" },
+      goto_issue = { lhs = "<space>gi", desc = "navigate to a local repo issue" },
+      add_comment = { lhs = "<space>ca", desc = "add comment" },
+      delete_comment = { lhs = "<space>cd", desc = "delete comment" },
+      next_comment = { lhs = "]c", desc = "go to next comment" },
+      prev_comment = { lhs = "[c", desc = "go to previous comment" },
+      react_hooray = { lhs = "<space>rp", desc = "add/remove 🎉 reaction" },
+      react_heart = { lhs = "<space>rh", desc = "add/remove ❤️ reaction" },
+      react_eyes = { lhs = "<space>re", desc = "add/remove 👀 reaction" },
+      react_thumbs_up = { lhs = "<space>r+", desc = "add/remove 👍 reaction" },
+      react_thumbs_down = { lhs = "<space>r-", desc = "add/remove 👎 reaction" },
+      react_rocket = { lhs = "<space>rr", desc = "add/remove 🚀 reaction" },
+      react_laugh = { lhs = "<space>rl", desc = "add/remove 😄 reaction" },
+      react_confused = { lhs = "<space>rc", desc = "add/remove 😕 reaction" },
+    },
+    review_thread = {
+      goto_issue = { lhs = "<space>gi", desc = "navigate to a local repo issue" },
+      add_comment = { lhs = "<space>ca", desc = "add comment" },
+      add_suggestion = { lhs = "<space>sa", desc = "add suggestion" },
+      delete_comment = { lhs = "<space>cd", desc = "delete comment" },
+      next_comment = { lhs = "]c", desc = "go to next comment" },
+      prev_comment = { lhs = "[c", desc = "go to previous comment" },
+      select_next_entry = { lhs = "]q", desc = "move to previous changed file" },
+      select_prev_entry = { lhs = "[q", desc = "move to next changed file" },
+      close_review_tab = { lhs = "<C-c>", desc = "close review tab" },
+      react_hooray = { lhs = "<space>rp", desc = "add/remove 🎉 reaction" },
+      react_heart = { lhs = "<space>rh", desc = "add/remove ❤️ reaction" },
+      react_eyes = { lhs = "<space>re", desc = "add/remove 👀 reaction" },
+      react_thumbs_up = { lhs = "<space>r+", desc = "add/remove 👍 reaction" },
+      react_thumbs_down = { lhs = "<space>r-", desc = "add/remove 👎 reaction" },
+      react_rocket = { lhs = "<space>rr", desc = "add/remove 🚀 reaction" },
+      react_laugh = { lhs = "<space>rl", desc = "add/remove 😄 reaction" },
+      react_confused = { lhs = "<space>rc", desc = "add/remove 😕 reaction" },
+    },
+    submit_win = {
+      approve_review = { lhs = "<C-a>", desc = "approve review" },
+      comment_review = { lhs = "<C-m>", desc = "comment review" },
+      request_changes = { lhs = "<C-r>", desc = "request changes review" },
+      close_review_tab = { lhs = "<C-c>", desc = "close review tab" },
+    },
+    review_diff = {
+      add_review_comment = { lhs = "<space>ca", desc = "add a new review comment" },
+      add_review_suggestion = { lhs = "<space>sa", desc = "add a new review suggestion" },
+      focus_files = { lhs = "<leader>e", desc = "move focus to changed file panel" },
+      toggle_files = { lhs = "<leader>b", desc = "hide/show changed files panel" },
+      next_thread = { lhs = "]t", desc = "move to next thread" },
+      prev_thread = { lhs = "[t", desc = "move to previous thread" },
+      select_next_entry = { lhs = "]q", desc = "move to previous changed file" },
+      select_prev_entry = { lhs = "[q", desc = "move to next changed file" },
+      close_review_tab = { lhs = "<C-c>", desc = "close review tab" },
+      toggle_viewed = { lhs = "<leader><space>", desc = "toggle viewer viewed state" },
+    },
+    file_panel = {
+      next_entry = { lhs = "j", desc = "move to next changed file" },
+      prev_entry = { lhs = "k", desc = "move to previous changed file" },
+      select_entry = { lhs = "<cr>", desc = "show selected changed file diffs" },
+      refresh_files = { lhs = "R", desc = "refresh changed files panel" },
+      focus_files = { lhs = "<leader>e", desc = "move focus to changed file panel" },
+      toggle_files = { lhs = "<leader>b", desc = "hide/show changed files panel" },
+      select_next_entry = { lhs = "]q", desc = "move to previous changed file" },
+      select_prev_entry = { lhs = "[q", desc = "move to next changed file" },
+      close_review_tab = { lhs = "<C-c>", desc = "close review tab" },
+      toggle_viewed = { lhs = "<leader><space>", desc = "toggle viewer viewed state" },
+    }
+  }
+})
+
+require("harpoon").setup({
+  -- global_settings = {
+  --     -- sets the marks upon calling `toggle` on the ui, instead of require `:w`.
+  --     save_on_toggle = false,
+
+  --     -- saves the harpoon file upon every change. disabling is unrecommended.
+  --     save_on_change = true,
+
+  --     -- sets harpoon to run the command immediately as it's passed to the terminal when calling `sendCommand`.
+  --     enter_on_sendcmd = false,
+
+  --     -- closes any tmux windows harpoon that harpoon creates when you close Neovim.
+  --     tmux_autoclose_windows = false,
+
+  --     -- filetypes that you want to prevent from adding to the harpoon list menu.
+  --     excluded_filetypes = { "harpoon" },
+
+  --     -- set marks specific to each git branch inside git repository
+  --     mark_branch = false,
+  -- }
+})
+

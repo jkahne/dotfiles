@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+# cd /Users/jkahne/projects/archive/jbranchaud/til
+# git pull --rebase
+
+# cd /Users/jkahne/projects/reference/from-activerecord-to-ecto
+# git pull --rebase
+
+# cd /Users/jkahne/projects/reference/turbo-showcase
+# git pull --rebase
+
+# cd /Users/jkahne/projects/reference/awesome-leading-and-managing
+# git pull --rebase
+
+cd /Users/jkahne/projects/github/lucasvegi/Elixir-Code-Smells
+git pull --rebase
+
+
+

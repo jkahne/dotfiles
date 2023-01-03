@@ -1,0 +1,14 @@
+#!/bin/bash
+
+set -e
+
+cd $HOME
+
+# symlink icloud dotfiles to /.dotfiles
+[ ! -L $HOME/.dotfiles ] && ln -s $HOME/Library/Mobile\ Documents/com~apple~CloudDocs/dotfiles $HOME/.dotfiles
+
+cd $HOME/.dotfiles
+
+# run setup script
+echo "initial tests -> this didn't work.  want another computer to test it out."
+echo "./new_computer_setup"

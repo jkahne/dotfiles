@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+
+cd ~/projects/work/rvshare
+make restart_all
+

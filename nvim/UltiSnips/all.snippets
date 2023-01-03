@@ -1,0 +1,53 @@
+snippet test
+things go here
+and here $1
+and here ${2:default text}
+and finally here ${3:`date +%Y/%m/%d`}
+
+And this will mimic the first tab stop: $1
+$0
+endsnippet
+
+snippet div
+<div>
+  $1
+</div>
+endsnippet
+
+snippet divc
+<div class="$1">
+  $2
+</div>
+endsnippet
+
+snippet desc "describe '' do ... end"
+describe "$1" do
+  $2
+end
+endsnippet
+
+snippet it "it '' do ... end"
+it "$1" do
+  $2
+end
+endsnippet
+
+snippet cl
+console.log('$1')
+endsnippet
+
+snippet ct
+console.table('$1', $2)
+endsnippet
+
+snippet ctr
+console.trace('$1', $2)
+endsnippet
+
+snippet ca
+console.assert($1, '$2')
+endsnippet
+
+snippet af
+($1) => { $2 }
+endsnippet

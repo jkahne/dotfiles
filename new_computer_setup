@@ -1,0 +1,224 @@
+#!/bin/bash
+
+set -e
+
+## xcode
+printf "\nxcode\n"
+if [ $( xcode-select -p | grep -E ^/Library/Developer/CommandLineTools$ ) ]; then
+  echo "xcode already installed"
+else
+  xcode-select --install
+fi
+
+printf "\nhomebrew\n"
+## Install homebrew
+if command -v brew; then
+  echo "Homebrew installed; updating:"
+  brew update
+else
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  eval $(/opt/homebrew/bin/brew shellenv)
+fi
+
+printf "\nbrew packages\n"
+# # dependencies
+for pkg in gpg gawk coreutils automake autoconf libyaml readline libxslt libtool openssl@1.1 fop unixodbc wxwidgets; do
+  # if brew list -1 | grep -q "^${pkg}\$"; then
+  if [ ! "$(brew ls --versions '$pkg')" ]; then
+    echo "Package '$pkg' is installed; updating:"
+    brew upgrade "$pkg" && brew cleanup "$pkg" || true
+  else
+    brew install "$pkg"
+  fi
+done
+
+# # the stuff I know what is
+# asdf taken out
+for pkg in httpie autojump zsh zsh-completions git git-delta exa bat ripgrep fzf redis postgres neovim tree universal-ctags alt-tab vlc blackhole-16ch; do
+  # if brew list -1 | grep -q "^${pkg}\$"; then
+  if [ ! "$(brew ls --versions '$pkg')" ]; then
+    echo "Package '$pkg' is installed; updating:"
+    brew upgrade "$pkg" && brew cleanup "$pkg" || true
+  else
+    brew install "$pkg"
+  fi
+done
+
+
+brew reinstall --cask keycastr
+brew reinstall --cask stats
+
+printf "\nSwitch to brew zsh\n"
+if [ $( cat /etc/shells | grep -E ^$(brew --prefix)/bin/zsh$ ) ]; then
+  echo "zsh already set as default shell"
+else
+  echo $(brew --prefix)/bin/zsh | sudo tee -a /etc/shells
+  chsh -s $(brew --prefix)/bin/zsh
+fi
+
+
+printf "\ngeneral app stuff\n"
+
+brew services start redis
+brew services start postgres
+
+# /opt/homebrew/opt/fzf/install
+if [ -f "$HOME/.fzf.zsh" ]; then
+  echo "fzf already installed"
+else
+  $(brew --prefix)/opt/fzf/install
+fi
+
+
+if [ $(psql postgres -tAc "SELECT 1 FROM pg_roles WHERE rolname='postgres'" | grep -E ^1$ ) ]; then
+  echo "postgres user role already created"
+else
+  createuser -s postgres
+  # # my old notes used this. is there a difference? If so, what?
+  # › psql -d postgres
+  # postgres=# create role postgres password '' superuser;
+  # postgres=# grant all on database postgres to postgres;
+  # postgres=# alter role postgres login;
+  # postgres-# \q
+fi
+
+
+
+printf "\nsymlinking\n"
+# most of the dotfiles
+for link in zshrc editorconfig iex.exs psqlrc irbrc gitconfig gitignore ideavimrc; do
+  if [ -L "$HOME/.$link" ]; then
+    rm $HOME/.$link
+  fi
+  ln -s $HOME/.dotfiles/$link $HOME/.$link
+done
+
+# special case: my scripts
+if [ -L "$HOME/bin" ]; then
+  rm $HOME/bin
+fi
+ln -s $HOME/.dotfiles/bin $HOME/bin
+
+# Special case: nvim files
+for link in nvim/init.vim, nvim/lua; do
+  if [ -L "$HOME/.config/$link" ]; then
+    rm $HOME/.config/$link
+  fi
+  ln -s $HOME/.dotfiles/$link $HOME/.config/$link
+done
+# could this be done with?:
+# ln -s /Users/jkahne/Library/Mobile\ Documents/com\~apple\~CloudDocs/dotfiles/nvim /Users/jkahne/.config/
+
+
+# asdf
+# printf "\ninstall asdf from http://asdf-vm.com/guide/getting-started.html#_1-install-dependencies\n"
+# printf "\nasdf plugins\n"
+# for plgn in nodejs erlang elixir yarn ruby; do
+#   if [ $( asdf plugin list | grep -E ^$plgn$ ) ]; then
+#     echo "Plugin '$plgn' is already installed. Updating"
+#     asdf plugin update $plgn
+#   else
+#     asdf plugin add $plgn
+#   fi
+# done
+
+
+
+# ## nvim
+printf "\nnvim\n"
+if [ $(brew list | grep -E ^neovim$ ) ]; then
+  echo "neovim already installed.  Updating Plugs."
+  nvim --headless +PlugUpdate +qall
+else
+  echo "Installing neovim."
+  echo "Untested and still commented out."
+  echo "Try it out if you're on a new machine!"
+  # brew install neovim
+  # asdf plugin add python
+  # asdf install python latest
+  # asdf install nodejs latest
+  # asdf global python latest
+  # asdf global nodejs latest
+
+  # python3 -m pip install --user --upgrade pynvim
+  # npm install -g neovim
+
+  # ## install Plug
+  # if [ ! -e $HOME/.local/share/nvim/site/autoload/plug.vim ]; then
+  #   sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  # fi
+  # nvim --headless +PlugInstall +qall
+
+  # need to figure out how to run: :CocInstall coc-eslint  (it has a space - does it work the same way? need quotes?)
+
+  # -> update:
+  # To install extensions with shell script, use command like:
+  # # install coc-json & coc-html and exit
+  # vim -c 'CocInstall -sync coc-json coc-html|q'
+
+  # To upgrade extensions with shell script, use command like:
+  # vim -c 'CocUpdateSync|q'
+
+fi
+
+
+
+printf "\nmanual\n"
+echo " -> Terminal preferences -> /opt/homebrew/bin/zsh "
+echo " "
+echo " install asdf from http://asdf-vm.com/guide/getting-started.html#_1-install-dependencies"
+echo " -> asdf install erlang <version>"
+echo " -> asdf install elixir <version>"
+echo " -> asdf install nodejs <version>"
+echo " -> asdf install yarn <version>"
+echo " "
+echo " -> and set them globally/locally"
+echo " "
+echo " "
+echo "---------- SSH ----------"
+echo " -> see $HOME/.dotfiles/new_computer_setup"
+echo " "
+echo " "
+echo " "
+echo "---------- ZSH completions ----------"
+echo " -> rm -f ~/.zcompdump; compinit"
+echo " -> chmod -R go-w '/opt/homebrew/share/zsh'"
+echo "    or maybe rather"
+echo " -> chmod -R go-w '/opt/homebrew/share'"
+
+
+
+
+
+brew cleanup
+
+
+
+# ## Set up SSH
+# https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
+
+# ssh-keygen -t ed25519 -C "jkahne@fastmail.com"
+# eval "$(ssh-agent -s)"
+# touch ~/.ssh/config
+# vim ~/.ssh/config
+
+# ```
+# Host *
+#   AddKeysToAgent yes
+#   IdentityFile ~/.ssh/id_ed25519
+# ```
+
+# ssh-add ~/.ssh/id_ed25519
+# pbcopy < ~/.ssh/id_ed25519.pub
+# paste it into GitHub > settings > SSH > new
+
+
+
+
+# ## work
+# brew install wkhtmltopdf
+# sudo vim /etc/hosts
+# 127.0.0.1 lego pizza-planet.lego never-never-land.lego hundred-acre-wood.lego
+
+# brew install heroku/brew/heroku
+

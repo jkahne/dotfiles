@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+# set cron
+# */30 * * * * /Users/jkahne/bin/sync_obsidian >/dev/null 2>&1
+
+cd /Users/jkahne/dropbox/c/codex
+
+gstatus=`git status --porcelain`
+
+if [ ${#gstatus} -ne 0 ]
+then
+  git add --all
+  git commit -m'autocommit'
+  git pull origin main --rebase
+  sleep 10
+  git push origin main
+else
+  git pull origin main
+fi

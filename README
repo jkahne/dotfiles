@@ -1,0 +1,19 @@
+
+TODO symlink sshconfig in dotfiles
+
+
+## Installation
+
+```
+git clone https://github.com/jkahne/dotfiles.git ~/.dotfiles
+cd ~/.dotfiles
+./new_computer_setup
+```
+
+for me, I have these dotfiles saved in icloud. It should be synced by the time I get logged in and find it in Finder. Open a new terminal to it and run `install` to symlink dotfiles to $HOME/.dotfiles Ideally it should kick off new_computer_setup but my cat needs to sleep on my lap right now, so I can't keep working on it to ensure it works correctly. Just go to $HOME/.dotfiles and run new_computer_setup
+
+## Crontab
+
+```
+0 6 * * * /Users/jkahne/.dotfiles/script/sync_git_repos >/dev/null 2>&1
+```
