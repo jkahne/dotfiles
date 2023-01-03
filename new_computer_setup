@@ -86,26 +86,40 @@ fi
 
 printf "\nsymlinking\n"
 # most of the dotfiles
-for link in zshrc editorconfig iex.exs psqlrc irbrc gitconfig gitignore ideavimrc; do
-  if [ -L "$HOME/.$link" ]; then
-    rm $HOME/.$link
-  fi
-  ln -s $HOME/.dotfiles/$link $HOME/.$link
-done
+# for link in zshrc editorconfig iex.exs psqlrc irbrc gitconfig gitignore ideavimrc tmux.conf; do
+#   if [ -L "$HOME/.$link" ]; then
+#     rm $HOME/.$link
+#   fi
+#   ln -s $HOME/.dotfiles/$link $HOME/.$link
+# done
+
+
+ln -s $HOME/.dotfiles/zshrc $HOME/.zshrc
+ln -s $HOME/.dotfiles/editorconfig $HOME/.editorconfig
+ln -s $HOME/.dotfiles/iex.exs $HOME/.iex.exs
+ln -s $HOME/.dotfiles/psqlrc $HOME/.psqlrc
+ln -s $HOME/.dotfiles/irbrc $HOME/.irbrc
+ln -s $HOME/.dotfiles/gitconfig $HOME/.gitconfig
+ln -s $HOME/.dotfiles/gitignore $HOME/.gitignore
+ln -s $HOME/.dotfiles/ideavimrc $HOME/.ideavimrc
+ln -s $HOME/.dotfiles/tmux.conf $HOME/.tmux.conf
+ln -s $HOME/.dotfiles/bin $HOME/bin
+ln -s $HOME/.dotfiles/nvim/init.vim $HOME/.config/nvim/init.vim
+ln -s $HOME/.dotfiles/nvim/lua $HOME/.config/nvim/lua
 
 # special case: my scripts
-if [ -L "$HOME/bin" ]; then
-  rm $HOME/bin
-fi
-ln -s $HOME/.dotfiles/bin $HOME/bin
+# if [ -L "$HOME/bin" ]; then
+#   rm $HOME/bin
+# fi
+# ln -s $HOME/.dotfiles/bin $HOME/bin
 
 # Special case: nvim files
-for link in nvim/init.vim, nvim/lua; do
-  if [ -L "$HOME/.config/$link" ]; then
-    rm $HOME/.config/$link
-  fi
-  ln -s $HOME/.dotfiles/$link $HOME/.config/$link
-done
+# for link in nvim/init.vim, nvim/lua; do
+#   if [ -L "$HOME/.config/$link" ]; then
+#     rm $HOME/.config/$link
+#   fi
+#   ln -s $HOME/.dotfiles/$link $HOME/.config/$link
+# done
 # could this be done with?:
 # ln -s /Users/jkahne/Library/Mobile\ Documents/com\~apple\~CloudDocs/dotfiles/nvim /Users/jkahne/.config/
 
