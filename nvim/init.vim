@@ -366,7 +366,7 @@ nnoremap <silent> gD    <cmd>lua vim.lsp.buf.declaration()<CR>
 nnoremap <silent> ggD    <cmd>lua require('telescope.builtin').lsp_type_definitions()<CR>
 " nnoremap <silent> ge    <cmd>lua vim.lsp.diagnostic.set_loclist()<CR>
 nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
-nnoremap <silent> <leader>f     <cmd>lua vim.lsp.buf.format { async = true }<CR>
+nnoremap <silent> <leader>rf     <cmd>lua vim.lsp.buf.format { async = true }<CR>
 nnoremap <silent> <leader>rn    <cmd>lua vim.lsp.buf.rename()<CR>
 nnoremap <silent> <leader>fq    <cmd>lua vim.lsp.buf.code_action()<CR>
 
@@ -379,7 +379,7 @@ nnoremap <leader>m <cmd>lua require('telescope.builtin').marks()<cr>
 nnoremap <leader>fo <cmd>lua require('telescope.builtin').treesitter()<cr>
 nnoremap <leader>fc <cmd>lua require('telescope.builtin').commands()<cr>
 nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
-nnoremap <leader>e <cmd>lua require('telescope.builtin').live_grep()<cr>
+nnoremap <leader>ef <cmd>lua require('telescope.builtin').live_grep()<cr>
 nnoremap <leader>gf <cmd>lua require('telescope.builtin').git_files({show_untracked=true})<cr>
 nnoremap <leader>gb <cmd>lua require('telescope.builtin').git_branches()<cr>
 nnoremap <leader>gp <cmd>lua require('telescope.builtin').git_bcommits()<cr>
@@ -389,27 +389,6 @@ nnoremap <leader>gc <cmd>lua require('telescope.builtin').git_commits()<cr>
 nnoremap g* <cmd>lua require('telescope.builtin').grep_string()<cr>
 nnoremap g/ <cmd>lua require('telescope.builtin').live_grep()<cr>
 nnoremap <leader>qh <cmd>lua require('telescope.builtin').quickfixhistory()<cr>
-
-
-
-
-" nnoremap <leader>t <cmd>lua require('telescope.builtin').git_files({show_untracked=true,  require('telescope.themes').get_ivy({layout_strategy='horizontal', layout_config={ horizontal = {height = 0.85, results_height = 0.85} } })})<cr>
-" nnoremap <leader>ft <cmd>lua require('telescope.builtin').find_files( require('telescope.themes').get_ivy({layout_strategy='horizontal', layout_config={ horizontal = {height = 0.85, results_height = 0.85} } }))<cr>
-" " require('telescope.themes').get_ivy({ height = 0.95, results_height = 0.95  })
-" " nnoremap <leader>l <cmd>lua require('telescope.builtin').live_grep()<cr>
-" nnoremap <leader>b <cmd>lua require('telescope.builtin').buffers( require('telescope.themes').get_ivy({layout_strategy='horizontal', layout_config={ horizontal = {height = 0.85, results_height = 0.85} } }))<cr>
-" nnoremap <leader>m <cmd>lua require('telescope.builtin').marks( require('telescope.themes').get_ivy({layout_strategy='horizontal', layout_config={ horizontal = {height = 0.85, results_height = 0.85} } }))<cr>
-" nnoremap <leader>fo <cmd>lua require('telescope.builtin').treesitter( require('telescope.themes').get_ivy({layout_strategy='horizontal', layout_config={ horizontal = {height = 0.85, results_height = 0.85} } }))<cr>
-" " nnoremap <leader>fc <cmd>lua require('telescope.builtin').commands()<cr>
-" " nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
-" nnoremap <leader>fb <cmd>lua require('telescope.builtin').git_branches( require('telescope.themes').get_ivy({layout_strategy='horizontal', layout_config={ horizontal = {height = 0.85, results_height = 0.85} } }))<cr>
-" nnoremap <leader>fh <cmd>lua require('telescope.builtin').git_bcommits( require('telescope.themes').get_ivy({layout_strategy='horizontal', layout_config={ horizontal = {height = 0.85, results_height = 0.85} } }))<cr>
-" nnoremap <leader>fc <cmd>lua require('telescope.builtin').git_commits( require('telescope.themes').get_ivy({layout_strategy='horizontal', layout_config={ horizontal = {height = 0.85, results_height = 0.85} } }))<cr>
-
-" nnoremap g* <cmd>lua require('telescope.builtin').grep_string( require('telescope.themes').get_ivy({layout_strategy='horizontal', layout_config={ horizontal = {height = 0.85, results_height = 0.85} } }))<cr>
-" nnoremap g/ <cmd>lua require('telescope.builtin').live_grep( require('telescope.themes').get_ivy({layout_strategy='horizontal', layout_config={ horizontal = {height = 0.85, results_height = 0.85} } }))<cr>
-" nnoremap <leader>qh <cmd>lua require('telescope.builtin').quickfixhistory( require('telescope.themes').get_ivy({layout_strategy='horizontal', layout_config={ horizontal = {height = 0.85, results_height = 0.85} } }))<cr>
-
 
 
 
@@ -425,6 +404,7 @@ nnoremap <leader>qh <cmd>lua require('telescope.builtin').quickfixhistory()<cr>
 nnoremap <Leader>p    <cmd>lua require('telescope').extensions.neoclip.default()<CR>
 
 nnoremap <Leader>ma <cmd>lua require("harpoon.mark").toggle_file()<CR>
+nnoremap <Leader>em :Telescope harpoon marks<CR>
 nnoremap <Leader>ml :Telescope harpoon marks<CR>
 nnoremap <up>       <cmd>lua require("harpoon.ui").nav_next()<CR>|                  " navigates to next mark
 nnoremap <down>     <cmd>lua require("harpoon.ui").nav_prev()<CR>|                  " navigates to previous mark
