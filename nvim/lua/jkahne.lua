@@ -205,18 +205,22 @@ require('telescope').setup{
         ["<C-k>"] = "move_selection_previous",
       }
     },
-    layout_strategy = "horizontal",
+    layout_strategy = "flex",
     anchor = "N",
-    path_display = {
-      shorten = { len = 2, exclude = {-1} }
-    },
+    -- path_display = {"tail"},
+    path_display = {"truncate"},
+    -- path_display = {
+    --   shorten = { len = 2, exclude = {-1} }
+    -- },
     layout_config = {
       center = {
-        preview_height = 20
+        -- preview_height = 20
+        preview_height = 0.7,
       },
       vertical = {
         prompt_position = "top",
-        preview_height = 25,
+        -- preview_height = 20
+        preview_height = 0.7,
         mirror = true,
         preview_cutoff = 4,
         width = 0.99,
@@ -224,7 +228,7 @@ require('telescope').setup{
       },
       horizontal = {
         prompt_position = "top",
-        preview_width = 0.5,
+        preview_width = 0.7,
         width = 0.99,
         height = 0.99,
       },
@@ -248,11 +252,12 @@ require('telescope').setup{
       http = {
           -- How the mozilla url is opened. By default:
           open_url = 'open %s'
-      }
+      },
   }
 }
 
 require("telescope").load_extension "neoclip"
+require("telescope").load_extension "http"
 require('neoclip').setup{
   history = 1000,
   enable_persistent_history = false,

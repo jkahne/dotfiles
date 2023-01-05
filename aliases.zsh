@@ -10,10 +10,12 @@ alias binit="bi && b package && echo 'vendor/ruby' >> .gitignore"
 
 alias tls="tmux ls"
 alias t="tmux attach -t"
+alias wo="tmux attach -t rv"
 alias rv="tmux attach -t rv"
 alias til="tmux attach -t til"
 alias web="tmux attach -t web"
 alias monte="tmux attach -t monte"
+alias dot="tmux attach -t dot"
 
 alias routes="rails routes | fzf"
 alias phxroutes="mix phx.routes | fzf"

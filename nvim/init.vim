@@ -309,10 +309,10 @@ set shiftround "when at 3 spaces and I hit >>, go to 4, not 5
 " nnoremap <Leader><Leader>l <c-w>><c-w>>
 
 " easy window resizing
-noremap <M-h> :vertical resize +5<cr>
-noremap <M-j> :resize -5<cr>
-noremap <M-k> :resize +5<cr>
-noremap <M-l> :vertical resize -5<cr>
+" noremap <M-h> :vertical resize +5<cr>
+" noremap <M-j> :resize -5<cr>
+" noremap <M-k> :resize +5<cr>
+" noremap <M-l> :vertical resize -5<cr>
 "
 " imap <silent> <C-D><C-D> <C-R>=strftime("%Y-%m-%d")<CR>
 " imap <silent> <C-T><C-T> <C-R>=strftime("%l:%M %p")<CR>
@@ -366,7 +366,7 @@ nnoremap <silent> gD    <cmd>lua vim.lsp.buf.declaration()<CR>
 nnoremap <silent> ggD    <cmd>lua require('telescope.builtin').lsp_type_definitions()<CR>
 " nnoremap <silent> ge    <cmd>lua vim.lsp.diagnostic.set_loclist()<CR>
 nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
-nnoremap <silent> <leader>rf     <cmd>lua vim.lsp.buf.format { async = true }<CR>
+nnoremap <silent> <leader>ff     <cmd>lua vim.lsp.buf.format { async = true }<CR>
 nnoremap <silent> <leader>rn    <cmd>lua vim.lsp.buf.rename()<CR>
 nnoremap <silent> <leader>fq    <cmd>lua vim.lsp.buf.code_action()<CR>
 
@@ -445,8 +445,8 @@ inoremap <C-k> <Up>|                          " while in insert mode, use ctrl +
 inoremap <C-l> <Right>|                       " while in insert mode, use ctrl + direction to move cursor
 noremap <C-w>m :MaximizerToggle!<CR>|          " maximize current split or return to previous
 
-imap <c-a> <c-o>^|                            " Emacs-like beginning of line.
-imap <c-e> <c-o>$|                            " Emacs-like end of line.
+" imap <c-a> <c-o>^|                            " Emacs-like beginning of line.
+" imap <c-e> <c-o>$|                            " Emacs-like end of line.
 " imap <c-l> <Space>=><Space>|                  " shortcut for =>
 " <C-y>, |                                    " emmet command
 nmap <C-W>u :call MergeTabs()<CR>|            " Merge a tab into a split in the previous window
@@ -480,11 +480,6 @@ nnoremap <leader>bd :<c-u>bp <bar> bd #<cr>|         " Close the current buffer 
 nnoremap <leader>bo :<c-u>up <bar> %bd <bar> e#<cr>| " Close all buffers except current one
 nmap     <Leader>c <C-^><CR>|                        " switch between current and last buffer
 nmap     <Leader>dr :! bundle exec standardrb<cr><cr>|        " run rubocop
-" vmap     <leader>f <Plug>(coc-format-selected)|
-" nmap     <leader>f <Plug>(coc-format-selected)|
-" map      <Leader>ga :e app/controllers/application_controller.rb<cr>
-" nmap     <Leader>gf :call OpenFactoryFile()<CR>|     " rails - open factory file
-" map      <Leader>gs :e db/schema.rb<cr>
 map      <Leader>gs :Switch<cr>
 " map      <Leader>gr :e config/routes.rb<cr>
 nnoremap <Leader>gt :NERDTreeFind<CR>|                  " NERDTree settings
@@ -542,9 +537,9 @@ vnoremap <leader>, <Esc>|              " esc and in visual mode
 
 highlight LineHighlight cterm=NONE ctermbg=yellow ctermfg=darkgray guibg=yellow guifg=darkgray
 highlight cursorLine cterm=bold ctermbg=238 gui=bold guibg=#333333
-" highlight cursorLine cterm=NONE ctermfg=yellow  guifg=yellow ctermbg=darkgray guibg=darkgray
 " highlight cursorLine cterm=NONE ctermfg=yellow  guifg=yellow
-" highlight cursorLine cterm=NONE ctermbg=yellow ctermfg=darkgray guibg=yellow guifg=darkgray
+" " highlight cursorLine cterm=NONE ctermfg=yellow  guifg=yellow ctermbg=darkgray guibg=darkgray
+" " highlight cursorLine cterm=NONE ctermbg=yellow ctermfg=darkgray guibg=yellow guifg=darkgray
 
 " hi Search  cterm=NONE ctermbg=yellow ctermfg=darkgray guibg=yellow guifg=darkgray
 hi Search  cterm=NONE ctermbg=LightYellow ctermfg=darkgray guibg=lightyellow guifg=darkgray
@@ -599,6 +594,11 @@ let g:UltiSnipsEditSplit="vertical"
 " ctrl-y,
 " override with this
 " let g:user_emmet_leader_key='<C-Z>'
+
+" vim-visual-multi
+let g:VM_leader = ','
+let g:multi_cursor_exit_from_visual_mode=0
+let g:multi_cursor_exit_from_insert_mode=0
 
 
 " ***   CtrlSF
@@ -718,15 +718,6 @@ command! -nargs=1 Csv :call CSVH(<args>)
 
 
 
-" function! OpenFactoryFile()
-"   if filereadable("test/factories.rb")
-"     execute ":e test/factories.rb"
-"   else
-"     execute ":e spec/factories.rb"
-"   end
-" endfunction
-
-
 "Highlight all instances of word under cursor, when idle.
 function! AutoHighlightToggle()
   let @/ = ''
@@ -785,8 +776,6 @@ set autoread
 au FocusGained,BufEnter * checktime
 
 
-" let g:signify_update_on_bufenter = 1
-" let g:signify_update_on_focusgained = 1
 
 
 " :W sudo saves the file
@@ -1401,8 +1390,6 @@ hi MatchParen cterm=none ctermbg=black ctermfg=yellow
 "
 " set scrolloff=4 sidescrolloff=10 " scroll the window when we get near the edge
 "
-" let g:signify_update_on_bufenter = 1
-" let g:signify_update_on_focusgained = 1
 "
 " END sensible.vim
 "
