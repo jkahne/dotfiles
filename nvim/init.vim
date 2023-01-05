@@ -293,6 +293,12 @@ set wildignore+=*tmp/*,*packs/*,*coverage/*,*plugged/*,*vendor/*,*_build/*,*.eli
 " Ignore stuff that can't be opened
 set wildignore+=tmp/**
 
+" set wildignore+=**/node_modules/**
+" set wildignore+=**/bower_components/**
+" set wildignore+=**/dist/**
+" set wildignore+=**/coverage/**
+" set wildignore+=**/.bundle/**
+
 " use 2 spaces for tabs
 set expandtab tabstop=2 softtabstop=2 shiftwidth=2
 set smarttab
@@ -780,6 +786,7 @@ au FocusGained,BufEnter * checktime
 
 " :W sudo saves the file
 " (useful for handling the permission-denied error)
+" like with etc/hosts ... or not.  figure this out later
 command! W execute 'w !sudo tee % > /dev/null' <bar> edit!
 
 
@@ -1388,7 +1395,6 @@ hi MatchParen cterm=none ctermbg=black ctermfg=yellow
 " " Display extra whitespace
 " set list listchars=tab:»·,trail:·
 "
-" set scrolloff=4 sidescrolloff=10 " scroll the window when we get near the edge
 "
 "
 " END sensible.vim
@@ -1399,3 +1405,10 @@ hi MatchParen cterm=none ctermbg=black ctermfg=yellow
 
 " nnoremap <silent><C-Down>         :<C-u>call vm#commands#add_cursor_down(0, v:count1)<cr>
 " nnoremap <silent><C-Up>           :<C-u>call vm#commands#add_cursor_up(0, v:count1)<cr>
+
+" from https://github.com/stoeffel/.dotfiles/blob/master/vim/visual-at.vim
+xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
+function! ExecuteMacroOverVisualRange()
+  echo "@".getcmdline()
+  execute ":'<,'>normal @".nr2char(getchar())
+endfunction
