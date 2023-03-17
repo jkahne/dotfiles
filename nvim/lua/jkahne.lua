@@ -108,94 +108,98 @@ require'lspconfig'.astro.setup{ capabilities = capabilities, }
 require'lspconfig'.elixirls.setup{
   capabilities = capabilities,
   cmd = { "/Users/jkahne/bin/elixir-ls/language_server.sh" },
-    -- filetypes = { "elixir", "eelixir", "heex", "eex", "surface" },
+    filetypes = { "elixir", "eelixir", "heex", "eex", "surface" },
 }
 
 require('lspconfig').tailwindcss.setup {
   capabilities = capabilities,
   cmd = { "tailwindcss-language-server", "--stdio" },
-  filetypes = {  "astro", "astro-markdown", "eelixir",  "erb", "html", "html-eex", "markdown", "mdx", "css", "javascript", "javascriptreact"  },
+  filetypes = {  "astro", "astro-markdown", "eelixir",  "erb", "html", "html-eex", "markdown", "markdown.mdx", "mdx", "css", "javascript", "javascriptreact"  },
   init_options = {
     userLanguages = {
       eelixir = "html-eex"
     }
   },
-  on_new_config = function(new_config)
-    if not new_config.settings then
-      new_config.settings = {}
-    end
-    if not new_config.settings.editor then
-      new_config.settings.editor = {}
-    end
-    if not new_config.settings.editor.tabSize then
-      -- set tab size for hover
-      new_config.settings.editor.tabSize = vim.lsp.util.get_effective_tabstop()
-    end
-  end,
-  -- root_dir = nvim_lsp.util.root_pattern('tailwind.config.cjs', 'tailwind.config.js', 'tailwind.config.ts','postcss.config.cjs', 'postcss.config.js', 'postcss.config.ts', 'package.json', 'node_modules', '.git'),
-  settings = {
-    tailwindCSS = {
-      lint = {
-        cssConflict = "warning",
-        invalidApply = "error",
-        invalidConfigPath = "error",
-        invalidScreen = "error",
-        invalidTailwindDirective = "error",
-        invalidVariant = "error",
-        recommendedVariantOrder = "warning"
-      },
-      validate = true
-    }
-  },
-  flags = { debounce_text_changes = 150, }
+  -- on_new_config = function(new_config)
+  --   if not new_config.settings then
+  --     new_config.settings = {}
+  --   end
+  --   if not new_config.settings.editor then
+  --     new_config.settings.editor = {}
+  --   end
+  --   if not new_config.settings.editor.tabSize then
+  --     -- set tab size for hover
+  --     new_config.settings.editor.tabSize = vim.lsp.util.get_effective_tabstop()
+  --   end
+  -- end,
+  -- -- root_dir = nvim_lsp.util.root_pattern('tailwind.config.cjs', 'tailwind.config.js', 'tailwind.config.ts','postcss.config.cjs', 'postcss.config.js', 'postcss.config.ts', 'package.json', 'node_modules', '.git'),
+  -- settings = {
+  --   tailwindCSS = {
+  --     lint = {
+  --       cssConflict = "warning",
+  --       invalidApply = "error",
+  --       invalidConfigPath = "error",
+  --       invalidScreen = "error",
+  --       invalidTailwindDirective = "error",
+  --       invalidVariant = "error",
+  --       recommendedVariantOrder = "warning"
+  --     },
+  --     validate = true
+  --   }
+  -- },
+  -- flags = { debounce_text_changes = 150, }
 }
 
 
-require'nvim-treesitter.configs'.setup{
-  -- A list of parser names, or "all"
-  ensure_installed = { "css", "dockerfile", "eex", "erlang", "graphql", "heex", "html", "javascript", "json", "json5", "lua", "markdown", "sql", "tsx", "typescript", "vim", "ruby", "elixir", "bash" },
-  -- ensure_installed = { "astro" },
+-- require'nvim-treesitter.configs'.setup{
+--   -- A list of parser names, or "all"
+--   ensure_installed = { "c", "help", "css", "dockerfile", "eex", "graphql", "heex", "html", "javascript", "json", "json5", "lua", "markdown", "sql", "tsx", "typescript", "vim", "ruby", "elixir", "bash" },
+--   -- ensure_installed = { "astro" },
 
-  -- Install parsers synchronously (only applied to `ensure_installed`)
-  sync_install = false,
+--   -- Install parsers synchronously (only applied to `ensure_installed`)
+--   sync_install = false,
 
-  -- Automatically install missing parsers when entering buffer
-  -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
-  auto_install = true,
+--   -- Automatically install missing parsers when entering buffer
+--   -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
+--   auto_install = true,
 
-  -- List of parsers to ignore installing (for "all")
-  -- ignore_install = { "javascript" },
+--   -- List of parsers to ignore installing (for "all")
+--   -- ignore_install = { "javascript" },
 
-  ---- If you need to change the installation directory of the parsers (see -> Advanced Setup)
-  -- parser_install_dir = "/some/path/to/store/parsers", -- Remember to run vim.opt.runtimepath:append("/some/path/to/store/parsers")!
+--   ---- If you need to change the installation directory of the parsers (see -> Advanced Setup)
+--   -- parser_install_dir = "/some/path/to/store/parsers", -- Remember to run vim.opt.runtimepath:append("/some/path/to/store/parsers")!
 
-  highlight = {
-    -- `false` will disable the whole extension
-    enable = true,
+--   highlight = {
+--     -- `false` will disable the whole extension
+--     enable = true,
 
-    -- NOTE: these are the names of the parsers and not the filetype. (for example if you want to
-    -- disable highlighting for the `tex` filetype, you need to include `latex` in this list as this is
-    -- the name of the parser)
-    -- list of language that will be disabled
-    -- disable = { "c", "rust" },
-    -- Or use a function for more flexibility, e.g. to disable slow treesitter highlight for large files
-    -- disable = function(lang, buf)
-    --     local max_filesize = 100 * 1024 -- 100 KB
-    --     local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-    --     if ok and stats and stats.size > max_filesize then
-    --         return true
-    --     end
-    -- end,
+--     -- NOTE: these are the names of the parsers and not the filetype. (for example if you want to
+--     -- disable highlighting for the `tex` filetype, you need to include `latex` in this list as this is
+--     -- the name of the parser)
+--     -- list of language that will be disabled
+--     disable = { "c", "rust" },
+--     -- Or use a function for more flexibility, e.g. to disable slow treesitter highlight for large files
+--     disable = function(lang, buf)
+--         local max_filesize = 100 * 1024 -- 100 KB
+--         local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+--         if ok and stats and stats.size > max_filesize then
+--             return true
+--         end
+--     end,
 
-    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-    -- Using this option may slow down your editor, and you may see some duplicate highlights.
-    -- Instead of true it can also be a list of languages
-    additional_vim_regex_highlighting = false,
-  },
-}
+--     -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
+--     -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+--     -- Using this option may slow down your editor, and you may see some duplicate highlights.
+--     -- Instead of true it can also be a list of languages
+--     additional_vim_regex_highlighting = false,
+--   },
+-- }
 
 
+    -- path_display = {"tail"},
+    -- path_display = {
+    --   shorten = { len = 2, exclude = {-1} }
+    -- },
 
 require('telescope').setup{
   defaults = {
@@ -205,21 +209,15 @@ require('telescope').setup{
         ["<C-k>"] = "move_selection_previous",
       }
     },
-    layout_strategy = "flex",
+    layout_strategy = "vertical",
     anchor = "N",
-    -- path_display = {"tail"},
     path_display = {"truncate"},
-    -- path_display = {
-    --   shorten = { len = 2, exclude = {-1} }
-    -- },
     layout_config = {
       center = {
-        -- preview_height = 20
         preview_height = 0.7,
       },
       vertical = {
         prompt_position = "top",
-        -- preview_height = 20
         preview_height = 0.7,
         mirror = true,
         preview_cutoff = 4,
@@ -234,20 +232,19 @@ require('telescope').setup{
       },
     },
     sorting_strategy = "ascending",
-    preview = true,
-
+    -- preview = true,
   },
-  pickers = {
-    -- git_files = { theme = 'dropdown' },
-    -- find_files = { theme = 'dropdown'  },
-    -- buffers = { layout_strategy='horizontal', layout_config={ horizontal = {height = 0.55, results_height = 0.55} }  },
-    -- marks = { theme = 'ivy' },
-    -- git_branches = { theme = 'ivy' },
-    -- git_bcommits = { theme = 'ivy' },
-    -- git_commits = { theme = 'ivy' },
-    -- grep_string = { theme = 'ivy' },
-    -- live_grep = { theme = 'ivy' },
-  },
+  -- pickers = {
+  --   -- git_files = { theme = 'dropdown' },
+  --   -- find_files = { theme = 'dropdown'  },
+  --   -- buffers = { layout_strategy='horizontal', layout_config={ horizontal = {height = 0.55, results_height = 0.55} }  },
+  --   -- marks = { theme = 'ivy' },
+  --   -- git_branches = { theme = 'ivy' },
+  --   -- git_bcommits = { theme = 'ivy' },
+  --   -- git_commits = { theme = 'ivy' },
+  --   -- grep_string = { theme = 'ivy' },
+  --   -- live_grep = { theme = 'ivy' },
+  -- },
   extensions = {
       http = {
           -- How the mozilla url is opened. By default:

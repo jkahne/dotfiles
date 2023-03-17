@@ -22,6 +22,8 @@ alias phxroutes="mix phx.routes | fzf"
 
 alias weather="http wttr.in/cincinnati"
 
+alias updateclam="freshclam -v"
+
 alias vim="nvim"
 alias d="cd ~/.dotfiles && nvim ~/.dotfiles/nvim/init.vim"
 alias icloud="cd ~/Library/Mobile\ Documents/com~apple~CloudDocs/"
@@ -123,7 +125,6 @@ alias pubkey="more ~/.ssh/id_rsa.pub | pbcopy | echo '=> Public key copied to pa
 alias api="docker container exec -it rvshare-api bundle exec rails server --port=3000 --binding=0.0.0.0"
 alias apibash="docker container exec -it rvshare-api bash"
 alias apiconsole="docker container exec -it rvshare-api bundle exec rails c"
-alias ac="apiconsole"
 # alias dapi='cd ~/dev/rvshare/rvshare-setup; docker-compose up -d rvshare-api; cd -; docker attach rvshare-api'
 # alias bounce='docker-compose restart rvshare-api'
 # alias dstop='cd ~/dev/rvshare/rvshare-setup; make stop_all; cd -'

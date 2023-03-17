@@ -27,3 +27,4 @@ only-icloud-synced/
 .solargraph.yml
 .nvimrc
 dockerrubocop.rb
+/app/models/jog.rb

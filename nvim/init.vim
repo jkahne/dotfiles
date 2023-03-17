@@ -38,6 +38,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'dyng/ctrlsf.vim'
 Plug 'preservim/tagbar'
 " Plug 'ludovicchabant/vim-gutentags'
+Plug 'terryma/vim-expand-region'
 
 " Quality of life / Vim Things
 Plug 'junegunn/vim-easy-align'
@@ -45,6 +46,8 @@ Plug 'luochen1990/rainbow'
 Plug 'tpope/vim-surround'
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'nvim-tree/nvim-web-devicons'
+Plug 'eandrju/cellular-automaton.nvim'
+
 
 " http://www.blogface.org/2015/03/ctrl-in-emacs-in-mac-terminal.html
 " terminal settings => "Profiles" => "Keyboard"
@@ -78,6 +81,7 @@ Plug 'AckslD/nvim-neoclip.lua'
 Plug 'danielvolchek/tailiscope.nvim'
 
 Plug 'barrett-ruth/telescope-http.nvim'
+Plug 'nvim-telescope/telescope-file-browser.nvim'
 
 Plug 'pwntester/octo.nvim'
 Plug 'ThePrimeagen/harpoon'
@@ -85,6 +89,7 @@ Plug 'ThePrimeagen/harpoon'
 
 " Git
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rhubarb'
 Plug 'mhinz/vim-signify'
 
 " Tests
@@ -118,6 +123,7 @@ Plug 'quangnguyen30192/cmp-nvim-ultisnips'
 " Plug 'honza/vim-snippets' " needed?
 
 
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
 
 " Plug 'tpope/vim-markdown'
 " " Plug 'kevinoid/vim-jsonc'
@@ -195,6 +201,8 @@ colorscheme terafox
 set t_Co=256
 
 
+let g:signify_update_on_bufenter = 1
+let g:signify_update_on_focusgained = 1
 
 " use a big, pretty font
 " set guifont=Monaco:h13
@@ -315,10 +323,10 @@ set shiftround "when at 3 spaces and I hit >>, go to 4, not 5
 " nnoremap <Leader><Leader>l <c-w>><c-w>>
 
 " easy window resizing
-" noremap <M-h> :vertical resize +5<cr>
-" noremap <M-j> :resize -5<cr>
-" noremap <M-k> :resize +5<cr>
-" noremap <M-l> :vertical resize -5<cr>
+noremap <Leader><Leader>h :vertical resize +5<cr>
+noremap <Leader><Leader>j :resize -5<cr>
+noremap <Leader><Leader>k :resize +5<cr>
+noremap <Leader><Leader>l :vertical resize -5<cr>
 "
 " imap <silent> <C-D><C-D> <C-R>=strftime("%Y-%m-%d")<CR>
 " imap <silent> <C-T><C-T> <C-R>=strftime("%l:%M %p")<CR>
@@ -327,11 +335,17 @@ set shiftround "when at 3 spaces and I hit >>, go to 4, not 5
 
 " let g:netrw_liststyle = 3
 
+
+nmap cp :let @+ = expand("%")<cr>
+
+
 nnoremap <left> :bp<cr>
 nnoremap <right> :bn<cr>
 nnoremap <leader>j :bn<cr>
 nnoremap <leader>k :bp<cr>
 
+
+nmap <TAB> :call RunStuff()<CR>
 
 " crm                                         " MixedCase vim-abolish settings
 " crc                                         " camelCase vim-abolish settings
@@ -346,7 +360,7 @@ nnoremap <leader>k :bp<cr>
 " gJ = splitjoin                              " (with the cursor on the first line of a block) to join a block into a single-line statement.
 nmap ga <Plug>(EasyAlign)|                    " EASY ALIGN
 xmap ga <Plug>(EasyAlign)|                    " EASY ALIGN
-nnoremap git :G|                              " because
+nnoremap git :G |                              " because
 "  gcc                                        " (un)comment
 nmap gcr :RainbowToggle<CR>|                  " toggle rainbow colors
 nmap go o<esc>|                               " insert blank lines without going into insert mode
@@ -396,6 +410,8 @@ nnoremap g* <cmd>lua require('telescope.builtin').grep_string()<cr>
 nnoremap g/ <cmd>lua require('telescope.builtin').live_grep()<cr>
 nnoremap <leader>qh <cmd>lua require('telescope.builtin').quickfixhistory()<cr>
 
+nnoremap <leader>fml :CellularAutomaton make_it_rain<cr>
+" nnoremap <leader>fo :CellularAutomaton game_of_life<cr>
 
 
 " nnoremap <leader>fh <cmd>lua require('telescope.builtin').highlights()<cr>
@@ -416,11 +432,13 @@ nnoremap <up>       <cmd>lua require("harpoon.ui").nav_next()<CR>|              
 nnoremap <down>     <cmd>lua require("harpoon.ui").nav_prev()<CR>|                  " navigates to previous mark
 
 
-
 " inoremap jj <Esc>|                            " esc
 " inoremap kj <Esc>|                            " esc
 " vnoremap kj <Esc>|                            " esc
 " inoremap jk <Esc>|                            " esc
+
+nnoremap S ciw
+
 map j gj|                                     " sane defaults
 map k gk|                                     " sane defaults
 " nnoremap J mzJ`z|                             " keep cursor in same place when joining lines
@@ -434,6 +452,12 @@ nmap Q q|                                     " Avoid unintentional switches to 
 nmap s :HopChar2<CR>|                         " hop somewhere
 " X                                           " exchange
 nnoremap Y y$|                                " Yank from the cursor to the end of the line, to be consistent with C and D.
+
+
+vmap v <Plug>(expand_region_expand)
+vmap <C-v> <Plug>(expand_region_shrink)
+
+
 
 
 nnoremap <s-tab> za|                          " toggle folding
@@ -459,6 +483,8 @@ nmap <C-W>u :call MergeTabs()<CR>|            " Merge a tab into a split in the 
 " inoremap <silent><expr> <c-space> coc#refresh()| " Coc -  trigger completion.
 noremap <space> <C-d>|                        " convenient scolling
 noremap <C-space> <C-u>|
+
+nnoremap <C-p> <Plug>MarkdownPreviewToggle
 
 
 inoremap , ,<c-g>u|                           " undo break points
@@ -692,6 +718,20 @@ endfunction
 
 
 
+function! RunStuff()
+  execute "wa"
+  " if &ft == "python"
+  "     execute "!clear && python %"
+  " elseif &ft == "sh"
+  "     execute "!clear && bash %"
+  " elseif &ft == "c"
+  "     execute "!clear && gcc % && ./a.out"
+  " elseif &ft == "javascript"
+  "     execute "!clear && node %"
+  " else
+      execute "!clear && echo 'unable to run this filetype!'"
+  " endif
+endfunction
 
 
 
@@ -1412,3 +1452,110 @@ function! ExecuteMacroOverVisualRange()
   echo "@".getcmdline()
   execute ":'<,'>normal @".nr2char(getchar())
 endfunction
+
+
+
+" iamcco markdown settings
+" " set to 1, nvim will open the preview window after entering the markdown buffer
+" " default: 0
+" let g:mkdp_auto_start = 0
+
+" " set to 1, the nvim will auto close current preview window when change
+" " from markdown buffer to another buffer
+" " default: 1
+" let g:mkdp_auto_close = 1
+
+" " set to 1, the vim will refresh markdown when save the buffer or
+" " leave from insert mode, default 0 is auto refresh markdown as you edit or
+" " move the cursor
+" " default: 0
+" let g:mkdp_refresh_slow = 0
+
+" " set to 1, the MarkdownPreview command can be use for all files,
+" " by default it can be use in markdown file
+" " default: 0
+" let g:mkdp_command_for_global = 0
+
+" " set to 1, preview server available to others in your network
+" " by default, the server listens on localhost (127.0.0.1)
+" " default: 0
+" let g:mkdp_open_to_the_world = 0
+
+" " use custom IP to open preview page
+" " useful when you work in remote vim and preview on local browser
+" " more detail see: https://github.com/iamcco/markdown-preview.nvim/pull/9
+" " default empty
+" let g:mkdp_open_ip = ''
+
+" " specify browser to open preview page
+" " for path with space
+" " valid: `/path/with\ space/xxx`
+" " invalid: `/path/with\\ space/xxx`
+" " default: ''
+" let g:mkdp_browser = ''
+
+" " set to 1, echo preview page url in command line when open preview page
+" " default is 0
+" let g:mkdp_echo_preview_url = 0
+
+" " a custom vim function name to open preview page
+" " this function will receive url as param
+" " default is empty
+" let g:mkdp_browserfunc = ''
+
+" " options for markdown render
+" " mkit: markdown-it options for render
+" " katex: katex options for math
+" " uml: markdown-it-plantuml options
+" " maid: mermaid options
+" " disable_sync_scroll: if disable sync scroll, default 0
+" " sync_scroll_type: 'middle', 'top' or 'relative', default value is 'middle'
+" "   middle: mean the cursor position alway show at the middle of the preview page
+" "   top: mean the vim top viewport alway show at the top of the preview page
+" "   relative: mean the cursor position alway show at the relative positon of the preview page
+" " hide_yaml_meta: if hide yaml metadata, default is 1
+" " sequence_diagrams: js-sequence-diagrams options
+" " content_editable: if enable content editable for preview page, default: v:false
+" " disable_filename: if disable filename header for preview page, default: 0
+" let g:mkdp_preview_options = {
+"     \ 'mkit': {},
+"     \ 'katex': {},
+"     \ 'uml': {},
+"     \ 'maid': {},
+"     \ 'disable_sync_scroll': 0,
+"     \ 'sync_scroll_type': 'middle',
+"     \ 'hide_yaml_meta': 1,
+"     \ 'sequence_diagrams': {},
+"     \ 'flowchart_diagrams': {},
+"     \ 'content_editable': v:false,
+"     \ 'disable_filename': 0,
+"     \ 'toc': {}
+"     \ }
+
+" " use a custom markdown style must be absolute path
+" " like '/Users/username/markdown.css' or expand('~/markdown.css')
+" let g:mkdp_markdown_css = ''
+
+" " use a custom highlight style must absolute path
+" " like '/Users/username/highlight.css' or expand('~/highlight.css')
+" let g:mkdp_highlight_css = ''
+
+" " use a custom port to start server or empty for random
+" let g:mkdp_port = ''
+
+" " preview page title
+" " ${name} will be replace with the file name
+" let g:mkdp_page_title = '「${name}」'
+
+" " recognized filetypes
+" " these filetypes will have MarkdownPreview... commands
+" let g:mkdp_filetypes = ['markdown']
+
+" " set default theme (dark or light)
+" " By default the theme is define according to the preferences of the system
+" let g:mkdp_theme = 'dark'
+" ----------- END iamcco ---------------------
+
+
+
+
