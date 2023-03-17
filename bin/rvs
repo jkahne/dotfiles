@@ -1,0 +1,81 @@
+#!/usr/bin/env ruby
+
+require_relative 'rvs_commands/rvs_base.rb'
+require_relative 'rvs_commands/fetch_and_rebase.rb'
+require_relative 'rvs_commands/push_to_qa.rb'
+require_relative 'rvs_commands/push_to_origin.rb'
+require_relative 'rvs_commands/jira_show.rb'
+require_relative 'rvs_commands/status_show.rb'
+require_relative 'rvs_commands/pr_create.rb'
+require_relative 'rvs_commands/pr_view.rb'
+
+API = 'dir'.freeze
+DASH = 'dir'.freeze
+MARK = 'dir'.freeze
+REMOVE_QA_NAMES = ['jeremy'].freeze
+QA = 'jeremy'.freeze
+
+def update(path)
+  StatusShow.new(path: path, qa_target: QA, remove_qa_names: REMOVE_QA_NAMES).doit unless @options[:silent_status]
+
+  FetchAndRebase.new(path: path, qa_target: QA, remove_qa_names: REMOVE_QA_NAMES).doit if @options[:fetch_and_rebase]
+  PushToOrigin.new(path: path, qa_target: QA, remove_qa_names: REMOVE_QA_NAMES).doit if @options[:push_to_origin]
+  PushToQa.new(path: path, qa_target: QA, remove_qa_names: REMOVE_QA_NAMES).doit if @options[:push_to_qa]
+  
+  PrCreate.new(path: path, qa_target: QA, remove_qa_names: REMOVE_QA_NAMES).doit  if @options[:pr_create]
+  PrView.new(path: path, qa_target: QA, remove_qa_names: REMOVE_QA_NAMES).doit  if @options[:pr_view]
+  
+  JiraShow.new(path: path, qa_target: QA, remove_qa_names: REMOVE_QA_NAMES).doit  if @options[:jira_show]
+end
+
+
+@options = {}
+
+def process_argv(option)
+  case option
+  when "-view-pr"
+    @options[:pr_view] = true
+  when "-v"
+    @options[:pr_view] = true
+  when "-create-pr"
+    @options[:pr_create] = true
+  when "-cpr"
+    @options[:pr_create] = true
+  when "-jira"
+    @options[:jira_show] = true
+  when "-j"
+    @options[:jira_show] = true
+  when "-qa"
+    @options[:push_to_qa] = true
+    @options[:fetch_and_rebase] = true
+    @options[:push_to_origin] = true
+  when "-q"
+    @options[:push_to_qa] = true
+    @options[:fetch_and_rebase] = true
+    @options[:push_to_origin] = true
+  when "-r"
+    @options[:fetch_and_rebase] = true
+  when "-rebase"
+    @options[:fetch_and_rebase] = true
+  when "-s"
+    @options[:silent_status] = true
+  when "-p"
+    @options[:fetch_and_rebase] = true
+    @options[:push_to_origin] = true
+  when "-push"
+    @options[:fetch_and_rebase] = true
+    @options[:push_to_origin] = true
+  end
+end
+
+
+
+ARGV.each { |option| process_argv(option) }
+
+system("clear") || system("cls")
+p @options
+
+[API, DASH, MARK].each do |directory|
+  update(directory)
+  puts 
+end
