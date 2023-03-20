@@ -1,7 +1,7 @@
 class RvsBase
   attr_accessor :path, :qa_target
 
-  def initialize(path:, qa_target::)
+  def initialize(path:, qa_target:)
     @path = path
     @qa_target = qa_target
     @qa_names_to_remove_from_branch_names = ['jeremy'].freeze
