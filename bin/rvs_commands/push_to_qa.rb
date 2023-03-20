@@ -3,8 +3,6 @@ require_relative 'rvs_base.rb'
 class PushToQa < RvsBase
 
   def doit
-    puts "**** Push To QA **** "
-
     if on_master?
       pex("git push origin master:develop/#{@qa_target}/master --force-with-lease")
       return

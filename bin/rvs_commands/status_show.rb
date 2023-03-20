@@ -20,10 +20,8 @@ class StatusShow < RvsBase
         rows << [ "github pr:", "https://github.com/rvshare/#{application}/pull/#{ret[1]}" ]
       end
 
-      jira_ticket_number = /(sky)-\d{3,}/i.match(local_branch)
-      jira = jira_ticket_number[0]
-      if jira
-        rows << [ "jira:", "https://rvshare.atlassian.net/browse/#{jira}" ]
+      if current_branch_jira_ticket_number
+        rows << [ "jira:", "https://rvshare.atlassian.net/browse/#{current_branch_jira_ticket_number}" ]
       end
 
     end

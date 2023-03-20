@@ -1,10 +1,10 @@
 class RvsBase
-  attr_accessor :path, :qa_target, :remove_qa_names
+  attr_accessor :path, :qa_target
 
-  def initialize(path:, qa_target:, remove_qa_names:)
+  def initialize(path:, qa_target::)
     @path = path
     @qa_target = qa_target
-    @remove_qa_names = remove_qa_names
+    @qa_names_to_remove_from_branch_names = ['jeremy'].freeze
     chdir
   end
 
@@ -49,7 +49,7 @@ class RvsBase
 
   def remove_qa_names(b)
     tmp = b
-    qa_array = Array.new(@remove_qa_names)
+    qa_array = @qa_names_to_remove_from_branch_names
     qa_array.each do |q|
        tmp = tmp.gsub(Regexp.new("^#{q}/"), '')
     end
@@ -86,5 +86,11 @@ class RvsBase
   def stash_apply
     pex('git stash pop')
   end
+
+  def current_branch_jira_ticket_number
+    jira_ticket_number = /(sky|flt|run|blue|cae)-\d{3,}/i.match(local_branch)
+    jira_ticket_number[0]
+  end
+
 
 end

@@ -3,16 +3,9 @@ require_relative 'rvs_base.rb'
 class JiraShow < RvsBase
 
   def doit
-    puts "**** Show Jira Ticket **** "
+    return if on_master?
 
-
-    if on_master?
-      return
-    end
-
-    jira_ticket_number = /[sS][kK][yY]-\d{3}/.match(local_branch)
-    jira = jira_ticket_number[0]
-    `open https://rvshare.atlassian.net/browse/#{jira}`
-
+    puts application
+    pex("open https://rvshare.atlassian.net/browse/#{current_branch_jira_ticket_number}")
   end
 end

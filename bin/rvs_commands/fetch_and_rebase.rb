@@ -3,8 +3,6 @@ require_relative 'rvs_base.rb'
 class FetchAndRebase < RvsBase
 
   def doit
-    puts "**** FETCH AND REBASE **** "
-
     remember_local_changes = false
 
     if has_local_changes?

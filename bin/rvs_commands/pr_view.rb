@@ -3,7 +3,6 @@ require_relative 'rvs_base.rb'
 class PrView < RvsBase
 
   def doit
-
     puts title
     if on_master?
       puts "You're on master - no PR to view"
