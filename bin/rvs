@@ -12,12 +12,11 @@ require_relative 'rvs_commands/pr_view.rb'
 API = '/Users/jkahne/projects/work/rvshare/rvshare-api'.freeze
 DASH = '/Users/jkahne/projects/work/rvshare/rvshare-dashboard'.freeze
 MARK = '/Users/jkahne/projects/work/rvshare/rvshare-marketplace'.freeze
-REMOVE_QA_NAMES = ['jeremy'].freeze
 QA = 'jeremy'.freeze
 
 def update(path, command)
   puts "‼️  #{command}"
-  opts = {path: path, qa_target: QA, remove_qa_names: REMOVE_QA_NAMES}
+  opts = {path: path, qa_target: QA}
 
   # have default commands be the name of the objects.  allow, via configuration, for users to add their own 'flags' to use
 
