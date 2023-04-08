@@ -323,10 +323,10 @@ set shiftround "when at 3 spaces and I hit >>, go to 4, not 5
 " nnoremap <Leader><Leader>l <c-w>><c-w>>
 
 " easy window resizing
-noremap <Leader><Leader>h :vertical resize +5<cr>
-noremap <Leader><Leader>j :resize -5<cr>
-noremap <Leader><Leader>k :resize +5<cr>
-noremap <Leader><Leader>l :vertical resize -5<cr>
+" noremap <Leader><Leader>h :vertical resize +5<cr>
+" noremap <Leader><Leader>j :resize -5<cr>
+" noremap <Leader><Leader>k :resize +5<cr>
+" noremap <Leader><Leader>l :vertical resize -5<cr>
 "
 " imap <silent> <C-D><C-D> <C-R>=strftime("%Y-%m-%d")<CR>
 " imap <silent> <C-T><C-T> <C-R>=strftime("%l:%M %p")<CR>
@@ -339,10 +339,10 @@ noremap <Leader><Leader>l :vertical resize -5<cr>
 nmap cp :let @+ = expand("%")<cr>
 
 
-nnoremap <left> :bp<cr>
-nnoremap <right> :bn<cr>
-nnoremap <leader>j :bn<cr>
-nnoremap <leader>k :bp<cr>
+" nnoremap <left> :bp<cr>
+" nnoremap <right> :bn<cr>
+" nnoremap <leader>j :bn<cr>
+" nnoremap <leader>k :bp<cr>
 
 
 nmap <TAB> :call RunStuff()<CR>

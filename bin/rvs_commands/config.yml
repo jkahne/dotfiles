@@ -1,0 +1,30 @@
+qa: jeremy
+commands:
+  rebase: FetchAndRebase
+  push: PushToOrigin
+  qa: PushToQa
+  pr: PrView
+  create-pr: PrCreate
+  jira: JiraShow
+  st: StatusShow
+  status: StatusShow
+  pto: 
+    - FetchAndRebase
+    - PushToOrigin
+    - StatusShow
+  ptq: 
+    - FetchAndRebase
+    - PushToOrigin
+    - StatusShow
+    - PushToQa
+paths:
+  api: '/Users/jkahne/projects/work/rvshare/rvshare-api'
+  dashboard: '/Users/jkahne/projects/work/rvshare/rvshare-dashboard'
+  marketplace: '/Users/jkahne/projects/work/rvshare/rvshare-marketplace'
+remove_from_branch_names:
+  - develop/
+  - jeremy/
+  - nick/
+  - alex/
+jira_names_regex: (sky|flt|run|blue|cae)-\d{3,}
+

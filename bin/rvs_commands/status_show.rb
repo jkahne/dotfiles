@@ -1,5 +1,5 @@
 require 'terminal-table'
-require_relative 'rvs_base.rb'
+require_relative 'rvs_base'
 
 class StatusShow < RvsBase
 
@@ -9,22 +9,22 @@ class StatusShow < RvsBase
 
     rows = []
 
-    ret = ex("git rev-parse #{local_branch}")
-    rows << [ "local commit:", ret[1].chomp ]
+    rows << [ "local commit:", exec_cmd("git rev-parse #{local_branch}").result ]
 
     if !on_master?
-
-      # get PR link
-      ret = ex("gh pr list | grep #{real_branch} | awk '{print $1}'")
-      if !ret[1].nil? && ret[1].chomp != ''
-        rows << [ "github pr:", "https://github.com/rvshare/#{application}/pull/#{ret[1]}" ]
+      if pr = pr_link
+        rows << [ "github pr:", pr ]
       end
 
       if current_branch_jira_ticket_number
-        rows << [ "jira:", "https://rvshare.atlassian.net/browse/#{current_branch_jira_ticket_number}" ]
+        rows << [ "jira:", jira_url ]
       end
 
+      rows << [ "circle:", 'https://app.circleci.com/pipelines/github/rvshare' ]
     end
+
+    # always want to see PR statii for which ever app/branch we're currently in
+    rows << [ "pr status:", exec_cmd('gh pr status').result ]
 
     puts Terminal::Table.new :rows => rows
 

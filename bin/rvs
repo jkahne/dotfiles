@@ -1,61 +1,47 @@
 #!/usr/bin/env ruby
 
-require_relative 'rvs_commands/rvs_base.rb'
-require_relative 'rvs_commands/fetch_and_rebase.rb'
-require_relative 'rvs_commands/push_to_qa.rb'
-require_relative 'rvs_commands/push_to_origin.rb'
-require_relative 'rvs_commands/jira_show.rb'
-require_relative 'rvs_commands/status_show.rb'
-require_relative 'rvs_commands/pr_create.rb'
-require_relative 'rvs_commands/pr_view.rb'
+require 'yaml'
+require_relative 'rvs_commands/rvs_base'
+require_relative 'rvs_commands/fetch_and_rebase'
+require_relative 'rvs_commands/push_to_qa'
+require_relative 'rvs_commands/push_to_origin'
+require_relative 'rvs_commands/jira_show'
+require_relative 'rvs_commands/status_show'
+require_relative 'rvs_commands/pr_create'
+require_relative 'rvs_commands/pr_view'
+require_relative 'rvs_commands/color'
 
-API = '/Users/jkahne/projects/work/rvshare/rvshare-api'.freeze
-DASH = '/Users/jkahne/projects/work/rvshare/rvshare-dashboard'.freeze
-MARK = '/Users/jkahne/projects/work/rvshare/rvshare-marketplace'.freeze
-QA = 'jeremy'.freeze
+system("clear") || system("cls")
 
-def update(path, command)
-  puts "‼️  #{command}"
-  opts = {path: path, qa_target: QA}
+data = YAML.load_file(File.expand_path('rvs_commands/config.yml', __dir__))
 
-  # have default commands be the name of the objects.  allow, via configuration, for users to add their own 'flags' to use
+actual_commands_to_run = []
 
-  case command
-  when "rebase"
-    FetchAndRebase.new(opts).doit
-  when "push"
-    PushToOrigin.new(opts).doit
-  when "qa"
-    PushToQa.new(opts).doit
-  when "pr"
-    PrView.new(opts).doit 
-  when "create-pr"
-    PrCreate.new(opts).doit
-  when "jira"
-    JiraShow.new(opts).doit
-  when "st", "status"
-    StatusShow.new(opts).doit
-  when "help"
-    show_help
-  when "pto"
-    FetchAndRebase.new(opts).doit
-    PushToOrigin.new(opts).doit
-    StatusShow.new(opts).doit
+ARGV.each do |command| 
+  # look for configurable variables, specifically 
+  # like `qa=jeremy` to override the default.
+  if command.include?("=")
+    vars = command.split('=')
+    data.merge!({vars[0] => vars[1]})
+  end
+
+  # extract the actual commands we know about
+  if data['commands'].include?(command)
+    actual_commands_to_run << command
   end
 end
 
-def show_help
-  puts "print help here.."
-end
+# do the work
+Array(data['paths']).each do |app, directory|
+  puts "↪ 🗂️ Changing to #{directory} ".h1
 
+  actual_commands_to_run.each do |command| 
+    command_list = Array(data['commands'][command])
+    command_list.each do |cmd|
+      puts "  #{cmd}  ".h2
+      Object.const_get( cmd ).new(directory, data).doit
+    end
 
-system("clear") || system("cls")
-p @options
-
-[API, DASH, MARK].each do |directory|
-  puts "↪ 🗂️ Changing to #{directory}"
-  ARGV.each do |command| 
-    update(directory, command )
     puts 
   end
 end

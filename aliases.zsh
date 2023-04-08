@@ -122,9 +122,11 @@ alias rshare="ruby -rubygems -e \"['thin', 'rack', 'socket'].each {|file| requir
 alias pubkey="more ~/.ssh/id_rsa.pub | pbcopy | echo '=> Public key copied to pasteboard.'"
 
 
-alias api="docker container exec -it rvshare-api bundle exec rails server --port=3000 --binding=0.0.0.0"
-alias apibash="docker container exec -it rvshare-api bash"
-alias apiconsole="docker container exec -it rvshare-api bundle exec rails c"
+alias api="docker container exec -it rvshare-api doppler run -- bundle exec rails server --port=3000 --binding=0.0.0.0"
+alias apibash="docker container exec -it rvshare-api doppler run -- bash"
+alias apiconsole="docker container exec -it rvshare-api doppler run -- bundle exec rails c"
+alias mark="cd /Users/jkahne/projects/work/rvshare && make marketplace_dev_server"
+alias market="cd /Users/jkahne/projects/work/rvshare && make marketplace_dev_server"
 # alias dapi='cd ~/dev/rvshare/rvshare-setup; docker-compose up -d rvshare-api; cd -; docker attach rvshare-api'
 # alias bounce='docker-compose restart rvshare-api'
 # alias dstop='cd ~/dev/rvshare/rvshare-setup; make stop_all; cd -'

@@ -1,4 +1,4 @@
-require_relative 'rvs_base.rb'
+require_relative 'rvs_base'
 
 class FetchAndRebase < RvsBase
 
@@ -13,8 +13,8 @@ class FetchAndRebase < RvsBase
       stash
     end
 
-    pex('git fetch')
-    pex('git rebase origin/master')
+    exec_cmd('git fetch').print
+    exec_cmd('git rebase origin/master').print
 
     if remember_local_changes
       stash_apply

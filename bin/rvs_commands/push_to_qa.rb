@@ -1,14 +1,14 @@
-require_relative 'rvs_base.rb'
+require_relative 'rvs_base'
 
 class PushToQa < RvsBase
 
   def doit
     if on_master?
-      pex("git push origin master:develop/#{@qa_target}/master --force-with-lease")
+      exec_cmd("git push origin master:develop/#{data['qa']}/master --force-with-lease").print
       return
     end
 
-    pex("git push origin #{local_branch}:develop/#{@qa_target}/#{real_branch} --force-with-lease")
+    exec_cmd("git push origin #{local_branch}:develop/#{data['qa']}/#{real_branch} --force-with-lease").print
   end
 
 end

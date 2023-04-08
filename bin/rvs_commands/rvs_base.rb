@@ -1,10 +1,11 @@
-class RvsBase
-  attr_accessor :path, :qa_target
+require_relative './command'
 
-  def initialize(path:, qa_target:)
+class RvsBase
+  attr_accessor :path, :data
+
+  def initialize(path, data )
+    @data = data
     @path = path
-    @qa_target = qa_target
-    @qa_names_to_remove_from_branch_names = ['jeremy'].freeze
     chdir
   end
 
@@ -13,7 +14,7 @@ class RvsBase
   end
 
   def local_branch
-    `git branch --show-current`.chomp
+    `git branch --show-current`.strip
   end
 
   def local_changes
@@ -21,7 +22,7 @@ class RvsBase
   end
 
   def has_local_changes?
-    local_changes.chomp != ""
+    local_changes.strip != ""
   end
 
   def on_master?
@@ -38,59 +39,54 @@ class RvsBase
 
   def real_branch()
     tmp = local_branch
-    tmp = remove_develop(tmp)
-    tmp = remove_qa_names(tmp)
+    tmp = strip_non_branch_words(tmp)
     tmp
   end
 
-  def remove_develop(b)
-     b.gsub(/^develop\//, '')
-  end
-
-  def remove_qa_names(b)
+  def strip_non_branch_words(b)
     tmp = b
-    qa_array = @qa_names_to_remove_from_branch_names
+    qa_array = data['remove_from_branch_names']
     qa_array.each do |q|
-       tmp = tmp.gsub(Regexp.new("^#{q}/"), '')
+       tmp = tmp.gsub(Regexp.new(q), '')
     end
     tmp
   end
 
-  def ex(command)
-    res = `#{command} 2>&1`
-    [ command, res, $?.success?, $?.exitstatus ]
-  end
-
-  def pex(command)
-    ret = ex(command)
-    # puts "***********************************************************************"
-    # puts 0
-    # puts ret[0]
-    # puts 1
-    # puts ret[1]
-    # puts 2
-    # puts ret[2]
-    # puts 3
-    # puts ret[3]
-    # puts "***********************************************************************"
-    # temps = ret.reject{|e| e[1].nil? || e[1] == ""}
-    puts "  ➡️  #{ret[0]}"
-    puts ret[1] if !ret[1].nil? && ret[1].chomp != ""
-    ret
+  def exec_cmd(command)
+    Command.new(command)
   end
 
   def stash
-    pex('git stash')
+    exec_cmd('git stash').print
   end
 
   def stash_apply
-    pex('git stash pop')
+    exec_cmd('git stash pop').print
   end
 
   def current_branch_jira_ticket_number
-    jira_ticket_number = /(sky|flt|run|blue|cae)-\d{3,}/i.match(local_branch)
+    regex = Regexp.new(data['jira_names_regex'], 'i')
+    jira_ticket_number = regex.match(local_branch)
     jira_ticket_number[0]
   end
 
+  def jira_url
+    "https://rvshare.atlassian.net/browse/#{current_branch_jira_ticket_number}"
+  end
+
+  def pr_link
+    pr_number = get_pr_number.result
+    if pr_number != ''
+      "https://github.com/rvshare/#{application}/pull/#{pr_number}"
+    else
+      nil
+    end
+  end
+
+  private
+
+  def get_pr_number
+    exec_cmd("gh pr list | grep #{real_branch} | awk '{print $1}'")
+  end
 
 end

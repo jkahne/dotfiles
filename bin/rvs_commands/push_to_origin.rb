@@ -1,15 +1,15 @@
-require_relative 'rvs_base.rb'
+require_relative 'rvs_base'
 
 class PushToOrigin < RvsBase
 
   def doit
 
     if on_master?
-      puts "👶✂️  baby scissors - not pushing to master 👶✂️ "
+      puts "not pushing to master"
       return
     end
 
-    pex("git push origin #{local_branch} --force-with-lease")
+    exec_cmd("git push origin #{local_branch} --force-with-lease").print
 
   end
 end

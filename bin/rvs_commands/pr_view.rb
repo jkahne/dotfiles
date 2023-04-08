@@ -1,19 +1,15 @@
-require_relative 'rvs_base.rb'
+require_relative 'rvs_base'
 
 class PrView < RvsBase
 
   def doit
-    puts title
-    if on_master?
-      puts "You're on master - no PR to view"
-      return
+    return if on_master?
+
+    if pr = pr_link
+      puts title
+      puts pr
     end
 
-    res = ex('gh pr view --web')
-
-    if !res[2]
-      puts res[1]
-    end
-
+    exec_cmd('gh pr view --web')
   end
 end
