@@ -12,7 +12,7 @@ export PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"
 
 export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 
-export PATH="$PATH:/Users/jkahne/.kit/bin"
+# export PATH="$PATH:/Users/jkahne/.kit/bin"
 
 ## My own scripts
 export PATH="$HOME/bin:$PATH"
@@ -144,8 +144,9 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 
 # File search functions
-function f() { find . -iname "*$1*" ${@:2} }
-function r() { grep "$1" ${@:2} -R . }
+# havn't used these
+# function f() { find . -iname "*$1*" ${@:2} }
+# function r() { grep "$1" ${@:2} -R . }
 
 # Create a folder and move into it in one command
 function mkcd() { mkdir -p "$@" && cd "$_"; }
@@ -154,34 +155,16 @@ function ghpr() {
   GH_FORCE_TTY=100% gh pr list | fzf --ansi --preview 'GH_FORCE_TTY=100% gh pr view {1}' --preview-window=down --header-lines=3 | awk '{print $1}' | xargs gh pr checkout
 }
 
-function fixbundle {
-  docker exec -it $(basename $(pwd)) bash -c 'eval $(envkey-source) && bundle install'
+# obsidian://open?vault=Brain&file=git%20log%20commit%20counting%20script%20agile%20otter%20tim%20ottinger
+function gitcc() {
+  git log --since 2.years.ago --numstat | 
+  awk '/^[0-9-]+/{ print $NF }' |
+  grep -v 'schema.rb\|Gemfile.lock\|config/locales/en.yml' | 
+  sort | 
+  uniq -c | 
+  sort -nr | 
+  head
 }
-
-
-
-
-
-###-begin-envkey-completions-###
-#
-# yargs command completion script
-#
-# Installation: usr/local/bin/envkey completion >> ~/.zshrc
-#    or usr/local/bin/envkey completion >> ~/.zsh_profile on OSX.
-#
-_envkey_yargs_completions()
-{
-  local reply
-  local si=$IFS
-  IFS=$'
-' reply=($(COMP_CWORD="$((CURRENT-1))" COMP_LINE="$BUFFER" COMP_POINT="$CURSOR" usr/local/bin/envkey --get-yargs-completions "${words[@]}"))
-  IFS=$si
-  _describe 'values' reply
-}
-compdef _envkey_yargs_completions envkey
-###-end-envkey-completions-###
-
-
 
 # fancy-ctrl-z () {
 #   if [[ $#BUFFER -eq 0 ]]; then

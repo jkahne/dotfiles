@@ -9,6 +9,12 @@ IEx.configure(
     eval_result: [ :cyan, :bright ],
     eval_error:  [ :light_magenta ],
   ],
+  inspect: [
+    limit: :infinity,
+    printable_limit: :infinity,
+    charlists: :as_lists,
+    pretty: true
+  ],
   default_prompt: [
     "\r\e[38;5;220m",         # a pale gold
     "%prefix",                # IEx context

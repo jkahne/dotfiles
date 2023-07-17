@@ -21,6 +21,9 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'mbbill/undotree'
 Plug 'lukas-reineke/indent-blankline.nvim'
 
+" maybes:
+" Typescript:  https://github.com/dmmulroy/tsc.nvim-lua
+"
 
 " File navigation
 Plug 'preservim/nerdtree'
@@ -47,6 +50,7 @@ Plug 'tpope/vim-surround'
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'nvim-tree/nvim-web-devicons'
 Plug 'eandrju/cellular-automaton.nvim'
+Plug 'azabiong/vim-highlighter'
 
 
 " http://www.blogface.org/2015/03/ctrl-in-emacs-in-mac-terminal.html
@@ -116,6 +120,8 @@ Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'williamboman/mason.nvim'
 Plug 'williamboman/mason-lspconfig.nvim'
+
+" Do I need lspsaga?  what is it?   This is such a mess.
 
 " For ultisnips users.
 Plug 'SirVer/ultisnips'
@@ -345,7 +351,8 @@ nmap cp :let @+ = expand("%")<cr>
 " nnoremap <leader>k :bp<cr>
 
 
-nmap <TAB> :call RunStuff()<CR>
+
+" nmap <TAB> :call RunStuff()<CR>
 
 " crm                                         " MixedCase vim-abolish settings
 " crc                                         " camelCase vim-abolish settings
@@ -511,7 +518,16 @@ nmap     <Leader>/ :Rg<Space>|                       " ripgrep, this command com
 nnoremap <leader>bd :<c-u>bp <bar> bd #<cr>|         " Close the current buffer and move to the previous one
 nnoremap <leader>bo :<c-u>up <bar> %bd <bar> e#<cr>| " Close all buffers except current one
 nmap     <Leader>c <C-^><CR>|                        " switch between current and last buffer
-nmap     <Leader>dr :! bundle exec standardrb<cr><cr>|        " run rubocop
+nmap     <Leader>dr :! bundle exec standardrb --fix<cr><cr>|        " run standardrb
+
+
+" Elixir-specific settings and mappings
+autocmd FileType elixir nnoremap <buffer> <Leader>dr :!mix format<cr><cr>| 
+
+" Ruby-specific settings and mappings
+autocmd FileType ruby nnoremap <buffer> <Leader>dr :!bundle exec standardrb --fix<cr><cr>|        " run standardrb
+
+
 map      <Leader>gs :Switch<cr>
 " map      <Leader>gr :e config/routes.rb<cr>
 nnoremap <Leader>gt :NERDTreeFind<CR>|                  " NERDTree settings
@@ -561,8 +577,8 @@ map 0 ^
 " nnoremap <leader>q :e ~/Dropbox/c/codex/scratch.md<cr>
 " nnoremap <Leader>v :e ~/Dropbox/c/codex/vimnotes.md<cr>
 
-nnoremap <leader>ga :e /Users/jkahne/Library/Mobile Documents/iCloud~md~obsidian/Documents/Brain/scratch.md<CR>
-nnoremap <Leader>gv :e /Users/jkahne/Library/Mobile Documents/iCloud~md~obsidian/Documents/Brain/vimnotes.md<CR>
+nnoremap <leader>s :tab drop /Users/jkahne/Library/Mobile\ Documents/iCloud~md~obsidian/Documents/Brain/scratch.md<CR><CR>
+nnoremap <Leader>vn :tab drop /Users/jkahne/Library/Mobile\ Documents/iCloud~md~obsidian/Documents/Brain/vimnotes.md<CR><CR>
 
 inoremap <leader>, <Esc>|              " esc in insert mode
 vnoremap <leader>, <Esc>|              " esc and in visual mode
@@ -580,6 +596,16 @@ hi Search  cterm=NONE ctermbg=LightYellow ctermfg=darkgray guibg=lightyellow gui
 highlight PmenuSel ctermfg=253 ctermbg=66 guifg=#FFFFFF guibg=#455354
 " hi! CocWarningSign guifg=#d1cd66
 " hi! CocInfoSign guibg=#353b45
+
+
+
+let HiSet   = 'f<CR>'
+let HiErase = 'f<BS>'
+let HiClear = 'f<C-L>'
+let HiFind  = 'f<Tab>'
+let HiSetSL = 't<CR>'
+
+
 
 
 " ***   Editorconfig settings
@@ -602,11 +628,8 @@ let g:rainbow_conf = {
 
 " ***  vim.test mappings
 " " let g:rspec_command = "!clear && bin/rspec {spec}"
-let g:rspec_command = "!clear && rake test {spec}"
+" let g:rspec_command = "!clear && rake test {spec}"
 " " let test#strategy = "dispatch"
-"
-" let g:rspec_command = "!clear && docker-compose exec rvshare-api bundle exec rspec {spec}"
-" let g:rspec_command = "!clear && docker-compose exec rvshare-api bin/rspec {spec}"
 
 
 " elixir
@@ -719,7 +742,7 @@ endfunction
 
 
 function! RunStuff()
-  execute "wa"
+  " execute "wa"
   " if &ft == "python"
   "     execute "!clear && python %"
   " elseif &ft == "sh"
@@ -729,7 +752,7 @@ function! RunStuff()
   " elseif &ft == "javascript"
   "     execute "!clear && node %"
   " else
-      execute "!clear && echo 'unable to run this filetype!'"
+      " execute "!clear && echo 'unable to run this filetype!'"
   " endif
 endfunction
 
@@ -1363,9 +1386,11 @@ hi MatchParen cterm=none ctermbg=black ctermfg=yellow
 "
 "
 " " handy macro expansion
-" iabbrev Lidsa Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
-" " iabbrev rdebug require 'ruby-debug'; Debugger.start; Debugger.settings[:autoeval] = 1; Debugger.settings[:autolist] = 1; debugger; 0;
+iabbrev lidsa Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+" iabbrev rdebug require 'ruby-debug'; Debugger.start; Debugger.settings[:autoeval] = 1; Debugger.settings[:autolist] = 1; debugger; 0;
 " abbrev hte the
+iabbrev <expr> ddd strftime('%c')
+"
 "
 "
 "

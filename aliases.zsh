@@ -10,8 +10,6 @@ alias binit="bi && b package && echo 'vendor/ruby' >> .gitignore"
 
 alias tls="tmux ls"
 alias t="tmux attach -t"
-alias wo="tmux attach -t rv"
-alias rv="tmux attach -t rv"
 alias til="tmux attach -t til"
 alias web="tmux attach -t web"
 alias monte="tmux attach -t monte"
@@ -41,6 +39,7 @@ alias sync='git add -u . && git commit -m "Minor changes. Commit message skipped
 # alias fbr='git branch --sort=-committerdate | grep -v HEAD | string trim | fzf +s | xargs git checkout'
 alias fco="git branch --sort=-committerdate -r | fzf +m | awk '{print $1}' | xargs git switch"
 alias branch_cleanup='git branch | grep -v "main" | xargs git branch -D'
+# alias remove_merged_branches='git branch --no-color --merged | command grep -vE "^(\+|\*|\s*(master|develop|dev)\s*$)" | command xargs -n 1 git branch -d'
 
 alias gw="git ci -m'wip'"
 alias gwip="git ci -m'wip'"
@@ -121,13 +120,3 @@ alias rshare="ruby -rubygems -e \"['thin', 'rack', 'socket'].each {|file| requir
 # Pipe my public key to my clipboard. Fuck you, pay me.
 alias pubkey="more ~/.ssh/id_rsa.pub | pbcopy | echo '=> Public key copied to pasteboard.'"
 
-
-alias api="docker container exec -it rvshare-api doppler run -- bundle exec rails server --port=3000 --binding=0.0.0.0"
-alias apibash="docker container exec -it rvshare-api doppler run -- bash"
-alias apiconsole="docker container exec -it rvshare-api doppler run -- bundle exec rails c"
-alias mark="cd /Users/jkahne/projects/work/rvshare && make marketplace_dev_server"
-alias market="cd /Users/jkahne/projects/work/rvshare && make marketplace_dev_server"
-# alias dapi='cd ~/dev/rvshare/rvshare-setup; docker-compose up -d rvshare-api; cd -; docker attach rvshare-api'
-# alias bounce='docker-compose restart rvshare-api'
-# alias dstop='cd ~/dev/rvshare/rvshare-setup; make stop_all; cd -'
-# alias dbash='docker exec -it rvshare-api bash'
