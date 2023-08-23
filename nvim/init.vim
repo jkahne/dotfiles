@@ -87,7 +87,7 @@ Plug 'danielvolchek/tailiscope.nvim'
 Plug 'barrett-ruth/telescope-http.nvim'
 Plug 'nvim-telescope/telescope-file-browser.nvim'
 
-Plug 'pwntester/octo.nvim'
+" Plug 'pwntester/octo.nvim'
 Plug 'ThePrimeagen/harpoon'
 
 
@@ -150,6 +150,7 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
 " Plug 'tpope/vim-dadbod'
 " Plug 'kristijanhusak/vim-dadbod-ui'
 " " Plug 'elixir-editors/vim-elixir' "looking for new maintainers.  if end up needing this, look for alts
+Plug 'elixir-tools/elixir-tools.nvim'
 "
 " " " Plug 'vim-ruby/vim-ruby'
 " " " let g:ruby_indent_assignment_style = 'variable'
@@ -518,14 +519,17 @@ nmap     <Leader>/ :Rg<Space>|                       " ripgrep, this command com
 nnoremap <leader>bd :<c-u>bp <bar> bd #<cr>|         " Close the current buffer and move to the previous one
 nnoremap <leader>bo :<c-u>up <bar> %bd <bar> e#<cr>| " Close all buffers except current one
 nmap     <Leader>c <C-^><CR>|                        " switch between current and last buffer
-nmap     <Leader>dr :! bundle exec standardrb --fix<cr><cr>|        " run standardrb
+" nmap     <Leader>dr :! bundle exec standardrb --fix<cr><cr>|        " run standardrb
 
 
 " Elixir-specific settings and mappings
-autocmd FileType elixir nnoremap <buffer> <Leader>dr :!mix format<cr><cr>| 
+autocmd FileType elixir nnoremap <buffer> <Leader>dr :!mix format<cr><cr>|
 
 " Ruby-specific settings and mappings
 autocmd FileType ruby nnoremap <buffer> <Leader>dr :!bundle exec standardrb --fix<cr><cr>|        " run standardrb
+" autocmd FileType ruby nnoremap <buffer> <Leader>dc :!bin/ci<cr><cr>|        " run bin/ci
+
+nnoremap <Leader>dc :!bin/precompile<cr><cr>|        " run bin/precompile
 
 
 map      <Leader>gs :Switch<cr>
@@ -577,7 +581,9 @@ map 0 ^
 " nnoremap <leader>q :e ~/Dropbox/c/codex/scratch.md<cr>
 " nnoremap <Leader>v :e ~/Dropbox/c/codex/vimnotes.md<cr>
 
-nnoremap <leader>s :tab drop /Users/jkahne/Library/Mobile\ Documents/iCloud~md~obsidian/Documents/Brain/scratch.md<CR><CR>
+" scratch note
+nnoremap <leader>sn :tab drop /Users/jkahne/Library/Mobile\ Documents/iCloud~md~obsidian/Documents/Brain/scratch.md<CR><CR>
+" vim note
 nnoremap <Leader>vn :tab drop /Users/jkahne/Library/Mobile\ Documents/iCloud~md~obsidian/Documents/Brain/vimnotes.md<CR><CR>
 
 inoremap <leader>, <Esc>|              " esc in insert mode

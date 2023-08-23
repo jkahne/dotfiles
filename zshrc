@@ -157,12 +157,12 @@ function ghpr() {
 
 # obsidian://open?vault=Brain&file=git%20log%20commit%20counting%20script%20agile%20otter%20tim%20ottinger
 function gitcc() {
-  git log --since 2.years.ago --numstat | 
+  git log --since 2.years.ago --numstat |
   awk '/^[0-9-]+/{ print $NF }' |
-  grep -v 'schema.rb\|Gemfile.lock\|config/locales/en.yml' | 
-  sort | 
-  uniq -c | 
-  sort -nr | 
+  grep -v 'schema.rb\|Gemfile.lock\|config/locales/en.yml' |
+  sort |
+  uniq -c |
+  sort -nr |
   head
 }
 
