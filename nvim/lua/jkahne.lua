@@ -13,7 +13,7 @@ require("mason-lspconfig").setup({
 
 -- Diagnostic settings
 vim.diagnostic.config {
-  virtual_text = false,
+  virtual_text = true,
   -- signs = true,
   -- underline = true,
   signs = false,
@@ -240,7 +240,6 @@ require('telescope').setup{
 }
 
 require("telescope").load_extension "neoclip"
-require("telescope").load_extension "http"
 require('neoclip').setup{
   history = 1000,
   enable_persistent_history = false,

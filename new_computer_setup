@@ -154,6 +154,7 @@ else
   # asdf global python latest
   # asdf global nodejs latest
 
+  # python3 -m pip install --upgrade pip
   # python3 -m pip install --user --upgrade pynvim
   # npm install -g neovim
 
