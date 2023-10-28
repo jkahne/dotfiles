@@ -130,16 +130,64 @@ nvim_lsp.astro.setup{  }
 --   dialyzerEnabled = false,
 --   fetchDeps = false
 -- }
-nvim_lsp.tailwindcss.setup { }
 -- nvim_lsp.elixirls.setup{  }
+-- nvim_lsp.tailwindcss.setup({
+  -- capabilities = capabilities,
+  -- filetypes = { "html", "elixir", "eelixir", "heex", "erb", "js", "jsx"  },
+  -- init_options = {
+  --   userLanguages = {
+  --     elixir = "html-eex",
+  --     eelixir = "html-eex",
+  --     heex = "html-eex",
+  --   },
+  -- },
+  -- settings = {
+  --   tailwindCSS = {
+  --     experimental = {
+  --       classRegex = {
+  --         '(?:class|classNames)[:=]\\s*"([^"]*)"',
+  --       },
+  --     },
+  --   },
+  -- },
+-- })
+      -- 'class[:]\\s*"([^"]*)"',
 
-
-
+-- https://github.com/SmithWebDev/Highlander/blob/nvim-0.10/nvim-0.10/default/lua/smithwebdev/plugins/lsp/lspconfig.lua#L171
+nvim_lsp.tailwindcss.setup {
+  -- cmd = { "/Users/nick/.config/nvim/language-servers/node_modules/.bin/tailwindcss-language-server", "--stdio" }
+      capabilities = capabilities,
+      -- on_attach = on_attach,
+      -- on_attach = function(bufnr),
+      settings = {
+        tailwindCSS = {
+          classAttributes = { "class", "className", "class:list", "classList", "ngClass", "class: " },
+          emmetCompletions = true,
+          lint = {
+            cssConflict = "warning",
+            invalidApply = "error",
+            invalidConfigPath = "error",
+            invalidScreen = "error",
+            invalidTailwindDirective = "error",
+            invalidVariant = "error",
+            recommendedVariantOrder = "warning"
+          },
+          validate = true
+        }
+      },
+      userLanguages = {
+        eelixir = "html-eex",
+        eruby = "erb",
+        ruby = "rb",
+        html = 'html',
+        css = 'css'
+      }
+}
 
 
 require'nvim-treesitter.configs'.setup{
 --   -- A list of parser names, or "all"
-  ensure_installed = {"css", "dockerfile", "graphql", "html", "elixir", "heex", "eex",  "javascript", "json", "json5", "lua", "markdown", "sql", "tsx", "typescript", "vim", "ruby", "bash", "astro" },
+  ensure_installed = {"css", "dockerfile", "graphql", "html", "elixir", "heex", "eex",  "javascript", "json", "json5", "lua", "markdown", "sql", "tsx", "typescript", "vim", "ruby", "embedded_template", "bash", "astro" },
 --   -- ensure_installed = { "astro" },
 
 --   -- Install parsers synchronously (only applied to `ensure_installed`)
@@ -158,6 +206,7 @@ require'nvim-treesitter.configs'.setup{
   highlight = {
 --     -- `false` will disable the whole extension
     enable = true,
+    -- disable = { "embedded_template" }, -- may fix the ruby <% issue
 
 --     -- NOTE: these are the names of the parsers and not the filetype. (for example if you want to
 --     -- disable highlighting for the `tex` filetype, you need to include `latex` in this list as this is
@@ -313,3 +362,18 @@ require("harpoon").setup({
   -- }
 })
 
+require('aerial').setup({
+  -- optionally use on_attach to set keymaps when aerial has attached to a buffer
+  on_attach = function(bufnr)
+    -- Jump forwards/backwards with '{' and '}'
+    vim.keymap.set('n', '{', '<cmd>AerialPrev<CR>', {buffer = bufnr})
+    vim.keymap.set('n', '}', '<cmd>AerialNext<CR>', {buffer = bufnr})
+  end
+})
+-- You probably also want to set a keymap to toggle aerial
+vim.keymap.set('n', '<leader>aa', '<cmd>AerialToggle!<CR>')
+
+
+-- :lua require('elixir-extras').elixir_view_docs({})
+-- :lua require('elixir-extras').elixir_view_docs({include_mix_libs=true})
+-- :lua require'elixir-extras'.setup_multiple_clause_gutter()

@@ -17,6 +17,7 @@ Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-sensible'
 Plug 'editorconfig/editorconfig-vim'
+" Plug 'tpope/vim-projectionist'
 " Plug 'tpope/vim-speeddating' " is this ever really used?
 Plug 'mbbill/undotree'
 Plug 'lukas-reineke/indent-blankline.nvim'
@@ -52,6 +53,7 @@ Plug 'nvim-tree/nvim-web-devicons'
 Plug 'eandrju/cellular-automaton.nvim'
 Plug 'azabiong/vim-highlighter'
 
+Plug 'stevearc/aerial.nvim'
 
 " http://www.blogface.org/2015/03/ctrl-in-emacs-in-mac-terminal.html
 " terminal settings => "Profiles" => "Keyboard"
@@ -59,6 +61,7 @@ Plug 'azabiong/vim-highlighter'
 " ctrl-up = \033[1;5A
 " ctrl-down = \033[1;5B
 Plug 'tommcdo/vim-exchange'
+Plug 'github/copilot.vim'
 
 " Plug 'vim-airline/vim-airline'
 " Plug 'vim-airline/vim-airline-themes'
@@ -151,6 +154,7 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
 " Plug 'kristijanhusak/vim-dadbod-ui'
 " " Plug 'elixir-editors/vim-elixir' "looking for new maintainers.  if end up needing this, look for alts
 Plug 'elixir-tools/elixir-tools.nvim'
+" Plug 'emmanueltouzery/elixir-extras.nvim'
 "
 " " " Plug 'vim-ruby/vim-ruby'
 " " " let g:ruby_indent_assignment_style = 'variable'
@@ -400,6 +404,14 @@ nnoremap <silent> <leader>fq    <cmd>lua vim.lsp.buf.code_action()<CR>
 
 nnoremap <silent> g[    <cmd>lua vim.diagnostic.goto_prev()<CR>
 nnoremap <silent> g]    <cmd>lua vim.diagnostic.goto_next()<CR>
+
+
+nnoremap <leader>et :ElixirToPipe<cr>
+nnoremap <leader>ef :ElixirFromPipe<cr>
+nnoremap <leader>eo <cmd>lua require("elixir.elixirls").open_output_panel()<cr>
+nnoremap <leader>er :ElixirRestart<CR>:edit<CR>
+" nnoremap <leader>er :ElixirRestart<CR>:edit %<CR>
+
 
 nnoremap <leader>t <cmd>lua require('telescope.builtin').find_files()<cr>
 nnoremap <leader>b <cmd>lua require('telescope.builtin').buffers()<cr>
@@ -683,6 +695,8 @@ let g:ctrlsf_mapping = {
 	\ "prev": "u"
 	\ }
 
+
+let NERDTreeSortOrder=[]
 let g:NERDTreeMinimalMenu=1
 " nerdtree-git-plugin
 let g:NERDTreeGitStatusIndicatorMapCustom = {
@@ -1093,14 +1107,9 @@ autocmd BufWritePre *.exs :%s/\s\+$//e
 
 au BufNewFile * set noeol
 
-
 autocmd FileType gitcommit,markdown,text setlocal spell
 
-
 autocmd BufRead,BufEnter *.astro set filetype=astro
-
-
-
 
  augroup myfiletypes
    " Clear old autocmds in group
@@ -1166,7 +1175,11 @@ autocmd BufRead,BufEnter *.astro set filetype=astro
    " au BufRead /tmp/psql.edit.* set syntax=sql
 
    autocmd BufRead,BufNewFile *.erb setlocal ts=2 sts=2 sw=2 expandtab
+   autocmd BufNewFile,BufRead *.erb set filetype=html
    autocmd BufNewFile,BufRead *.scss set filetype=css
+
+  autocmd BufNewFile,BufRead *.heex set filetype=html
+
 
    " spelling by filetype
    autocmd FileType gitcommit setlocal textwidth=72
