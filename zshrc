@@ -12,35 +12,35 @@ export PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"
 
 export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 
-# export PATH="$PATH:/Users/jkahne/.kit/bin"
+# export PATH="/opt/homebrew/opt/openssl@1.1/bin:$PATH"
 
 ## My own scripts
 export PATH="$HOME/bin:$PATH"
 
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
-# For compilers to find libxslt you may need to set:
-export LDFLAGS="-L/opt/homebrew/opt/libxslt/lib"
-export CPPFLAGS="-I/opt/homebrew/opt/libxslt/include"
-
-
-# export KERL_CONFIGURE_OPTIONS="--without-javac --with-ssl=$(brew --prefix openssl@1.1)"
 export KERL_BUILD_DOCS="yes"
 export ERL_AFLAGS="-kernel shell_history enabled"
+export CC="/usr/bin/clang -I$(brew --prefix unixodbc)/include"
+export LDFLAGS=-L$(brew --prefix unixodbc)/lib
+export CPPFLAGS=-L$(brew --prefix unixodbc)/include
+
+# https://elixirforum.com/t/bus-error-after-upgrading-to-sonoma-beta/56354/40?page=2
 export KERL_CONFIGURE_OPTIONS="
       --disable-debug \
-      --disable-silent-rules \
-      --enable-dynamic-ssl-lib \
-      --disable-hipe \
-      --enable-shared-zlib \
-      --enable-smp-support \
-      --enable-threads \
-      --enable-wx \
-      --with-ssl=$(brew --prefix openssl@1.1) \
-      --without-javac
-      --enable-darwin-64bit \
-      --enable-kernel-poll \
-      --with-dynamic-trace=dtrace \
+      --disable-silent-rules  \
+      --without-javac  \
+      --enable-shared-zlib  \
+      --enable-dynamic-ssl-lib  \
+      --enable-threads  \
+      --enable-kernel-poll  \
+      --with-odbc=$(brew --prefix unixodbc) \
+      --without-wx  \
+      --enable-webview  \
+      --enable-darwin-64bit  \
+      --enable-gettimeofday-as-os-system-time  \
+      --with-ssl=$(brew --prefix openssl@3) \
+      --disable-jit \
       "
 
 # . /opt/homebrew/opt/asdf/libexec/asdf.sh
@@ -177,3 +177,18 @@ function gitcc() {
 # }
 # zle -N fancy-ctrl-z
 # bindkey '^Z' fancy-ctrl-z
+
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/jkahne/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/jkahne/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/jkahne/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/jkahne/google-cloud-sdk/completion.zsh.inc'; fi
+
+# pnpm
+export PNPM_HOME="/Users/jkahne/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
