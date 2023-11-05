@@ -39,7 +39,7 @@ Plug 'junegunn/fzf.vim'
 " Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 " Plug 'junegunn/fzf'
 " Plug 'junegunn/fzf.vim'
-Plug 'dyng/ctrlsf.vim'
+" Plug 'dyng/ctrlsf.vim'
 Plug 'preservim/tagbar'
 " Plug 'ludovicchabant/vim-gutentags'
 Plug 'terryma/vim-expand-region'
@@ -674,26 +674,26 @@ let g:multi_cursor_exit_from_visual_mode=0
 let g:multi_cursor_exit_from_insert_mode=0
 
 
-" ***   CtrlSF
-let g:ctrlsf_search_mode = 'async'
-" let g:ctrlsf_case_sensitive = 'no'
-" " let g:ctrlsf_position = 'bottom'
-let g:ctrlsf_auto_close = {
-	\ "normal" : 1,
-	\ "compact": 0
-	\}
-let g:ctrlsf_ackprg = 'rg' "'/usr/local/bin/ag'
-let g:ctrlsf_default_view_mode = 'compact'
-let g:ctrlsf_auto_focus = {
-	\ "at" : "start"
-	\ }
-" I don't expect to acutally use this.
-" I want ctrl-j/k (the default) to move cursor between panes
-" I want n/N to help me search within the search results when I do a / and find next
-let g:ctrlsf_mapping = {
-	\ "next": "d",
-	\ "prev": "u"
-	\ }
+" " ***   CtrlSF
+" let g:ctrlsf_search_mode = 'async'
+" " let g:ctrlsf_case_sensitive = 'no'
+" " " let g:ctrlsf_position = 'bottom'
+" let g:ctrlsf_auto_close = {
+" 	\ "normal" : 1,
+" 	\ "compact": 0
+" 	\}
+" let g:ctrlsf_ackprg = 'rg' "'/usr/local/bin/ag'
+" let g:ctrlsf_default_view_mode = 'compact'
+" let g:ctrlsf_auto_focus = {
+" 	\ "at" : "start"
+" 	\ }
+" " I don't expect to acutally use this.
+" " I want ctrl-j/k (the default) to move cursor between panes
+" " I want n/N to help me search within the search results when I do a / and find next
+" let g:ctrlsf_mapping = {
+" 	\ "next": "d",
+" 	\ "prev": "u"
+" 	\ }
 
 
 let NERDTreeSortOrder=[]
