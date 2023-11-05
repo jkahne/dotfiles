@@ -77,7 +77,7 @@ Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'rizzatti/dash.vim'
 Plug 'szw/vim-maximizer'
 Plug 'AndrewRadev/sideways.vim'
-Plug 'AndrewRadev/switch.vim'
+" Plug 'AndrewRadev/switch.vim'
 
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
@@ -110,7 +110,6 @@ Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-endwise'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'mattn/emmet-vim'
-" Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'AndrewRadev/tagalong.vim'
 
 Plug 'neovim/nvim-lspconfig'
@@ -379,13 +378,6 @@ nmap go o<esc>|                               " insert blank lines without going
 nmap gO O<esc>|                               " insert blank lines without going into insert mode
 nnoremap gp `[v`]|                            " reselect pasted text
 nnoremap gt :NERDTreeToggle<CR>|              " NERDTree settings
-" nmap <silent> gd <Plug>(coc-definition)|      " Coc -  GoTo code navigation.
-" nmap <silent> gy <Plug>(coc-type-definition)| " Coc -  GoTo code navigation.
-" nmap <silent> gi <Plug>(coc-implementation)|  " Coc -  GoTo code navigation.
-" nmap <silent> gr <Plug>(coc-references)|      " Coc -  GoTo code navigation.
-" nnoremap <silent> <leader>co  :<C-u>CocList outline<CR>|   " Coc - outline
-" nmap <silent> K :call <SID>show_documentation()<CR>| " Coc -  show documentation in preview window.
-
 nnoremap gu :UndotreeToggle<CR>|               " UndoTree Toggle
 
 nnoremap <silent> gd    <cmd>lua vim.lsp.buf.definition()<CR>
@@ -406,8 +398,8 @@ nnoremap <silent> g[    <cmd>lua vim.diagnostic.goto_prev()<CR>
 nnoremap <silent> g]    <cmd>lua vim.diagnostic.goto_next()<CR>
 
 
-nnoremap <leader>et :ElixirToPipe<cr>
-nnoremap <leader>ef :ElixirFromPipe<cr>
+nnoremap <leader>tp :ElixirToPipe<cr>
+nnoremap <leader>fp :ElixirFromPipe<cr>
 nnoremap <leader>eo <cmd>lua require("elixir.elixirls").open_output_panel()<cr>
 nnoremap <leader>er :ElixirRestart<CR>:edit<CR>
 " nnoremap <leader>er :ElixirRestart<CR>:edit %<CR>
@@ -418,7 +410,8 @@ nnoremap <leader>b <cmd>lua require('telescope.builtin').buffers()<cr>
 nnoremap <leader>m <cmd>lua require('telescope.builtin').marks()<cr>
 nnoremap <leader>fo <cmd>lua require('telescope.builtin').treesitter()<cr>
 nnoremap <leader>fc <cmd>lua require('telescope.builtin').commands()<cr>
-nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
+nnoremap <leader>ht <cmd>lua require('telescope.builtin').help_tags()<cr>
+" nnoremap <leader>hl <cmd>lua require('telescope.builtin').highlights()<cr>
 nnoremap <leader>ef <cmd>lua require('telescope.builtin').live_grep()<cr>
 nnoremap <leader>gf <cmd>lua require('telescope.builtin').git_files({show_untracked=true})<cr>
 nnoremap <leader>gb <cmd>lua require('telescope.builtin').git_branches()<cr>
@@ -434,13 +427,7 @@ nnoremap <leader>fml :CellularAutomaton make_it_rain<cr>
 " nnoremap <leader>fo :CellularAutomaton game_of_life<cr>
 
 
-" nnoremap <leader>fh <cmd>lua require('telescope.builtin').highlights()<cr>
 
-" nmap g* :CtrlSF <C-R><C-W><space>|            " CtrlSF
-" nmap g/ :CtrlSF<space>|                       " CtrlSF
-" nmap gl :CtrlSFToggle|                        " CtrlSF
-" nmap g* :CtrlSF -w --ignore '/tmp' --ignore '*/vendor/*' --ignore '/public' --ignore '*/node_modules/'  --ignore '*/seed_scenarios/*' <C-R><C-W><space>
-" nmap g* :CtrlSF -w --ignore '/tmp' --ignore 'vendor/*' --ignore '/public' --ignore 'node_modules/' <C-R><C-W><space>
 
 
 nnoremap <Leader>p    <cmd>lua require('telescope').extensions.neoclip.default()<CR>
@@ -450,12 +437,6 @@ nnoremap <Leader>em :Telescope harpoon marks<CR>
 nnoremap <Leader>ml :Telescope harpoon marks<CR>
 nnoremap <up>       <cmd>lua require("harpoon.ui").nav_next()<CR>|                  " navigates to next mark
 nnoremap <down>     <cmd>lua require("harpoon.ui").nav_prev()<CR>|                  " navigates to previous mark
-
-
-" inoremap jj <Esc>|                            " esc
-" inoremap kj <Esc>|                            " esc
-" vnoremap kj <Esc>|                            " esc
-" inoremap jk <Esc>|                            " esc
 
 nnoremap S ciw
 
@@ -497,10 +478,19 @@ noremap <C-w>m :MaximizerToggle!<CR>|          " maximize current split or retur
 
 " imap <c-a> <c-o>^|                            " Emacs-like beginning of line.
 " imap <c-e> <c-o>$|                            " Emacs-like end of line.
-" imap <c-l> <Space>=><Space>|                  " shortcut for =>
+"
+inoremap <c-.> <Space>=><Space>|                  " shortcut for =>
+inoremap <c-,> %{  }<Left><Left>|                  " shortcut for <%= %>
+nnoremap <c-,> i%{  }<Left><Left>|                  " shortcut for <%= %>
+
+inoremap <Leader>3 #{  }<Left><Left>|         " shortcut for #{}
+nnoremap <Leader>3 i#{  }<Left><Left>|        " shortcut for #{}
+
+inoremap <Leader>5 <%=  %><Left><Left><Left>|  " shortcut for #{}
+nnoremap <Leader>5 i<%=  %><Left><Left><Left>| " shortcut for #{}
+
 " <C-y>, |                                    " emmet command
 nmap <C-W>u :call MergeTabs()<CR>|            " Merge a tab into a split in the previous window
-" inoremap <silent><expr> <c-space> coc#refresh()| " Coc -  trigger completion.
 noremap <space> <C-d>|                        " convenient scolling
 noremap <C-space> <C-u>|
 
@@ -520,14 +510,11 @@ nnoremap <Leader>date :read !ruby -e "require 'date'; p Date.today.to_s"
 
 
 
-
 map      <Leader>. :TagbarToggle<CR>|                " Tagbar
 nmap     <Leader>> :tabnext<CR>
 nmap     <Leader>< :tabprevious<CR>
 " nmap     <Leader>' :Marks<CR>|                       " FZF
 nmap     <Leader>/ :Rg<Space>|                       " ripgrep, this command comes from FZF
-" nmap     <Leader>ac  <Plug>(coc-codeaction)|         " Remap keys for applying codeAction to the current buffer.
-" nmap     <Leader>b :Buffers<CR>|                     " FZF
 nnoremap <leader>bd :<c-u>bp <bar> bd #<cr>|         " Close the current buffer and move to the previous one
 nnoremap <leader>bo :<c-u>up <bar> %bd <bar> e#<cr>| " Close all buffers except current one
 nmap     <Leader>c <C-^><CR>|                        " switch between current and last buffer
@@ -544,18 +531,13 @@ autocmd FileType ruby nnoremap <buffer> <Leader>dr :!bundle exec standardrb --fi
 nnoremap <Leader>dc :!bin/precompile<cr><cr>|        " run bin/precompile
 
 
-map      <Leader>gs :Switch<cr>
+" map      <Leader>gs :Switch<cr>
 " map      <Leader>gr :e config/routes.rb<cr>
 nnoremap <Leader>gt :NERDTreeFind<CR>|                  " NERDTree settings
 nnoremap <Leader>gh :SidewaysLeft<cr>|                  " sideways.vim
 nnoremap <Leader>gl :SidewaysRight<cr>|                 " sideways.vim
 map      <Leader>I gg=G``<cr>|                          " reindent the entire file
-" nmap     <Leader>l :Lines<CR>|                     " FZF
-nnoremap <Leader>ns :so ~/.config/nvim/init.vim<CR>|    " source neovim init
-nnoremap <Leader>ne :e ~/.config/nvim/init.vim<CR>|     " edit neovim init
-" nmap     <Leader>qf <Plug>(coc-fix-current)|            " Coc -  Apply AutoFix to problem on the current line.
 map      <Leader>rf :call RenameFile()<cr>|             " rename file
-" nmap     <Leader>rn <Plug>(coc-rename)|                 " Coc - Remap for rename current word
 map      <Leader>rt :!ctags -R --exclude=node_modules --exclude=_build --exclude=.elixir_ls --exclude=deps --exclude=.beam --exclude=vendor --exclude=.git --exclude=log --exclude=tmp --exclude=coverage  *<CR><CR>
 
 
@@ -568,10 +550,7 @@ nmap     <Leader>sf :TestFile<CR>|                      " vim.test - spec file
 nmap     <Leader>ss :TestNearest<CR>|                   " vim.test - spec nearest
 nmap     <Leader>sl :TestLast<CR>|                      " vim.test - spec last
 nmap     <Leader>sv :TestVisit<CR>|                     " vim.test - spec visit
-nnoremap <Leader>sw :StripTrailingWhitespaces<cr>|      " clean up trailing whitespace
-" nmap     <Leader>t :Files<CR>|                          " FZF
 nmap     <Leader>T :tabnew<CR>
-" nnoremap <Leader>v :<C-u>CocList -A --normal yank<cr>|  " Coc -  show yanked commands
 nmap     <Leader>w :set wrap!<cr>|                      " easy wrap toggling
 nmap     <Leader>W :set nowrap<cr>|                     " easy wrap toggling
 nnoremap <silent> <Leader>1 :call matchadd('LineHighlight', '\%'.line('.').'l')<CR>| " highlight the current line
@@ -582,16 +561,9 @@ nnoremap <Leader><space> :noh<cr>|                      " map spacebar to clear 
 " Useful when studying strange source code.
 nnoremap <Leader>** :if AutoHighlightToggle()<Bar>set hls<Bar>endif<CR>
 
-" map <Leader>ow :sp ~/Dropbox/c/codex/work-notes.md<cr>
-" map <Leader>os :sp ~/Dropbox/c/codex/scratch.md<cr>
-" map <Leader>ov :sp ~/Dropbox/c/codex/vimnotes.md<cr>
 
 " Remap VIM 0 to first non-blank character
 map 0 ^
-
-" Quickly open a buffer for scribble
-" nnoremap <leader>q :e ~/Dropbox/c/codex/scratch.md<cr>
-" nnoremap <Leader>v :e ~/Dropbox/c/codex/vimnotes.md<cr>
 
 " scratch note
 nnoremap <leader>sn :tab drop /Users/jkahne/Library/Mobile\ Documents/iCloud~md~obsidian/Documents/Brain/scratch.md<CR><CR>
@@ -610,10 +582,7 @@ highlight cursorLine cterm=bold ctermbg=238 gui=bold guibg=#333333
 " hi Search  cterm=NONE ctermbg=yellow ctermfg=darkgray guibg=yellow guifg=darkgray
 hi Search  cterm=NONE ctermbg=LightYellow ctermfg=darkgray guibg=lightyellow guifg=darkgray
 
-" highlight CocMenuSel ctermfg=253 ctermbg=66 guifg=#FFFFFF guibg=#455354
 highlight PmenuSel ctermfg=253 ctermbg=66 guifg=#FFFFFF guibg=#455354
-" hi! CocWarningSign guifg=#d1cd66
-" hi! CocInfoSign guibg=#353b45
 
 
 
@@ -629,31 +598,14 @@ let HiSetSL = 't<CR>'
 " ***   Editorconfig settings
 let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 
-" vim-airline
-" let g:airline#extensions#tabline#enabled = 1
-" let g:airline_theme='deus'
 
-
-" set guicursor=
-" " don't blink the cursor
-" set guicursor=a:blinkon0
-
+"
 " ***   Rainbow parenthesis
 let g:rainbow_active = 0 "set to 0 if you want to enable it later via :RainbowToggle
 let g:rainbow_conf = {
 \  'ctermfgs': ['red', 'lightblue', 'lightyellow', 'lightcyan', 'lightmagenta']
 \}
 
-" ***  vim.test mappings
-" " let g:rspec_command = "!clear && bin/rspec {spec}"
-" let g:rspec_command = "!clear && rake test {spec}"
-" " let test#strategy = "dispatch"
-
-
-" elixir
-" let g:rspec_command = "!clear && mix test {spec}"
-" let g:rspec_command = "!clear && rake test {spec}"
-" let test#strategy = "dispatch"
 
 
 " ***   ultisnips
@@ -672,28 +624,10 @@ let g:UltiSnipsEditSplit="vertical"
 let g:VM_leader = ','
 let g:multi_cursor_exit_from_visual_mode=0
 let g:multi_cursor_exit_from_insert_mode=0
+" nmap   <C-LeftMouse>         <Plug>(VM-Mouse-Cursor)
+" nmap   <C-RightMouse>        <Plug>(VM-Mouse-Word)
+" nmap   <M-C-RightMouse>      <Plug>(VM-Mouse-Column)
 
-
-" " ***   CtrlSF
-" let g:ctrlsf_search_mode = 'async'
-" " let g:ctrlsf_case_sensitive = 'no'
-" " " let g:ctrlsf_position = 'bottom'
-" let g:ctrlsf_auto_close = {
-" 	\ "normal" : 1,
-" 	\ "compact": 0
-" 	\}
-" let g:ctrlsf_ackprg = 'rg' "'/usr/local/bin/ag'
-" let g:ctrlsf_default_view_mode = 'compact'
-" let g:ctrlsf_auto_focus = {
-" 	\ "at" : "start"
-" 	\ }
-" " I don't expect to acutally use this.
-" " I want ctrl-j/k (the default) to move cursor between panes
-" " I want n/N to help me search within the search results when I do a / and find next
-" let g:ctrlsf_mapping = {
-" 	\ "next": "d",
-" 	\ "prev": "u"
-" 	\ }
 
 
 let NERDTreeSortOrder=[]
@@ -713,10 +647,6 @@ let g:NERDTreeGitStatusIndicatorMapCustom = {
                 \ }
 
 
-" " ***  vim-visual-multi
-" nmap   <C-LeftMouse>         <Plug>(VM-Mouse-Cursor)
-" nmap   <C-RightMouse>        <Plug>(VM-Mouse-Word)
-" nmap   <M-C-RightMouse>      <Plug>(VM-Mouse-Column)
 
 
 "  " ***   FZF
@@ -843,9 +773,6 @@ command! StripTrailingWhitespaces call <SID>StripTrailingWhitespaces()
 
 
 
-command! Vimrc e ~/Library/Mobile Documents/com~apple~CloudDocs/dotfiles/nvim/init.vim
-command! Aliases e ~/Library/Mobile Documents/com~apple~CloudDocs/dotfiles/aliases.zsh
-
 
 
 " " highlight trailing whitespace
@@ -875,27 +802,6 @@ command! W execute 'w !sudo tee % > /dev/null' <bar> edit!
 
 " Autocomplete    -   Coc, Emmet
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
-" inoremap <expr><s-tab> pumvisible() ? "\<c-p>" : "\<s-tab>"
-" let g:coc_global_extensions = [
-" \  'coc-tsserver',
-" \  'coc-elixir',
-" \  'coc-solargraph',
-" \  'coc-html' ,
-" \  'coc-svg',
-" \  'coc-emmet' ,
-" \  'coc-css',
-" \  'coc-sql',
-" \  'coc-snippets',
-" \  'coc-styled-components',
-" \  'coc-prettier',
-" \  'coc-eslint',
-" \]
-
-" CocInstall coc-tailwindcss
-" \  'coc-json',
-" \  'coc-yank',
-" \  'coc-prettier',
-" \  'coc-eslint',
 
 
 let g:user_emmet_settings = {
@@ -907,113 +813,12 @@ let g:user_emmet_settings = {
 \  },
 \}
 
-" command! -nargs=0 Prettier :CocCommand prettier.formatFile
-
-" if isdirectory('./node_modules') && isdirectory('./node_modules/prettier')
-"   let g:coc_global_extensions += ['coc-prettier']
-" endif
-
-" if isdirectory('./node_modules') && isdirectory('./node_modules/eslint')
-"   let g:coc_global_extensions += ['coc-eslint']
-" endif
-
-
-" function! s:show_documentation()
-"   if (index(['vim','help'], &filetype) >= 0)
-"     execute 'h '.expand('<cword>')
-"   elseif (coc#rpc#ready())
-"     call CocActionAsync('doHover')
-"   else
-"     execute '!' . &keywordprg . " " . expand('<cword>')
-"   endif
-" endfunction
-
-
-"" #COC {{{
-"" https://github.com/neoclide/coc.nvim/wiki/Using-coc-extensions
-"let g:coc_global_extensions = ['coc-json',
-"\ 'coc-git',
-"\ 'coc-solargraph',
-"\ 'coc-elixir',
-"\ 'coc-html' ,
-"\ 'coc-css',
-"\ 'coc-tsserver',
-"\ 'coc-omnisharp'
-"\]
-
-"" \ 'coc-emmet',
-"" \ 'coc-fzf-preview',
-
-"" Use tab for trigger completion with characters ahead and navigate.
-"" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
-"" other plugin before putting this into your config.
-"inoremap <silent><expr> <TAB>
-"      \ pumvisible() ? "\<C-n>" :
-"      \ <SID>check_back_space() ? "\<TAB>" :
-"      \ coc#refresh()
-"inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-"function! s:check_back_space() abort
-"  let col = col('.') - 1
-"  return !col || getline('.')[col - 1]  =~# '\s'
-"endfunction
-
-
-"" Close the documentation window when completion is done
-"autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
-
 
 
 "
 "
 "
-" "" gh - get hint on whatever's under the cursor
-" "" nnoremap <silent> K :call <SID>show_documentation()<CR>
-" "" nnoremap <silent> gh :call <SID>show_documentation()<CR>
-" ""
-" "" function! s:show_documentation()
-" ""   if &filetype == 'vim'
-" ""     execute 'h '.expand('<cword>')
-" ""   else
-" ""     call CocAction('doHover')
-" ""   endif
-" "" endfunction
 "
-"
-" "" Highlight symbol under cursor on CursorHold
-" "autocmd CursorHold * silent call CocActionAsync('highlight')
-"
-" "" }}} Coc.vim
-"
-"
-"
-"
-"
-"
-" "Ale
-" "let b:ale_fixers = ['prettier', 'eslint']
-" "let b:ale_fixers = {'javascript': ['prettier', 'eslint']}
-"
-" let g:ale_fixers = {
-" \   '*': ['remove_trailing_lines', 'trim_whitespace'],
-" \   'ruby': ['standardrb']
-" \}
-" " \   'javascript': ['prettier', 'eslint'],
-" " \   'css': ['prettier'],
-" let g:ale_linters = {
-" \  'ruby':       ['standardrb'],
-" \  'cs':       ['OmniSharp']
-" \}
-" " \  'javascript': ['prettier'],
-"
-" let g:ale_linters_explicit = 1
-" let g:ale_fix_on_save = 1
-"
-" let g:ale_sign_error = '❌'
-" let g:ale_sign_warning = '⚠️'
-"
-" " let g:ale_fixers = {'vue': ['remove_trailing_lines', 'trim_whitespace']}
-" " let g:ale_linter_aliases = {'vue': ['javascript', 'html', 'scss']}
 "
 "
 " " enable fenced code block syntax highlighting in your markdown
@@ -1023,19 +828,6 @@ let g:markdown_fenced_languages = ['html', 'css', 'javascript', 'typescript', 'e
 "
 "
 "
-"
-"
-"
-"
-"
-"
-"
-"
-"
-" " #GUTENTAGS {{{
-" " let g:gutentags_file_list_command = "rg --files --follow --ignore-file '/home/ayo/.vimignore'"
-" let g:gutentags_file_list_command = "rg --files --follow"
-" "}}}
 "
 "
 "
@@ -1055,44 +847,18 @@ let g:markdown_fenced_languages = ['html', 'css', 'javascript', 'typescript', 'e
 "
 "
 "
-" " shortcuts for frequenly used files
-"
-"
-" " copied over
-" " map <Leader>cu :Tabularize /\|<CR>
-" map <Leader>fix :cnoremap % %<CR>
-"
-" " map <Leader>p :set paste<CR><esc>"*]p:set nopaste<cr>
-" nnoremap <leader>p :r!pbpaste<cr>
-"
-" nnoremap <leader>pr :Prettier<cr>
 "
 "
 "
 "
 "
-"
-"
-" " Save state of open Windows and Buffers
-" nnoremap <leader>vm :mksession<CR>
-"
-"
-"
-"
-"
-"
-"
-"
-"
-" " clean up multiple blank lines
-" nnoremap <Leader>cv :CompressBlankLines<cr>
 "
 "
 " " scroll the viewport faster
 " " nnoremap <UP> <C-u>
 " " nnoremap <DOWN> <C-d>
-" nnoremap <C-e> 3<C-e>
-" nnoremap <C-y> 3<C-y>
+nnoremap <C-e> 3<C-e>
+nnoremap <C-y> 3<C-y>
 "
 "
 "
@@ -1220,130 +986,6 @@ endif
 "
 "
 "
-" " " Wrap the quickfix window
-" " autocmd FileType qf setlocal wrap linebreak
-"
-" " Don't automatically continue comments after newline
-" autocmd BufNewFile,BufRead * setlocal formatoptions-=cro
-"
-"
-" imap cll console.log()<Esc>==f(a
-"
-"
-" let loaded_matchparen = 0
-"
-"
-"
-"
-" " shortcut for =>
-" " TODO this is overloaded
-" inoremap <C-l> <Space>=><Space>
-"
-"
-"
-"
-"
-"
-"
-" imap <silent> <C-D><C-D> <C-R>=strftime("%Y-%m-%d")<CR>
-" imap <silent> <C-T><C-T> <C-R>=strftime("%l:%M %p")<CR>
-"
-"
-"
-" " reindent the entire file
-" map <Leader>I gg=G``<cr>
-"
-"
-"
-"
-"
-"
-"
-"
-"
-"
- " " Tagbar
- " let g:tagbar_autofocus = 1
- " let g:tagbar_type_ruby = {
- "     \ 'kinds' : [
- "         \ 'm:modules',
- "         \ 'c:classes',
- "         \ 'd:describes',
- "         \ 'C:contexts',
- "         \ 'f:methods',
- "         \ 'F:singleton methods'
- "     \ ]
- " \ }
-
- " let g:tagbar_type_elixir = {
- "     \ 'ctagstype' : 'elixir',
- "     \ 'kinds' : [
- "         \ 'p:protocols',
- "         \ 'm:modules',
- "         \ 'e:exceptions',
- "         \ 'y:types',
- "         \ 'd:delegates',
- "         \ 'f:functions',
- "         \ 'c:callbacks',
- "         \ 'a:macros',
- "         \ 't:tests',
- "         \ 'i:implementations',
- "         \ 'o:operators',
- "         \ 'r:records'
- "     \ ],
- "     \ 'sro' : '.',
- "     \ 'kind2scope' : {
- "         \ 'p' : 'protocol',
- "         \ 'm' : 'module'
- "     \ },
- "     \ 'scope2kind' : {
- "         \ 'protocol' : 'p',
- "         \ 'module' : 'm'
- "     \ },
- "     \ 'sort' : 0
- " \ }
-
-" let g:tagbar_type_javascript = {
- "      \ 'ctagstype': 'javascript',
- "      \ 'kinds': [
- "        \ 'A:arrays',
- "        \ 'P:properties',
- "        \ 'T:tags',
- "        \ 'O:objects',
- "        \ 'G:generator functions',
- "        \ 'F:functions',
- "        \ 'C:constructors/classes',
- "        \ 'M:methods',
- "        \ 'V:variables',
- "        \ 'I:imports',
- "        \ 'E:exports',
- "        \ 'S:styled components'
- "    \ ]}
-
-" let g:tagbar_type_typescript = {
- "  \ 'ctagstype': 'typescript',
- "  \ 'kinds': [
- "    \ 'c:classes',
- "    \ 'n:modules',
- "    \ 'f:functions',
- "    \ 'v:variables',
- "    \ 'v:varlambdas',
- "    \ 'm:members',
- "    \ 'i:interfaces',
- "    \ 'e:enums',
- "  \ ]
-" \ }
-"
-"
-"
-"
-"
-"
-"
-"
-"
-"
-"
 "
 "
 "
@@ -1355,32 +997,6 @@ set backupdir=~/.tmp
 set directory=/tmp/| " set temporary directory (don't litter local dir with swp/tmp files)
 "
 "
-"
-" " don't blink the cursor
-" set guicursor=a:blinkon0
-"
-" " Use a block instead of | line when in insert mode
-" set guicursor=n-v-c-i:block
-"
-" " show current line info (current/total)
-" set ruler rulerformat=%=%l/%L
-"
-" " show status line
-" set laststatus=2
-"
-" " When lines are cropped at the screen bottom, show as much as possible
-" set display=lastline
-"
-"
-"
-"
-" " use tab-complete to see a list of possiblities when entering commands
-" set wildmode=list:longest,full
-"
-"
-" " remember last position in file
-" au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g'\"" | endif
-"
 
 "
 " Make it more obvious which paren I'm on
@@ -1389,18 +1005,9 @@ hi MatchParen cterm=none ctermbg=black ctermfg=yellow
 "
 "
 "
-" autocmd BufWritePost * if &diff == 1 | diffupdate | endif
 "
-"
-"
-" " Compresses multiple blank lines into just one
-" function! CompressBlankLines()
-"     execute ":%!cat -s"
-" endfunction
-"
-"
-"
-"
+
+
 "
 "
 "
@@ -1409,83 +1016,8 @@ iabbrev lidsa Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do e
 " iabbrev rdebug require 'ruby-debug'; Debugger.start; Debugger.settings[:autoeval] = 1; Debugger.settings[:autolist] = 1; debugger; 0;
 " abbrev hte the
 iabbrev <expr> ddd strftime('%c')
-"
-"
-"
-"
-" " Marked
-" let g:marked_filetypes = ["markdown", "mkd", "README", "vimwiki"]
-" nmap gm :MarkedOpen<CR>
-"
-"
-" autocmd InsertEnter * set cul
-" autocmd InsertLeave * set nocul
-"
-"
-" " vim-syntastic/syntastic
-" set statusline+=%#warningmsg#
-" set statusline+=%{SyntasticStatuslineFlag()}
-" set statusline+=%*
-"
-" let g:syntastic_always_populate_loc_list = 1
-" let g:syntastic_auto_loc_list = 1
-" let g:syntastic_check_on_open = 1
-" let g:syntastic_check_on_wq = 0
-"
-" let g:syntastic_enable_signs=1
-" let g:syntastic_quiet_messages = {'level': 'warnings'}
-"
-"
-" " augment status line
-" function! ETry(function, ...)
-"   if exists('*'.a:function)
-"     return call(a:function, a:000)
-"   else
-"     return ''
-"   endif
-" endfunction
-" set statusline=[%n]\ %<%.99f\ %h%w%m%r%{ETry('CapsLockStatusline')}%y%{ETry('rails#statusline')}%{ETry('fugitive#statusline')}%#ErrorMsg#%*%=%-16(\ %l,%c-%v\ %)%P
-"
-"
-"
-"
-"
-" "Autocomplete
-" " let g:user_emmet_settings = {
-" " \  'javascript' : {
-" " \    'extends' : 'jsx',
-" " \  },
-" " \}
-"
-"
-"
-"
-"--------------------------------------------------
-" " sensible.vim should take care of these
-" " make backspace work in insert mode
-" set backspace=indent,eol,start
-"
-" " show the first match as search strings are typed
-" set incsearch
-"
-" set listchars=tab:→\ ,eol:↲,nbsp:␣,trail:✗,space:·
-" nnoremap <Leader>sl :set list!<CR>
-"
-" " highlight trailing whitespace
-" set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
-" set list
-" set path+=**
-"
-" " Display extra whitespace
-" set list listchars=tab:»·,trail:·
-"
-"
-"
-" END sensible.vim
-"
-"
-
-
+" imap <silent> <C-D><C-D> <C-R>=strftime("%Y-%m-%d")<CR>
+" imap <silent> <C-T><C-T> <C-R>=strftime("%l:%M %p")<CR>
 
 " nnoremap <silent><C-Down>         :<C-u>call vm#commands#add_cursor_down(0, v:count1)<cr>
 " nnoremap <silent><C-Up>           :<C-u>call vm#commands#add_cursor_up(0, v:count1)<cr>
@@ -1496,110 +1028,4 @@ function! ExecuteMacroOverVisualRange()
   echo "@".getcmdline()
   execute ":'<,'>normal @".nr2char(getchar())
 endfunction
-
-
-
-" iamcco markdown settings
-" " set to 1, nvim will open the preview window after entering the markdown buffer
-" " default: 0
-" let g:mkdp_auto_start = 0
-
-" " set to 1, the nvim will auto close current preview window when change
-" " from markdown buffer to another buffer
-" " default: 1
-" let g:mkdp_auto_close = 1
-
-" " set to 1, the vim will refresh markdown when save the buffer or
-" " leave from insert mode, default 0 is auto refresh markdown as you edit or
-" " move the cursor
-" " default: 0
-" let g:mkdp_refresh_slow = 0
-
-" " set to 1, the MarkdownPreview command can be use for all files,
-" " by default it can be use in markdown file
-" " default: 0
-" let g:mkdp_command_for_global = 0
-
-" " set to 1, preview server available to others in your network
-" " by default, the server listens on localhost (127.0.0.1)
-" " default: 0
-" let g:mkdp_open_to_the_world = 0
-
-" " use custom IP to open preview page
-" " useful when you work in remote vim and preview on local browser
-" " more detail see: https://github.com/iamcco/markdown-preview.nvim/pull/9
-" " default empty
-" let g:mkdp_open_ip = ''
-
-" " specify browser to open preview page
-" " for path with space
-" " valid: `/path/with\ space/xxx`
-" " invalid: `/path/with\\ space/xxx`
-" " default: ''
-" let g:mkdp_browser = ''
-
-" " set to 1, echo preview page url in command line when open preview page
-" " default is 0
-" let g:mkdp_echo_preview_url = 0
-
-" " a custom vim function name to open preview page
-" " this function will receive url as param
-" " default is empty
-" let g:mkdp_browserfunc = ''
-
-" " options for markdown render
-" " mkit: markdown-it options for render
-" " katex: katex options for math
-" " uml: markdown-it-plantuml options
-" " maid: mermaid options
-" " disable_sync_scroll: if disable sync scroll, default 0
-" " sync_scroll_type: 'middle', 'top' or 'relative', default value is 'middle'
-" "   middle: mean the cursor position alway show at the middle of the preview page
-" "   top: mean the vim top viewport alway show at the top of the preview page
-" "   relative: mean the cursor position alway show at the relative positon of the preview page
-" " hide_yaml_meta: if hide yaml metadata, default is 1
-" " sequence_diagrams: js-sequence-diagrams options
-" " content_editable: if enable content editable for preview page, default: v:false
-" " disable_filename: if disable filename header for preview page, default: 0
-" let g:mkdp_preview_options = {
-"     \ 'mkit': {},
-"     \ 'katex': {},
-"     \ 'uml': {},
-"     \ 'maid': {},
-"     \ 'disable_sync_scroll': 0,
-"     \ 'sync_scroll_type': 'middle',
-"     \ 'hide_yaml_meta': 1,
-"     \ 'sequence_diagrams': {},
-"     \ 'flowchart_diagrams': {},
-"     \ 'content_editable': v:false,
-"     \ 'disable_filename': 0,
-"     \ 'toc': {}
-"     \ }
-
-" " use a custom markdown style must be absolute path
-" " like '/Users/username/markdown.css' or expand('~/markdown.css')
-" let g:mkdp_markdown_css = ''
-
-" " use a custom highlight style must absolute path
-" " like '/Users/username/highlight.css' or expand('~/highlight.css')
-" let g:mkdp_highlight_css = ''
-
-" " use a custom port to start server or empty for random
-" let g:mkdp_port = ''
-
-" " preview page title
-" " ${name} will be replace with the file name
-" let g:mkdp_page_title = '「${name}」'
-
-" " recognized filetypes
-" " these filetypes will have MarkdownPreview... commands
-" let g:mkdp_filetypes = ['markdown']
-
-" " set default theme (dark or light)
-" " By default the theme is define according to the preferences of the system
-" let g:mkdp_theme = 'dark'
-" ----------- END iamcco ---------------------
-
-
-
 
