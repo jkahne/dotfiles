@@ -80,7 +80,7 @@ Plug 'AndrewRadev/sideways.vim'
 " Plug 'AndrewRadev/switch.vim'
 
 Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.4' }
 
 Plug 'AckslD/nvim-neoclip.lua'
 
@@ -378,7 +378,7 @@ nmap go o<esc>|                               " insert blank lines without going
 nmap gO O<esc>|                               " insert blank lines without going into insert mode
 nnoremap gp `[v`]|                            " reselect pasted text
 nnoremap gt :NERDTreeToggle<CR>|              " NERDTree settings
-nnoremap gu :UndotreeToggle<CR>|               " UndoTree Toggle
+nnoremap gu :UndotreeToggle<CR>|              " UndoTree Toggle
 
 nnoremap <silent> gd    <cmd>lua vim.lsp.buf.definition()<CR>
 nnoremap <silent> ggd    <cmd>lua require('telescope.builtin').lsp_definitions()<CR>
