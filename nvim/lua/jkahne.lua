@@ -91,16 +91,34 @@ cmp.setup.cmdline(':', {
   })
 })
 
+-- require("elixir").setup({
+--   nextls = {enable = false},
+--   credo = {enable = true},
+--   elixirls = {
+--     enable = true,
+--     filetypes = { "elixir", "heex", "eex", "surface" },
+--     dialyzerEnabled = false,
+--   },
+--   fetchDeps = false
+-- })
+
+-- https://github.com/elixir-tools/elixir-tools.nvim
+local elixirls = require("elixir.elixirls")
 require("elixir").setup({
-  nextls = {enable = false},
+  nextls = {enable = true},
   credo = {enable = true},
   elixirls = {
     enable = true,
     filetypes = { "elixir", "heex", "eex", "surface" },
-    dialyzerEnabled = false,
-    fetchDeps = false
+    settings = elixirls.settings {
+      dialyzerEnabled = true,
+      fetchDeps = false,
+      enableTestLenses = false,
+      suggestSpecs = false,
+    },
   },
 })
+
 
 local nvim_lsp = require'lspconfig'
 
