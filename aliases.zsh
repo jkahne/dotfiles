@@ -46,6 +46,8 @@ alias gwip="git ci -m'wip'"
 alias gwipp="git ci -m'wip' && git push"
 # alias gpom="git push origin main"
 alias pr="gh pr view --web"
+alias prc="gh pr create --web"
+
 
 alias tldrf='tldr --list | fzf --preview "tldr {1} --color=always" --preview-window=right,70% | xargs tldr'
 alias cbr='git branch --sort=-committerdate | fzf --header "Checkout Recent Branch"  --preview "git diff {1} --color=always" | xargs git checkout'
