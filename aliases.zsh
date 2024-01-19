@@ -48,6 +48,8 @@ alias gwipp="git ci -m'wip' && git push"
 alias pr="gh pr view --web"
 alias prc="gh pr create --web"
 
+alias vc='vim $(git diff --name-only origin/master)'
+alias vcl='vim $(git diff --name-only HEAD^ HEAD)'
 
 alias tldrf='tldr --list | fzf --preview "tldr {1} --color=always" --preview-window=right,70% | xargs tldr'
 alias cbr='git branch --sort=-committerdate | fzf --header "Checkout Recent Branch"  --preview "git diff {1} --color=always" | xargs git checkout'
