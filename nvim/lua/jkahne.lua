@@ -205,7 +205,7 @@ nvim_lsp.tailwindcss.setup {
 
 require'nvim-treesitter.configs'.setup{
 --   -- A list of parser names, or "all"
-  ensure_installed = {"css", "dockerfile", "graphql", "html", "elixir", "heex", "eex",  "javascript", "json", "json5", "lua", "markdown", "sql", "tsx", "typescript", "vim", "ruby", "embedded_template", "bash", "astro" },
+  ensure_installed = {"css", "dockerfile", "graphql", "html", "elixir", "heex", "eex",  "javascript", "json", "json5", "lua", "markdown", "sql", "tsx", "typescript", "vim", "ruby", "embedded_template", "bash", "astro", "c", "help"  },
 --   -- ensure_installed = { "astro" },
 
 --   -- Install parsers synchronously (only applied to `ensure_installed`)

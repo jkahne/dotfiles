@@ -41,6 +41,9 @@ alias fco="git branch --sort=-committerdate -r | fzf +m | awk '{print $1}' | xar
 alias branch_cleanup='git branch | grep -v "main" | xargs git branch -D'
 # alias remove_merged_branches='git branch --no-color --merged | command grep -vE "^(\+|\*|\s*(master|develop|dev)\s*$)" | command xargs -n 1 git branch -d'
 
+alias lz="lazygit"
+alias lzconfig="vim ~/Library/Application\ Support/lazygit/config.yml"
+
 alias gw="git ci -m'wip'"
 alias gwip="git ci -m'wip'"
 alias gwipp="git ci -m'wip' && git push"
@@ -65,10 +68,6 @@ alias jsontidy="pbpaste | jq '.' | pbcopy"
 
 # alias work="cp ~/.npmrc.work ~/.npmrc;"
 # alias home="cp ~/.npmrc.home ~/.npmrc;"
-
-# Show/hide hidden files in Finder
-alias showfiles="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
-alias hidefiles="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
 
 # Hide/show all desktop icons (useful when presenting)
 alias hidedesktop="defaults write com.apple.finder CreateDesktop -bool false && killall Finder"
@@ -123,4 +122,7 @@ alias rshare="ruby -rubygems -e \"['thin', 'rack', 'socket'].each {|file| requir
 
 # Pipe my public key to my clipboard. Fuck you, pay me.
 alias pubkey="more ~/.ssh/id_rsa.pub | pbcopy | echo '=> Public key copied to pasteboard.'"
+
+alias web="cd ~/projects/active/jkahnecom; vim ./src/pages/posts/\[page\].astro"
+alias blog="cd ~/projects/active/jkahnecom; vim ./src/pages/posts/\[page\].astro"
 

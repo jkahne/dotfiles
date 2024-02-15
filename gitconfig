@@ -87,13 +87,12 @@
 
 [help]
   autocorrect = 1
-[credential]
-  helper = osxkeychain
 [push]
 	default = simple
 	autoSetupRemote = true
 [diff]
-	algorithm = patience
+	; algorithm = patience
+	algorithm = histogram
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
