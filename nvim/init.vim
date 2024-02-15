@@ -2,6 +2,11 @@
 " set runtimepath^=~/.vim runtimepath+=~/.vim/after
 " let &packpath = &runtimepath
 " source ~/.vimrc
+
+
+" you might need to update nvim-telescope/telescope.nvim.
+
+
 let mapleader = ','
 
 " required for several plugins
@@ -80,7 +85,9 @@ Plug 'AndrewRadev/sideways.vim'
 " Plug 'AndrewRadev/switch.vim'
 
 Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.4' }
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.5' }
+" not sure what this is needed for
+Plug 'MunifTanjim/nui.nvim'
 
 Plug 'AckslD/nvim-neoclip.lua'
 
@@ -391,6 +398,7 @@ nnoremap <silent> ggD    <cmd>lua require('telescope.builtin').lsp_type_definiti
 " nnoremap <silent> ge    <cmd>lua vim.lsp.diagnostic.set_loclist()<CR>
 nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
 nnoremap <silent> <leader>ff     <cmd>lua vim.lsp.buf.format { async = true }<CR>
+" nnoremap <silent> <leader>ff     <cmd>lua vim.lsp.buf.format <CR>
 nnoremap <silent> <leader>rn    <cmd>lua vim.lsp.buf.rename()<CR>
 nnoremap <silent> <leader>fq    <cmd>lua vim.lsp.buf.code_action()<CR>
 
@@ -427,6 +435,8 @@ nnoremap <leader>fml :CellularAutomaton make_it_rain<cr>
 " nnoremap <leader>fo :CellularAutomaton game_of_life<cr>
 
 
+nnoremap SSA :wa<CR>:mksession! ~/sessions/
+nnoremap SO :wa<CR>:so ~/sessions/
 
 
 
@@ -505,7 +515,6 @@ inoremap ? ?<c-g>u
 
 " Insert a UUID with Ruby
 nnoremap <Leader>uuid :read !ruby -e "require 'securerandom'; p SecureRandom.uuid"
-nnoremap <Leader>date :read !ruby -e "require 'date'; p Date.today.to_s"
 
 
 
@@ -522,7 +531,8 @@ nmap     <Leader>c <C-^><CR>|                        " switch between current an
 
 
 " Elixir-specific settings and mappings
-autocmd FileType elixir nnoremap <buffer> <Leader>dr :!mix format<cr><cr>|
+autocmd FileType elixir nnoremap <buffer> <Leader>dr :!mix format <CR>
+" autocmd BufWritePre elixir <cmd>lua vim.lsp.buf.format <CR>
 
 " Ruby-specific settings and mappings
 autocmd FileType ruby nnoremap <buffer> <Leader>dr :!bundle exec standardrb --fix<cr><cr>|        " run standardrb
@@ -566,9 +576,9 @@ nnoremap <Leader>** :if AutoHighlightToggle()<Bar>set hls<Bar>endif<CR>
 map 0 ^
 
 " scratch note
-nnoremap <leader>sn :tab drop /Users/jkahne/Library/Mobile\ Documents/iCloud~md~obsidian/Documents/Brain/scratch.md<CR><CR>
+nnoremap <leader>sn :tab drop /Users/jkahne/Library/Mobile\ Documents/iCloud~md~obsidian/Documents/Brain/06\ Utilities/scratch.md<CR><CR>
 " vim note
-nnoremap <Leader>vn :tab drop /Users/jkahne/Library/Mobile\ Documents/iCloud~md~obsidian/Documents/Brain/vimnotes.md<CR><CR>
+nnoremap <Leader>vn :tab drop /Users/jkahne/Library/Mobile\ Documents/iCloud~md~obsidian/Documents/Brain/06\ Utilities/vimnotes.md<CR><CR>
 
 inoremap <leader>, <Esc>|              " esc in insert mode
 vnoremap <leader>, <Esc>|              " esc and in visual mode
