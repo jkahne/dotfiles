@@ -22,7 +22,7 @@ fi
 
 printf "\nbrew packages\n"
 # # dependencies
-for pkg in gpg gawk coreutils automake autoconf libyaml readline libxslt libtool openssl@1.1 fop unixodbc wxwidgets; do
+for pkg in gpg gawk coreutils automake autoconf libyaml readline libxslt libtool openssl@1.1 fop unixodbc wxwidgets curl 1password-cli; do
   # if brew list -1 | grep -q "^${pkg}\$"; then
   if [ ! "$(brew ls --versions '$pkg')" ]; then
     echo "Package '$pkg' is installed; updating:"

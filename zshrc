@@ -179,12 +179,6 @@ function gitcc() {
 # bindkey '^Z' fancy-ctrl-z
 
 
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/jkahne/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/jkahne/google-cloud-sdk/path.zsh.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/Users/jkahne/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/jkahne/google-cloud-sdk/completion.zsh.inc'; fi
-
 # pnpm
 export PNPM_HOME="/Users/jkahne/Library/pnpm"
 case ":$PATH:" in
