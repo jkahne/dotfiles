@@ -26,6 +26,7 @@ Plug 'editorconfig/editorconfig-vim'
 " Plug 'tpope/vim-speeddating' " is this ever really used?
 Plug 'mbbill/undotree'
 Plug 'lukas-reineke/indent-blankline.nvim'
+Plug 'vim-utils/vim-troll-stopper'
 
 " maybes:
 " Typescript:  https://github.com/dmmulroy/tsc.nvim-lua
@@ -67,6 +68,7 @@ Plug 'stevearc/aerial.nvim'
 " ctrl-down = \033[1;5B
 Plug 'tommcdo/vim-exchange'
 Plug 'github/copilot.vim'
+Plug 'robitx/gp.nvim'
 
 " Plug 'vim-airline/vim-airline'
 " Plug 'vim-airline/vim-airline-themes'
@@ -585,6 +587,8 @@ vnoremap <leader>, <Esc>|              " esc and in visual mode
 
 highlight LineHighlight cterm=NONE ctermbg=yellow ctermfg=darkgray guibg=yellow guifg=darkgray
 highlight cursorLine cterm=bold ctermbg=238 gui=bold guibg=#333333
+highlight TrollStopper ctermbg = red guibg = #FF0000
+
 " highlight cursorLine cterm=NONE ctermfg=yellow  guifg=yellow
 " " highlight cursorLine cterm=NONE ctermfg=yellow  guifg=yellow ctermbg=darkgray guibg=darkgray
 " " highlight cursorLine cterm=NONE ctermbg=yellow ctermfg=darkgray guibg=yellow guifg=darkgray
