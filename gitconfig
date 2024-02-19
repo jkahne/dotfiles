@@ -109,3 +109,5 @@
   autosetuprebase = always
 [init]
   defaultBranch = main
+[merge]
+	conflictStyle = zdiff3
