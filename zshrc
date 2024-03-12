@@ -3,6 +3,7 @@ export EDITOR=nvim
 export HERE=$HOME/.dotfiles
 export ASDF_DIR=$HOME/.asdf
 
+export OPENAI_API_KEY='your-api-key-here'
 # Add commonly used folders to $PATH
 export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
 
