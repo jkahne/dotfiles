@@ -6,7 +6,7 @@ require'nvim-web-devicons'.setup()
 -- must come before lspconfig
 require("mason").setup()
 require("mason-lspconfig").setup({
-    ensure_installed = { "tailwindcss", "graphql",  "tsserver", "html", "dockerls", "cssls", "astro"  }
+    ensure_installed = { "tailwindcss", "graphql",  "tsserver", "html", "dockerls", "docker_compose_language_service", "cssls", "astro"  }
     -- ensure_installed = { "tailwindcss", "graphql", "ruby_ls", "tsserver", "html", "elixirls", "dockerls", "cssls", "astro",   }
 })
 
@@ -105,7 +105,7 @@ cmp.setup.cmdline(':', {
 -- https://github.com/elixir-tools/elixir-tools.nvim
 local elixirls = require("elixir.elixirls")
 require("elixir").setup({
-  nextls = {enable = true},
+  nextls = {enable = false},
   credo = {enable = true},
   elixirls = {
     enable = true,
@@ -395,8 +395,13 @@ vim.keymap.set('n', '<leader>aa', '<cmd>AerialToggle!<CR>')
 -- :lua require('elixir-extras').elixir_view_docs({})
 -- :lua require('elixir-extras').elixir_view_docs({include_mix_libs=true})
 -- :lua require'elixir-extras'.setup_multiple_clause_gutter()
+
+-- require("chatgpt").setup({
+--     api_key_cmd = "op read op://Personal/OpenAI/credential --no-newline"
+-- })
+
 require("gp").setup({
-  openai_api_key = { "op", "item", "get", "2ixclc4yqfj3im2s76ny53w234", "--fields", "password" },
+  -- openai_api_key = { "op", "item", "get", "2ixclc4yqfj3im2s76ny53w234", "--fields", "password" },
 
  	-- default command agents (model + persona)
  	-- name, model and system_prompt are mandatory fields
@@ -409,7 +414,7 @@ require("gp").setup({
  			chat = true,
  			command = false,
  			-- string with model name or table with model name and parameters
- 			model = { model = "gpt-4-1106-preview", temperature = 1.1, top_p = 1 },
+ 			model = { model = "gpt-4-0125-preview", temperature = 1.1, top_p = 1 },
  			-- system prompt (use this to specify the persona/role of the AI)
  			system_prompt = "You are a general AI assistant.\n\n"
  				.. "The user provided the additional info about how they would like you to respond:\n\n"
@@ -426,14 +431,38 @@ require("gp").setup({
  			chat = false,
  			command = true,
  			-- string with model name or table with model name and parameters
- 			model = { model = "gpt-4-1106-preview", temperature = 0.8, top_p = 1 },
+ 			model = { model = "gpt-4-0125-preview", temperature = 0.8, top_p = 1 },
  			-- system prompt (use this to specify the persona/role of the AI)
  			system_prompt = "You are an AI working as a code editor.\n\n"
  				.. "Please AVOID COMMENTARY OUTSIDE OF THE SNIPPET RESPONSE.\n"
  				.. "START AND END YOUR ANSWER WITH:\n\n```",
  		},
  	},
+  hooks = {
+    -- example of usig enew as a function specifying type for the new buffer
+    CodeReview = function(gp, params)
+        local template = "I have the following code from {{filename}}:\n\n"
+            .. "```{{filetype}}\n{{selection}}\n```\n\n"
+            .. "Please analyze for code smells and suggest improvements."
+        local agent = gp.get_chat_agent()
+        gp.Prompt(params, gp.Target.enew("markdown"), nil, agent.model, template, agent.system_prompt)
+    end,
+
+    -- example of adding command which explains the selected code
+    Explain = function(gp, params)
+      local template = "I have the following code from {{filename}}:\n\n"
+      .. "```{{filetype}}\n{{selection}}\n```\n\n"
+      .. "Please respond by explaining the code above."
+      local agent = gp.get_chat_agent()
+      gp.Prompt(params, gp.Target.popup, nil, agent.model, template, agent.system_prompt)
+    end,
+  },
 
  	-- chat topic model (string with model name or table with model name and parameters)
- 	-- chat_topic_gen_model = "gpt-3.5-turbo-16k",
+ 	chat_topic_gen_model = "gpt-4-0125-preview",
 })
+
+require('nvim-highlight-colors').setup {
+  enable_named_colors = true,
+	enable_tailwind = true
+}

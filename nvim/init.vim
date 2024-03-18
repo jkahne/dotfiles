@@ -3,9 +3,7 @@
 " let &packpath = &runtimepath
 " source ~/.vimrc
 
-
 " you might need to update nvim-telescope/telescope.nvim.
-
 
 let mapleader = ','
 
@@ -58,7 +56,6 @@ Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'nvim-tree/nvim-web-devicons'
 Plug 'eandrju/cellular-automaton.nvim'
 Plug 'azabiong/vim-highlighter'
-
 Plug 'stevearc/aerial.nvim'
 
 " http://www.blogface.org/2015/03/ctrl-in-emacs-in-mac-terminal.html
@@ -80,6 +77,7 @@ Plug 'crusoexia/vim-monokai'
 Plug 'EdenEast/nightfox.nvim'
 Plug 'rafi/awesome-vim-colorschemes'
 Plug 'NLKNguyen/papercolor-theme'
+Plug 'brenoprata10/nvim-highlight-colors'
 Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'rizzatti/dash.vim'
 Plug 'szw/vim-maximizer'
@@ -216,7 +214,7 @@ colorscheme terafox
 
 
 
-
+set termguicolors
 set t_Co=256
 
 
@@ -491,15 +489,18 @@ noremap <C-w>m :MaximizerToggle!<CR>|          " maximize current split or retur
 " imap <c-a> <c-o>^|                            " Emacs-like beginning of line.
 " imap <c-e> <c-o>$|                            " Emacs-like end of line.
 "
-inoremap <c-.> <Space>=><Space>|                  " shortcut for =>
-inoremap <c-,> %{  }<Left><Left>|                  " shortcut for <%= %>
-nnoremap <c-,> i%{  }<Left><Left>|                  " shortcut for <%= %>
+inoremap <c-enter> <Space>=><Space>|                  " shortcut for =>
+" inoremap <c-.> <Space>=><Space>|                  " shortcut for =>
+inoremap <c-,> <%=  %><Left><Left><Left>|         " shortcut for <%= %>
+nnoremap <c-,> i<%=  %><Left><Left><Left>|        " shortcut for <%= %>
+inoremap <c-.> #{  }<Left><Left>|               " shortcut for <%= %>
+nnoremap <c-.> i#{  }<Left><Left>|              " shortcut for <%= %>
 
 inoremap <Leader>3 #{  }<Left><Left>|         " shortcut for #{}
 nnoremap <Leader>3 i#{  }<Left><Left>|        " shortcut for #{}
 
-inoremap <Leader>5 <%=  %><Left><Left><Left>|  " shortcut for #{}
-nnoremap <Leader>5 i<%=  %><Left><Left><Left>| " shortcut for #{}
+inoremap <Leader>5 <%=  %><Left><Left><Left>|  " shortcut for <%= %>
+nnoremap <Leader>5 i<%=  %><Left><Left><Left>| " shortcut for <%= %>
 
 " <C-y>, |                                    " emmet command
 nmap <C-W>u :call MergeTabs()<CR>|            " Merge a tab into a split in the previous window
@@ -587,7 +588,9 @@ vnoremap <leader>, <Esc>|              " esc and in visual mode
 
 highlight LineHighlight cterm=NONE ctermbg=yellow ctermfg=darkgray guibg=yellow guifg=darkgray
 highlight cursorLine cterm=bold ctermbg=238 gui=bold guibg=#333333
+
 highlight TrollStopper ctermbg = red guibg = #FF0000
+
 
 " highlight cursorLine cterm=NONE ctermfg=yellow  guifg=yellow
 " " highlight cursorLine cterm=NONE ctermfg=yellow  guifg=yellow ctermbg=darkgray guibg=darkgray
