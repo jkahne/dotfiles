@@ -15,8 +15,8 @@ alias binit="bi && b package && echo 'vendor/ruby' >> .gitignore"
 # alias monte="tmux attach -t monte"
 # alias dot="tmux attach -t dot"
 
-alias routes="rails routes | fzf"
-alias phxroutes="mix phx.routes | fzf"
+alias rroutes="rails routes | fzf -e"
+alias proutes="mix phx.routes | fzf -e"
 
 alias weather="http wttr.in/cincinnati"
 

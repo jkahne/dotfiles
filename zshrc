@@ -141,6 +141,7 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 [ -f $HERE/aliases.zsh ] && source $HERE/aliases.zsh
 [ -f $HERE/prompt.zsh ] && source $HERE/prompt.zsh
 [ -f $HERE/key-bindings.zsh ] && source $HERE/key-bindings.zsh
+[ -f $HERE/projects.zsh ] && source $HERE/projects.zsh
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 
