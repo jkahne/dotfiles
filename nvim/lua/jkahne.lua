@@ -132,9 +132,12 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities()
 -- cmdprompt> solargraph config
 -- add '- solargraph-rails' to plugins
 nvim_lsp.solargraph.setup{
-  capabilities = capabilities }
+  capabilities = capabilities ,
+  diagnostics = false -- Enable diagnostics
+}
 -- ✅ npm install -g typescript typescript-language-server
 nvim_lsp.tsserver.setup{ capabilities = capabilities }
+nvim_lsp.html.setup{ capabilities = capabilities }
 -- ✅ npm install -g @astrojs/language-server
 -- nvim_lsp.astro.setup{ capabilities = capabilities, }
 nvim_lsp.astro.setup{  }
@@ -358,27 +361,27 @@ require('neoclip').setup{
 require('telescope').load_extension('tailiscope')
 require('telescope').load_extension 'http'
 
-require("harpoon").setup({
-  -- global_settings = {
-  --     -- sets the marks upon calling `toggle` on the ui, instead of require `:w`.
-  --     save_on_toggle = false,
+-- require("harpoon").setup({
+--   -- global_settings = {
+--   --     -- sets the marks upon calling `toggle` on the ui, instead of require `:w`.
+--   --     save_on_toggle = false,
 
-  --     -- saves the harpoon file upon every change. disabling is unrecommended.
-  --     save_on_change = true,
+--   --     -- saves the harpoon file upon every change. disabling is unrecommended.
+--   --     save_on_change = true,
 
-  --     -- sets harpoon to run the command immediately as it's passed to the terminal when calling `sendCommand`.
-  --     enter_on_sendcmd = false,
+--   --     -- sets harpoon to run the command immediately as it's passed to the terminal when calling `sendCommand`.
+--   --     enter_on_sendcmd = false,
 
-  --     -- closes any tmux windows harpoon that harpoon creates when you close Neovim.
-  --     tmux_autoclose_windows = false,
+--   --     -- closes any tmux windows harpoon that harpoon creates when you close Neovim.
+--   --     tmux_autoclose_windows = false,
 
-  --     -- filetypes that you want to prevent from adding to the harpoon list menu.
-  --     excluded_filetypes = { "harpoon" },
+--   --     -- filetypes that you want to prevent from adding to the harpoon list menu.
+--   --     excluded_filetypes = { "harpoon" },
 
-  --     -- set marks specific to each git branch inside git repository
-  --     mark_branch = false,
-  -- }
-})
+--   --     -- set marks specific to each git branch inside git repository
+--   --     mark_branch = false,
+--   -- }
+-- })
 
 require('aerial').setup({
   -- optionally use on_attach to set keymaps when aerial has attached to a buffer
@@ -466,3 +469,22 @@ require('nvim-highlight-colors').setup {
   enable_named_colors = true,
 	enable_tailwind = true
 }
+
+-- require("conform").setup({
+--   formatters_by_ft = {
+--     -- lua = { "stylua" },
+--     -- Conform will run multiple formatters sequentially
+--     -- Use a sub-list to run only the first available formatter
+--     -- javascript = { { "prettierd", "prettier" } },
+--     erb = { "htmlbeautifier" },
+--     html = { "htmlbeautifier" },
+--   },
+--    format_on_save = {
+--     -- These options will be passed to conform.format()
+--     timeout_ms = 500,
+--     lsp_fallback = true,
+--   },
+-- })
+
+local neogit = require('neogit')
+neogit.setup {}

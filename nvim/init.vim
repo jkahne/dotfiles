@@ -81,15 +81,17 @@ Plug 'brenoprata10/nvim-highlight-colors'
 Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'rizzatti/dash.vim'
 Plug 'szw/vim-maximizer'
-Plug 'AndrewRadev/sideways.vim'
+" Plug 'AndrewRadev/sideways.vim'
 " Plug 'AndrewRadev/switch.vim'
 
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.5' }
-" not sure what this is needed for
 Plug 'MunifTanjim/nui.nvim'
 
 Plug 'AckslD/nvim-neoclip.lua'
+
+" Plug 'stevearc/conform.nvim'
+
 
 " tailwind something or other
 Plug 'danielvolchek/tailiscope.nvim'
@@ -98,13 +100,14 @@ Plug 'barrett-ruth/telescope-http.nvim'
 Plug 'nvim-telescope/telescope-file-browser.nvim'
 
 " Plug 'pwntester/octo.nvim'
-Plug 'ThePrimeagen/harpoon'
+" Plug 'ThePrimeagen/harpoon'
 
 
 " Git
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
 Plug 'mhinz/vim-signify'
+Plug 'NeogitOrg/neogit'
 
 " Tests
 " Plug 'tpope/vim-dispatch'
@@ -442,13 +445,13 @@ nnoremap SO :wa<CR>:so ~/sessions/
 
 nnoremap <Leader>p    <cmd>lua require('telescope').extensions.neoclip.default()<CR>
 
-nnoremap <Leader>ma <cmd>lua require("harpoon.mark").toggle_file()<CR>
-nnoremap <Leader>em :Telescope harpoon marks<CR>
-nnoremap <Leader>ml :Telescope harpoon marks<CR>
-nnoremap <up>       <cmd>lua require("harpoon.ui").nav_next()<CR>|                  " navigates to next mark
-nnoremap <down>     <cmd>lua require("harpoon.ui").nav_prev()<CR>|                  " navigates to previous mark
+" nnoremap <Leader>ma <cmd>lua require("harpoon.mark").toggle_file()<CR>
+" nnoremap <Leader>em :Telescope harpoon marks<CR>
+" nnoremap <Leader>ml :Telescope harpoon marks<CR>
+" nnoremap <up>       <cmd>lua require("harpoon.ui").nav_next()<CR>|                  " navigates to next mark
+" nnoremap <down>     <cmd>lua require("harpoon.ui").nav_prev()<CR>|                  " navigates to previous mark
 
-nnoremap S ciw
+" nnoremap S ciw
 
 map j gj|                                     " sane defaults
 map k gk|                                     " sane defaults
@@ -465,8 +468,8 @@ nmap s :HopChar2<CR>|                         " hop somewhere
 nnoremap Y y$|                                " Yank from the cursor to the end of the line, to be consistent with C and D.
 
 
-vmap v <Plug>(expand_region_expand)
-vmap <C-v> <Plug>(expand_region_shrink)
+" vmap v <Plug>(expand_region_expand)
+" vmap <C-v> <Plug>(expand_region_shrink)
 
 
 
@@ -493,14 +496,17 @@ inoremap <c-enter> <Space>=><Space>|                  " shortcut for =>
 " inoremap <c-.> <Space>=><Space>|                  " shortcut for =>
 inoremap <c-,> <%=  %><Left><Left><Left>|         " shortcut for <%= %>
 nnoremap <c-,> i<%=  %><Left><Left><Left>|        " shortcut for <%= %>
-inoremap <c-.> #{  }<Left><Left>|               " shortcut for <%= %>
-nnoremap <c-.> i#{  }<Left><Left>|              " shortcut for <%= %>
+inoremap <c-.> #{  }<Left><Left>|               " shortcut for #{}
+nnoremap <c-.> #{  }<Left><Left>|              " shortcut for #{}
 
+nnoremap <silent> <Leader>1 :call matchadd('LineHighlight', '\%'.line('.').'l')<CR>| " highlight the current line
+nnoremap <silent> <Leader>2 :call clearmatches()<CR>|   " clear all the highlighted lines
 inoremap <Leader>3 #{  }<Left><Left>|         " shortcut for #{}
 nnoremap <Leader>3 i#{  }<Left><Left>|        " shortcut for #{}
-
-inoremap <Leader>5 <%=  %><Left><Left><Left>|  " shortcut for <%= %>
-nnoremap <Leader>5 i<%=  %><Left><Left><Left>| " shortcut for <%= %>
+inoremap <Leader>4 ${  }<Left><Left>|         " shortcut for ${}
+nnoremap <Leader>4 i${  }<Left><Left>|        " shortcut for ${}
+inoremap <Leader>5 %{  }<Left><Left>|         " shortcut for %{}
+nnoremap <Leader>5 i%{  }<Left><Left>|        " shortcut for %{}
 
 " <C-y>, |                                    " emmet command
 nmap <C-W>u :call MergeTabs()<CR>|            " Merge a tab into a split in the previous window
@@ -521,18 +527,20 @@ nnoremap <Leader>uuid :read !ruby -e "require 'securerandom'; p SecureRandom.uui
 
 
 
-
 map      <Leader>. :TagbarToggle<CR>|                " Tagbar
 nmap     <Leader>> :tabnext<CR>
 nmap     <Leader>< :tabprevious<CR>
-" nmap     <Leader>' :Marks<CR>|                       " FZF
-nmap     <Leader>/ :Rg<Space>|                       " ripgrep, this command comes from FZF
+" " nmap     <Leader>' :Marks<CR>|                       " FZF
+" nmap     <Leader>/ :Rg<Space>|                       " ripgrep, this command comes from FZF
 nnoremap <leader>bd :<c-u>bp <bar> bd #<cr>|         " Close the current buffer and move to the previous one
 nnoremap <leader>bo :<c-u>up <bar> %bd <bar> e#<cr>| " Close all buffers except current one
 nmap     <Leader>c <C-^><CR>|                        " switch between current and last buffer
 " nmap     <Leader>dr :! bundle exec standardrb --fix<cr><cr>|        " run standardrb
 
 
+
+" consider a setup like: https://github.com/stoeffel/.dotfiles/blob/master/vim/ruby.vim
+"
 " Elixir-specific settings and mappings
 autocmd FileType elixir nnoremap <buffer> <Leader>dr :!mix format <CR>
 " autocmd BufWritePre elixir <cmd>lua vim.lsp.buf.format <CR>
@@ -541,17 +549,21 @@ autocmd FileType elixir nnoremap <buffer> <Leader>dr :!mix format <CR>
 autocmd FileType ruby nnoremap <buffer> <Leader>dr :!bundle exec standardrb --fix<cr><cr>|        " run standardrb
 " autocmd FileType ruby nnoremap <buffer> <Leader>dc :!bin/ci<cr><cr>|        " run bin/ci
 
-nnoremap <Leader>dc :!bin/precompile<cr><cr>|        " run bin/precompile
+
+
+
+
+" nnoremap <Leader>dc :!bin/precompile<cr><cr>|        " run bin/precompile
 
 
 " map      <Leader>gs :Switch<cr>
 " map      <Leader>gr :e config/routes.rb<cr>
 nnoremap <Leader>gt :NERDTreeFind<CR>|                  " NERDTree settings
-nnoremap <Leader>gh :SidewaysLeft<cr>|                  " sideways.vim
-nnoremap <Leader>gl :SidewaysRight<cr>|                 " sideways.vim
+" nnoremap <Leader>gh :SidewaysLeft<cr>|                  " sideways.vim
+" nnoremap <Leader>gl :SidewaysRight<cr>|                 " sideways.vim
 map      <Leader>I gg=G``<cr>|                          " reindent the entire file
-map      <Leader>rf :call RenameFile()<cr>|             " rename file
-map      <Leader>rt :!ctags -R --exclude=node_modules --exclude=_build --exclude=.elixir_ls --exclude=deps --exclude=.beam --exclude=vendor --exclude=.git --exclude=log --exclude=tmp --exclude=coverage  *<CR><CR>
+" map      <Leader>rf :call RenameFile()<cr>|             " rename file
+" map      <Leader>rt :!ctags -R --exclude=node_modules --exclude=_build --exclude=.elixir_ls --exclude=deps --exclude=.beam --exclude=vendor --exclude=.git --exclude=log --exclude=tmp --exclude=coverage  *<CR><CR>
 
 
 nnoremap <Leader>rr :%s//g<Left><Left>|                 " leader-rr <type what you want replaced>/<replacement>
@@ -565,9 +577,7 @@ nmap     <Leader>sl :TestLast<CR>|                      " vim.test - spec last
 nmap     <Leader>sv :TestVisit<CR>|                     " vim.test - spec visit
 nmap     <Leader>T :tabnew<CR>
 nmap     <Leader>w :set wrap!<cr>|                      " easy wrap toggling
-nmap     <Leader>W :set nowrap<cr>|                     " easy wrap toggling
-nnoremap <silent> <Leader>1 :call matchadd('LineHighlight', '\%'.line('.').'l')<CR>| " highlight the current line
-nnoremap <silent> <Leader>2 :call clearmatches()<CR>|   " clear all the highlighted lines
+" nmap     <Leader>W :set nowrap<cr>|                     " easy wrap toggling
 nnoremap <Leader><space> :noh<cr>|                      " map spacebar to clear search highlight
 
 "Highlight all instances of word under cursor, when idle.
@@ -606,7 +616,7 @@ highlight PmenuSel ctermfg=253 ctermbg=66 guifg=#FFFFFF guibg=#455354
 let HiSet   = 'f<CR>'
 let HiErase = 'f<BS>'
 let HiClear = 'f<C-L>'
-let HiFind  = 'f<Tab>'
+" let HiFind  = 'f<Tab>'
 let HiSetSL = 't<CR>'
 
 
@@ -627,7 +637,7 @@ let g:rainbow_conf = {
 
 " ***   ultisnips
 let g:UltiSnipsSnippetDirectories=[$HOME.'/.dotfiles/nvim/UltiSnips']
-let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsExpandTrigger="<c-y>"
 let g:UltiSnipsEditSplit="vertical"
 
 
@@ -680,15 +690,15 @@ let g:fzf_tags_command = 'ctags --extra=+f --exclude=node_modules/* --exclude=_b
  "   \ call fzf#vim#grep(
  "   \   'rg --column --line-number --no-heading --color=always --colors "path:fg:190,220,255" --colors "line:fg:128,128,128" --smart-case '.shellescape(<q-args>), 1, { 'options': '--color hl:123,hl+:222' }, 0)
 
-function! RenameFile()
-  let old_name = expand('%')
-  let new_name = input('New file name: ', expand('%'), 'file')
-  if new_name != '' && new_name != old_name
-    exec ':saveas ' . new_name
-    exec ':silent !rm ' . old_name
-    redraw!
-  endif
-endfunction
+" function! RenameFile()
+"   let old_name = expand('%')
+"   let new_name = input('New file name: ', expand('%'), 'file')
+"   if new_name != '' && new_name != old_name
+"     exec ':saveas ' . new_name
+"     exec ':silent !rm ' . old_name
+"     redraw!
+"   endif
+" endfunction
 
 " Merge a tab into a split in the previous window
 function! MergeTabs()
@@ -861,24 +871,6 @@ let g:markdown_fenced_languages = ['html', 'css', 'javascript', 'typescript', 'e
 " \ }
 "
 "
-"
-"
-"
-"
-"
-"
-"
-"
-"
-"
-" " scroll the viewport faster
-" " nnoremap <UP> <C-u>
-" " nnoremap <DOWN> <C-d>
-nnoremap <C-e> 3<C-e>
-nnoremap <C-y> 3<C-y>
-"
-"
-"
 
 
 
@@ -969,20 +961,20 @@ autocmd BufRead,BufEnter *.astro set filetype=astro
  augroup END
 
 
- " let g:switch_mapping = "-"
-let b:switch_custom_definitions = [
-      \   {
-      \     '\(\k\+=\){\([[:keyword:].]\+\)}':      '\1{`${\2}`}',
-      \     '\(\k\+=\){`${\([[:keyword:].]\+\)}`}': '\1{\2}',
-      \   },
-      \   {
-      \     '\<\(\l\)\(\l\+\(\u\l\+\)\+\)\>': '\=toupper(submatch(1)) . submatch(2)',
-      \     '\<\(\u\l\+\)\(\u\l\+\)\+\>': "\\=tolower(substitute(submatch(0), '\\(\\l\\)\\(\\u\\)', '\\1_\\2', 'g'))",
-      \     '\<\(\l\+\)\(_\l\+\)\+\>': '\U\0',
-      \     '\<\(\u\+\)\(_\u\+\)\+\>': "\\=tolower(substitute(submatch(0), '_', '-', 'g'))",
-      \     '\<\(\l\+\)\(-\l\+\)\+\>': "\\=substitute(submatch(0), '-\\(\\l\\)', '\\u\\1', 'g')",
-      \   }
-      \ ]
+ " " let g:switch_mapping = "-"
+" let b:switch_custom_definitions = [
+ "      \   {
+ "      \     '\(\k\+=\){\([[:keyword:].]\+\)}':      '\1{`${\2}`}',
+ "      \     '\(\k\+=\){`${\([[:keyword:].]\+\)}`}': '\1{\2}',
+ "      \   },
+ "      \   {
+ "      \     '\<\(\l\)\(\l\+\(\u\l\+\)\+\)\>': '\=toupper(submatch(1)) . submatch(2)',
+ "      \     '\<\(\u\l\+\)\(\u\l\+\)\+\>': "\\=tolower(substitute(submatch(0), '\\(\\l\\)\\(\\u\\)', '\\1_\\2', 'g'))",
+ "      \     '\<\(\l\+\)\(_\l\+\)\+\>': '\U\0',
+ "      \     '\<\(\u\+\)\(_\u\+\)\+\>': "\\=tolower(substitute(submatch(0), '_', '-', 'g'))",
+ "      \     '\<\(\l\+\)\(-\l\+\)\+\>': "\\=substitute(submatch(0), '-\\(\\l\\)', '\\u\\1', 'g')",
+ "      \   }
+ "      \ ]
 
 
 
@@ -1032,7 +1024,6 @@ hi MatchParen cterm=none ctermbg=black ctermfg=yellow
 iabbrev lidsa Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
 " iabbrev rdebug require 'ruby-debug'; Debugger.start; Debugger.settings[:autoeval] = 1; Debugger.settings[:autolist] = 1; debugger; 0;
 " abbrev hte the
-iabbrev <expr> ddd strftime('%c')
 " imap <silent> <C-D><C-D> <C-R>=strftime("%Y-%m-%d")<CR>
 " imap <silent> <C-T><C-T> <C-R>=strftime("%l:%M %p")<CR>
 
