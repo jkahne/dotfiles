@@ -22,7 +22,7 @@ fi
 
 printf "\nbrew packages\n"
 # # dependencies
-for pkg in gpg gawk coreutils automake autoconf libyaml readline libxslt libtool openssl@1.1 fop unixodbc wxwidgets curl 1password-cli; do
+for pkg in gpg gawk coreutils automake autoconf libyaml readline libxslt libtool openssl@1.1 fop unixodbc wxwidgets; do
   # if brew list -1 | grep -q "^${pkg}\$"; then
   if [ ! "$(brew ls --versions '$pkg')" ]; then
     echo "Package '$pkg' is installed; updating:"
@@ -34,7 +34,7 @@ done
 
 # # the stuff I know what is
 # asdf taken out
-for pkg in httpie autojump zsh zsh-completions git git-delta exa bat ripgrep fzf redis postgres neovim tree universal-ctags alt-tab vlc blackhole-16ch; do
+for pkg in httpie autojump zsh zsh-completions git git-delta exa bat ripgrep fzf redis postgres neovim tree universal-ctags alt-tab vlc blackhole-16ch  curl 1password-cli pngpaste lazygit btop ; do
   # if brew list -1 | grep -q "^${pkg}\$"; then
   if [ ! "$(brew ls --versions '$pkg')" ]; then
     echo "Package '$pkg' is installed; updating:"

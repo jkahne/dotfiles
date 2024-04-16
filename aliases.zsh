@@ -24,6 +24,7 @@ alias updateclam="freshclam -v"
 
 alias vim="nvim"
 alias d="cd ~/.dotfiles && nvim ~/.dotfiles/nvim/init.vim"
+alias n="cd ~/.config/nvim && nvim"
 alias icloud="cd ~/Library/Mobile\ Documents/com~apple~CloudDocs/"
 alias cdx="cd ~/Library/Mobile\ Documents/iCloud~md~obsidian/Documents/Brain/"
 # alias cdx="cd ~/dropbox/c/codex"
